@@ -36,6 +36,7 @@ public class Physic {
 	}
 
 	private void checkDamage(int delta) {
+		hj
 		ObjectPool op = new ObjectPool();
 		ArrayList<SimpleGameObject> heroList = op.getFriendlyList();
 		ArrayList<SimpleGameObject> hostileList = op.getHostilelyList();
