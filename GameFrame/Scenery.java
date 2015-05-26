@@ -95,7 +95,24 @@ public class Scenery {
 					}
 				}
 			}
+			
+			//Items spawn
+			if(tiledmap.getObjectName(i,0).equals("PickUpSpawn")){
+				
+				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
 
+					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
+
+					if(tempString.equals("pickup")){
+						int px = tiledmap.getObjectX(i, j);
+						int py = tiledmap.getObjectY(i, j);
+						op.addToPool(new PickUpItem(64, 64, new Vector2f(px,py),container));
+					}
+					if(tempString.equals("2")){
+					}
+				}
+			}
+			
 			// PLAYER_SPAWN
 			if(tiledmap.getObjectName(i,0).equals("PlayerSpawn")){
 

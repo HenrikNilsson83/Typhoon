@@ -41,12 +41,13 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private float runDeAccX = 0.0005f;
 	
 	private boolean dashing = false;
-	private int dashTimerMax = 500;
+	private int dashTimerMax = 300;
 	private int dashTimer = dashTimerMax;
 	private int dashCDMax = 500;
 	private int dashCD = 0;
 	private boolean dashkeyPressed = false;
 	private float dashSpeed = 0.5f;
+	//private Melee melee;
 	
 	private boolean crouchkeyPressed = false;
 	
@@ -65,11 +66,22 @@ public class SpaceExplorer extends AdvancedGameObject{
 		this.checkForCollision = true;
 		this.checkForGravity = true;
 		cond = new Conductor();
+		this.resource1 = 3;
 		
 
 	}
 	@Override
 	void init(GameContainer gc) {
+		/*
+		addAnimation("MooYeah.png", 1, 0, 1, 0, 100, "StandLeft");
+		addAnimation("MooYeah.png", 0, 0, 0, 0, 100, "StandRight");
+		addAnimation("MooYeah.png", 6, 0, 9, 0, 170, "WalkLeft");
+		addAnimation("MooYeah.png", 2, 0, 5, 0, 170, "WalkRight");
+		addAnimation("MooYeah.png", 11, 0, 11, 0, 100, "ShootLeft");
+		addAnimation("MooYeah.png", 10, 0, 10, 0, 100, "ShootRight");
+		addAnimation("MooYeah.png", 13, 0, 13, 0, 100, "JumpLeft");
+		addAnimation("MooYeah.png", 12, 0, 12, 0, 100, "JumpRight");
+		*/
 		
 		addAnimation("SpaceExplorer.png", 1, 0, 1, 0, 100, "StandLeft");
 		addAnimation("SpaceExplorer.png", 0, 0, 0, 0, 100, "StandRight");
@@ -83,16 +95,40 @@ public class SpaceExplorer extends AdvancedGameObject{
 		addAnimation("SpaceExplorer.png", 12, 0, 12, 0, 100, "FallRight");
 		addAnimation("SpaceExplorer.png", 15, 0, 15, 0, 100, "DashLeft");
 		addAnimation("SpaceExplorer.png", 14, 0, 14, 0, 100, "DashRight");
+		//CREATING COMPLEX ANIMATION: DEAD RIGHT
+		SpriteSheet sprite;
+		ResourceHandler rs = new ResourceHandler();
+		SpriteResource sr = (SpriteResource) rs.get("SpaceExplorer.png");
+		sprite = sr.getSprite();
+		ArrayList<Animation> aList = new ArrayList<Animation>();
+		Animation a = new Animation(sprite, 16, 0, 20, 0,true, 180,true);
+		a.setLooping(false);
+		aList.add(a);
+		a = new Animation(sprite, 21, 0, 22, 0,true, 250,true);
+		aList.add(a);
+		addAnimation("DeadRight",aList);
+		
+		//CREATING COMPLEX ANIMATION DEAD LEFT
+		aList = new ArrayList<Animation>();
+		a = new Animation(sprite, 23, 0, 27, 0,true, 180,true);
+		a.setLooping(false);
+		aList.add(a);
+		a = new Animation(sprite, 28, 0, 29, 0,true, 250,true);
+		aList.add(a);
+		addAnimation("DeadLeft",aList);
 		
 		setCurrentAnimation("StandLeft");
 		
 	}
 
+	
 	@Override
 	void update(GameContainer gc, int delta) {
 		lastPosition.x = gamePosition.x;
 		lastPosition.y = gamePosition.y;
-		getInput(delta,gc);
+		if(HP>0){
+			getInput(delta,gc);
+		}
 	}
 
 
@@ -200,6 +236,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				dashing = true;
 				dashTimer = dashTimerMax;
 				this.velocityVector.x = -dashSpeed;
+				this.velocityVector.y = jumpVelocity;
 				this.cond.playSound("boost", 0.6f, 0.15f);
 				//dashCD = dashCDMax;
 			}
@@ -211,6 +248,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 				lastRunDir = 1;
 				dashing = true;
 				dashTimer = dashTimerMax;
+				this.velocityVector.y = jumpVelocity;
+				
 				this.velocityVector.x = dashSpeed;
 				this.cond.playSound("boost", 0.6f, 0.15f);
 				//dashCD = dashCDMax;
@@ -255,7 +294,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		}
 		
 		//SHOOTING
-		if((dir == 0 || dir == 1) && this.southObs == true){
+		if((dir == 0 || dir == 1) && this.southObs == true&&this.resource1>0){
 			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 				if(this.shotRampUp==0){
 					this.cond.playSound("charge", 0.6f, 0.1f);
@@ -266,6 +305,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				
 				if(this.shotCoolDown <= 0 && shotRampUp >= shotRampUpTime && shotNum > 0){
 					this.op.addToPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX(), this.gamePosition.getY() + 16), container, -1, 0));
+					resource1--;
 					shotCoolDown = shotCoolDownTime;
 					this.cond.playSound("shoot", 1, 0.15f);
 					shotNum--;
@@ -280,6 +320,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				setCurrentAnimation("ShootRight");
 				if(this.shotCoolDown <= 0  && shotRampUp >= shotRampUpTime && shotNum > 0){
 					this.cond.playSound("shoot", 1, 0.15f);
+					resource1--;
 					this.op.addToPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX() + 48, this.gamePosition.getY() + 16), container, 2, 0));
 					shotCoolDown = shotCoolDownTime;
 					shotNum--;
@@ -316,32 +357,23 @@ public class SpaceExplorer extends AdvancedGameObject{
 			}
 		}
 	}
-	/*
+/*
 	@Override
 	void render(GameContainer gc, Graphics g) {
-		
-		if(showBorders){
-			g.setColor(borderColor);
-			g.drawRect(this.gamePosition.x, this.gamePosition.y, width, height);
-		}
-		if(showFillRect){
-			g.setColor(fillRectColor);
-			g.fillRect(this.gamePosition.x, this.gamePosition.y, width, height);
-		}
-		
-		if(this.currentAnimation != null){
-			if(crouchkeyPressed){
-				currentAnimation.getCurrentFrame().setAlpha(0.5f);
-			}
-			else {
-				currentAnimation.getCurrentFrame().setAlpha(1f);
-			}
-		}
-		currentAnimation.draw(gamePosition.x, gamePosition.y);
+		super.render(gc, g);
+		//this.animationList.get(dir).draw(this.gamePosition.x,this.gamePosition.y);	
+		mIn.render(gc, g);
+
 	}
-	*/
+*/
 	@Override
 	void reset() {
+		// MAYBEE?
+		jumpButtonPressed = false;
+		isJump = false;
+		jumpTimer = 0;
+		jumpNum = jumpNumMax;
+		
 		gamePosition.x = lastPosition.x;
 		gamePosition.y = lastPosition.y;
 		this.velocityVector.y = 0;
@@ -350,8 +382,21 @@ public class SpaceExplorer extends AdvancedGameObject{
 
 	@Override
 	public void damage() {
-		runAccX = 0.0f;
-		// TODO Auto-generated method stub
+		if(HP>0){
+			this.cond.playSound("boost", 0.4f, 0.1f);
+			HP--;
+		}
+		if(HP<=0){
+			if(this.velocityVector.x>=0){
+				setCurrentAnimation("DeadRight");
+			}
+			else{
+				setCurrentAnimation("DeadRight");
+			}
+			this.velocityVector.x = 0;
+		}
+		
+
 	}
     
 	public void setUpGUI() {
@@ -361,5 +406,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		gui = new GUI(xW,yH, new Vector2f(cam.getDisplayWidth()/2-xW/2,25)) ;
 		ObjectPool op = new ObjectPool();
 		op.addGUI(gui);
+
 	}	
+
 }
