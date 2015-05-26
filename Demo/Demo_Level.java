@@ -66,11 +66,11 @@ public class Demo_Level extends WorldObject {
 		pool.update(gc, delta);
 		physic.update(delta);
 		scenery.update(delta);
-		cond.loopMusic("too_quiet_in_here", 0.3f);
+		cond.loopMusic("dawn", 0.8f);
 		//pool.updateGUI();
 		GUI.guiContent(gc, delta);
 		//updateLightCycle(delta);
-		GUI.vision = ma.spotted;
+		GUI.vision = ma.attention;
 	}
 	
 	private void updateLightCycle(int delta) {
@@ -132,6 +132,7 @@ public class Demo_Level extends WorldObject {
 	}
 	private void setUpResources() {
 		resourceHandler = new ResourceHandler();
+
 
 		/*
 		String id = "MooYeah.png";
@@ -219,7 +220,6 @@ public class Demo_Level extends WorldObject {
 		ySize = 64;
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
-
 		id = "BODY_skeleton.png";
 		path = "images/BODY_skeleton.png";
 		xSize = 64;
@@ -267,7 +267,6 @@ public class Demo_Level extends WorldObject {
 		path = "images/LightBulb.png";
 		resource = new ImageResource(id, path);
 		resourceHandler.add(resource);
-
 		id ="Light6.png";
 		path = "images/Light6.png";
 		resource = new ImageResource(id, path);
@@ -282,7 +281,7 @@ public class Demo_Level extends WorldObject {
 		
 		//AUDIO
 		//cond.addMusic("forest_night","audio/music/ForestNight.aif");
-		cond.addMusic("too_quiet_in_here","audio/music/too_quiet_in_here.aif");
+		cond.addMusic("dawn","audio/music/Dawn.aif");
 		//cond.addMusic("birds","audio/music/birds.aif");
 		//cond.addSound("zombie1","audio/sound/zombie1.aif");
 		cond.addSound("boost","audio/sound/boost1.aif");
