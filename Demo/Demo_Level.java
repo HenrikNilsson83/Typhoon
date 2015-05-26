@@ -18,6 +18,9 @@ public class Demo_Level extends WorldObject {
 	Conductor cond = new Conductor();
 	private boolean night;
 	private boolean first = true;
+	private GUI GUI;
+	MasterAi ma;
+	
 	
 	
 	
@@ -36,8 +39,16 @@ public class Demo_Level extends WorldObject {
 		Color light = new Color(1f,1f,1f);
 		scenery = new Scenery(((TileMapResource) resourceHandler.get("Level5.tmx")).getMap(),gc,light);
 		physic = new Physic(true);
-		//cond.loopMusic("birds", 0);
-		//cond.fadeMusic("birds", 50000, 0.25f, false);
+		
+		//SET UP MASTER-AI
+		ma = new MasterAi(0, 0, new Vector2f(0,0), gc);
+		SimpleGameObject t = pool.getFriendlyList().get(0);
+		ma.setTarget(t);
+		pool.addToPool(ma);
+		int x = 128+8;
+		int y = 64+8;
+		this.GUI = new GUI(128+8, 64+8, new Vector2f(gc.getWidth()/2-x/2,0));
+		
 		
 		
 	}
@@ -46,8 +57,9 @@ public class Demo_Level extends WorldObject {
 		this.scenery.render(gc,g);
 		pool.render(gc, g);
 		this.scenery.drawLightningsAndForGround(gc,g);
-		pool.renderGUI(gc,g);
-		//this.physic.render(gc,g);	
+		//pool.renderGUI(gc,g);
+		//this.physic.render(gc,g);
+		GUI.render(gc, g);
 		
 	}
 	public void update(GameContainer gc, int delta) {
@@ -55,9 +67,10 @@ public class Demo_Level extends WorldObject {
 		physic.update(delta);
 		scenery.update(delta);
 		cond.loopMusic("too_quiet_in_here", 0.3f);
+		//pool.updateGUI();
+		GUI.guiContent(gc, delta);
 		//updateLightCycle(delta);
-		
-		
+		GUI.vision = ma.spotted;
 	}
 	
 	private void updateLightCycle(int delta) {
@@ -135,7 +148,6 @@ public class Demo_Level extends WorldObject {
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
 		*/
-		
 		String id = "SpaceExplorer.png";
 		String path = "images/SpaceExplorer.png";
 		int xSize = 64;
@@ -221,8 +233,21 @@ public class Demo_Level extends WorldObject {
 		ySize = 64;
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
-
+		*/
+		id = "robotcop.png";
+		path = "images/robotcop.png";
+		xSize = 64;
+		ySize = 64;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
 		
+		id = "weaponinfo.png";
+		path = "images/weaponinfo.png";
+		xSize = 64;
+		ySize = 64;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
+		/*
 		id ="Level1.tmx";
 		path = "TileMap/Level1.tmx";
 		resource = new TileMapResource(id, path);
@@ -247,11 +272,13 @@ public class Demo_Level extends WorldObject {
 		path = "images/Light6.png";
 		resource = new ImageResource(id, path);
 		resourceHandler.add(resource);
-		*/
+		
 		id ="button1.png";
 		path = "images/button1.png";
 		resource = new ImageResource(id, path);
 		resourceHandler.add(resource);
+		*/
+		
 		
 		//AUDIO
 		//cond.addMusic("forest_night","audio/music/ForestNight.aif");

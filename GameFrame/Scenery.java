@@ -34,7 +34,18 @@ public class Scenery {
 
 
 	}
-
+	
+	public void Scenery(){
+		
+	}
+	
+	public boolean getBlocked(int x,int y){
+		if(x>WIDTH||y>HEIGHT||x<0||y<0){
+			return false;
+		}
+		return this.isBlocked[x][y];
+	} 
+	
 	public void translateGFX(){
 		cam.translateGraphics();
 	}
@@ -63,6 +74,22 @@ public class Scenery {
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
 						op.addToPool(new Patrol(64, 64, new Vector2f(px,py),container));
+					}
+					if(tempString.equals("2")){
+					}
+				}
+			}
+			
+			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
+				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
+
+					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
+
+					if(tempString.equals("robotcop")){
+
+						int px = tiledmap.getObjectX(i, j);
+						int py = tiledmap.getObjectY(i, j);
+						op.addToPool(new RobotCop(64, 64, new Vector2f(px,py),container));
 					}
 					if(tempString.equals("2")){
 					}
@@ -163,13 +190,13 @@ public class Scenery {
 		cam.untranslateGraphics();
 		cam.drawForGround();
 		cam.translateGraphics();
-		renderLight(gc,g);
+		//renderLight(gc,g);
 
 	}
 	public void renderLight(GameContainer gc, Graphics g){
 		ObjectPool op = new ObjectPool();
-		//ArrayList<Light>lightList = op.getLights();
-		//alphaMap.render(Math.round(cam.getLightX()),Math.round(cam.getLightY()),lightList);
+		ArrayList<Light>lightList = op.getLights();
+		alphaMap.render((int)(cam.getLightX()),(int)(cam.getLightY()),lightList);
 		//alphaMap.setList(lightList);
 	}
 

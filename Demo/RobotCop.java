@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path;
 
-public class Patrol extends AdvancedGameObject {
+public class RobotCop extends AdvancedGameObject {
 
 	private Vector2f lastPosition;
 	private int dir;
@@ -17,15 +17,16 @@ public class Patrol extends AdvancedGameObject {
 	private int turnCooldown = 0;
 	private int turnCooldownMax = 200;
 	private float turnJump = -0.02f;
-	private float walkSpeed = 0.03f;
+	private float walkSpeed = 0.038f;
+	private int HP;
 	private Conductor cond;
 	private int visionX = 600;
 	private int visionY = 5;
 	private int reCharge = 600;
-	private int loadTime = 600;
+	private int loadTime = 200;
 
 
-	public Patrol(int x, int y, Vector2f pos, GameContainer gc) {
+	public RobotCop(int x, int y, Vector2f pos, GameContainer gc) {
 		super(x, y, pos, gc);
 		size = 64;
 		jump = false;
@@ -35,7 +36,7 @@ public class Patrol extends AdvancedGameObject {
 		HP = 1;
 		cond = new Conductor();
 		target = null;
-		this.data1 =0;
+		this.data1 = 0;
 	}
 
 
@@ -44,10 +45,10 @@ public class Patrol extends AdvancedGameObject {
 	void init(GameContainer gc) {
 		//SETTING UP SPRITE&ANIMATION
 
-		addAnimation("patrol.png", 6, 0, 9, 0, 300, "WalkLeft");
-		addAnimation("patrol.png", 2, 0, 5, 0, 300, "WalkRight");
-		addAnimation("patrol.png", 12, 0, 13, 0, 300, "deadLeft");
-		addAnimation("patrol.png", 10, 0, 11, 0, 300, "deadRight");
+		addAnimation("robotcop.png", 4, 0, 7, 0, 250, "WalkLeft");
+		addAnimation("robotcop.png", 0, 0, 3, 0, 250, "WalkRight");
+		addAnimation("robotcop.png", 10, 0, 11, 0, 300, "deadLeft");
+		addAnimation("robotcop.png", 8, 0, 9, 0, 300, "deadRight");
 		//addAnimation("Gris.png", 2, 0, 2, 0, 100, "WalkLeft");
 		//addAnimation("Gris.png", 1, 0, 1, 0, 100, "WalkRight");
 		setCurrentAnimation("WalkLeft");		
@@ -75,7 +76,6 @@ public class Patrol extends AdvancedGameObject {
 	private void AI(GameContainer gc,int delta) {
 		
 		boolean enemeyContact = enemyContact(gc,delta);
-		
 		if(enemeyContact){
 			reportEnemy(delta);
 			shootAtTarget(gc);
@@ -118,7 +118,7 @@ public class Patrol extends AdvancedGameObject {
 			float v = getDirectionToTarget(target);
 			//BUGG MED -1 i BLAST
 			Vector2f mouth = new Vector2f(this.gamePosition.x+32,this.gamePosition.y+16);
-			HeatSeekingMisile b = new HeatSeekingMisile(target,mouth, gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))));
+			Blast b = new Blast(6,6 ,mouth,gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))));
 			ObjectPool op = new ObjectPool();
 			op.addToPool(b);
 			reCharge=0;
@@ -233,7 +233,7 @@ public class Patrol extends AdvancedGameObject {
 			}
 		}
 		else{
-
+			
 			//RIGHT SIDE
 			for(int i = 0;i<checkRangeX;i++){
 				if(scen.getBlocked(x+i, y)){
@@ -243,7 +243,7 @@ public class Patrol extends AdvancedGameObject {
 		}
 		return false;
 	}
-
+	
 	public boolean inVisionRange(SimpleGameObject target){
 		int yRange = (int) Math.abs(this.gamePosition.y-target.gamePosition.y);
 		int xRange = (int) Math.abs(this.gamePosition.x-target.gamePosition.x);
@@ -255,9 +255,9 @@ public class Patrol extends AdvancedGameObject {
 		}
 		return false;
 	}
-
+	
 	public boolean facingTarget(SimpleGameObject t){
-
+		
 		if(this.velocityVector.x>0&&t.gamePosition.x>this.gamePosition.x){
 			return true;
 		}

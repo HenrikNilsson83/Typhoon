@@ -23,6 +23,12 @@ public abstract class SimpleGameObject {
 	public boolean gotLight = false;
 	Light light;
 	private boolean update = true;
+	protected SimpleGameObject target;
+	public int HP = 1;
+	public int resource1 =0;
+	public float data1;
+	public float data2;
+	public float data3;
 	
 	public SimpleGameObject(int x,int y, Vector2f pos){
 		if(pos !=null){
@@ -106,6 +112,10 @@ public abstract class SimpleGameObject {
 	public void setUpdate(boolean b){
 		this.velocityVector.set(0, 0);
 		this.update = b;
+	}
+	
+	public void setTarget(SimpleGameObject t){
+		this.target = t;
 	}
 
 	public abstract void damage();
