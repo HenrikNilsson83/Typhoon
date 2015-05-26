@@ -40,7 +40,7 @@ public class Scenery {
 	}
 	
 	public boolean getBlocked(int x,int y){
-		if(x>WIDTH||y>HEIGHT||x<0||y<0){
+		if(x>=WIDTH||y>=HEIGHT||x<0||y<0){
 			return false;
 		}
 		return this.isBlocked[x][y];
