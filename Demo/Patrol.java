@@ -20,7 +20,7 @@ public class Patrol extends AdvancedGameObject {
 	private float jumpV = -0.4f;
 	private float walkSpeed = 0.03f;
 	private Conductor cond;
-	private int visionX = 600;
+	private int visionX = 480;
 	private int visionY = 5;
 	private int reCharge = 600;
 	private int loadTime = 600;
