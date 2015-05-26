@@ -168,8 +168,8 @@ public class Scenery {
 	}
 	public void renderLight(GameContainer gc, Graphics g){
 		ObjectPool op = new ObjectPool();
-		ArrayList<Light>lightList = op.getLights();
-		alphaMap.render(Math.round(cam.getLightX()),Math.round(cam.getLightY()),lightList);
+		//ArrayList<Light>lightList = op.getLights();
+		//alphaMap.render(Math.round(cam.getLightX()),Math.round(cam.getLightY()),lightList);
 		//alphaMap.setList(lightList);
 	}
 

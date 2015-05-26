@@ -62,12 +62,11 @@ public class AlphaMap extends SimpleGameObject {
 			g2 = new Graphics();
 			
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ResourceHandler rs = new ResourceHandler();
-		ImageResource sr = (ImageResource) rs.get("LightBulb.png");
-		im =  sr.getImage();
+		//ResourceHandler rs = new ResourceHandler();
+		//ImageResource sr = (ImageResource) rs.get("LightBulb.png");
+		//im =  sr.getImage();
 		
 		
 		

@@ -120,7 +120,7 @@ public class Demo_Level extends WorldObject {
 	private void setUpResources() {
 		resourceHandler = new ResourceHandler();
 
-
+		/*
 		String id = "MooYeah.png";
 		String path = "images/MooYeah.png";
 		int xSize = 64;
@@ -134,15 +134,16 @@ public class Demo_Level extends WorldObject {
 		ySize = 64;
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
+		*/
 		
-		id = "SpaceExplorer.png";
-		path = "images/SpaceExplorer.png";
-		xSize = 64;
-		ySize = 64;
-		resource = new SpriteResource(id, path, xSize, ySize);
+		String id = "SpaceExplorer.png";
+		String path = "images/SpaceExplorer.png";
+		int xSize = 64;
+		int ySize = 64;
+		Resource resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
 		
-		
+		/*
 		id = "Mr_Deo.png";
 		path = "images/Mr_Deo.png";
 		xSize = 64;
@@ -156,7 +157,7 @@ public class Demo_Level extends WorldObject {
 		ySize = 64;
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
-		
+		*/
 		id = "patrol.png";
 		path = "images/patrol.png";
 		xSize = 64;
@@ -164,7 +165,7 @@ public class Demo_Level extends WorldObject {
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
 		
-		
+		/*
 		id = "PixelNightWithSheild.png";
 		path = "images/PixelNightWithSheild.png";
 		xSize = 64;
@@ -221,22 +222,22 @@ public class Demo_Level extends WorldObject {
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
 
-
+		
 		id ="Level1.tmx";
 		path = "TileMap/Level1.tmx";
 		resource = new TileMapResource(id, path);
 		resourceHandler.add(resource);
-		
+		*/
 		id ="Level5.tmx";
 		path = "TileMap/Level5.tmx";
 		resource = new TileMapResource(id, path);
 		resourceHandler.add(resource);
-		
+		/*
 		id ="Level3.tmx";
 		path = "TileMap/Level3.tmx";
 		resource = new TileMapResource(id, path);
 		resourceHandler.add(resource);
-
+		
 		id ="LightBulb.png";
 		path = "images/LightBulb.png";
 		resource = new ImageResource(id, path);
@@ -246,7 +247,7 @@ public class Demo_Level extends WorldObject {
 		path = "images/Light6.png";
 		resource = new ImageResource(id, path);
 		resourceHandler.add(resource);
-		
+		*/
 		id ="button1.png";
 		path = "images/button1.png";
 		resource = new ImageResource(id, path);
