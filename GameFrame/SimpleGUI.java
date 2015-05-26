@@ -34,9 +34,9 @@ public abstract class SimpleGUI extends MyGameObject {
 	void render(GameContainer gc, Graphics g) {
 		
 		cam.untranslateGraphics();
-		gc.getGraphics().setColor(Color.black);
+		gc.getGraphics().setColor(Color.darkGray);
 		gc.getGraphics().fillRect(this.gamePosition.x,this.gamePosition.y,width,height);
-		gc.getGraphics().setColor(Color.lightGray);
+		gc.getGraphics().setColor(Color.black);
 		//gc.getGraphics().drawRect(this.gamePosition.x,0,width,height);
 		gc.getGraphics().drawRect(this.gamePosition.x,this.gamePosition.y,width,height);
 		drawContent(gc,g);

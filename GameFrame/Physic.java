@@ -36,7 +36,7 @@ public class Physic {
 	}
 
 	private void checkDamage(int delta) {
-		hj
+		
 		ObjectPool op = new ObjectPool();
 		ArrayList<SimpleGameObject> heroList = op.getFriendlyList();
 		ArrayList<SimpleGameObject> hostileList = op.getHostilelyList();
@@ -57,6 +57,25 @@ public class Physic {
 				}
 			}
 		}
+		
+		//HOSTILEOBJECT->FRIENDLY
+				SimpleGameObject hero;
+				hostileList = op.getHostileObjectList();
+				for (int i = 0; i < heroList.size(); i++) {
+					
+					hero = heroList.get(i);
+					Rectangle heroRect = new Rectangle(hero.gamePosition.x,
+							hero.gamePosition.getY(), hero.size, hero.size);
+					for (int j = 0; j < hostileList.size(); j++) {
+						host = hostileList.get(j);
+						Rectangle hostRect = new Rectangle(host.gamePosition.x,
+								host.gamePosition.y, host.size, host.size);
+						if (hostRect.intersects(heroRect)) {
+							host.damage();
+							hero.damage();
+						}
+					}
+				}
 
 	}
 

@@ -46,10 +46,15 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private int dashCDMax = 500;
 	private int dashCD = 0;
 	private boolean dashkeyPressed = false;
+<<<<<<< HEAD
 	private float dashSpeed = 0.5f;
 	
 	
 	
+=======
+	private float dashSpeed = 0.4f;
+	//private Melee melee;
+>>>>>>> origin/master
 	
 	private boolean crouchkeyPressed = false;
 	

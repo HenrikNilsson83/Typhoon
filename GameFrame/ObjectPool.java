@@ -11,7 +11,7 @@ public class ObjectPool extends SimpleGameObject {
 	private static ArrayList<SimpleGameObject> hostilePool;
 	private static ArrayList<SimpleGameObject> friendlyPool;
 	private static boolean first = true;
-	private static SimpleGUI GUI;
+	
 
 	public ObjectPool(int x, int y, Vector2f pos) {
 		super(x, y, pos);
@@ -158,12 +158,12 @@ public class ObjectPool extends SimpleGameObject {
 	}
 
 	public void addGUI(SimpleGUI gui) {
-		this.GUI = gui;
+		//this.GUI = gui;
 		
 	}
 
 	public void renderGUI(GameContainer gc, Graphics g) {
-		this.GUI.render(gc, g);
+		
 		
 	}
 
