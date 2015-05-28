@@ -15,6 +15,8 @@ public class MasterAi extends AdvancedGameObject {
 	private int rMax = 5000;
 	private Vector2f goToPos;
 	private GameContainer gc;
+	private int dropTimer = 10000;
+	private int dropTimeMax = 10000;
 	public MasterAi(int x, int y, Vector2f pos, GameContainer gc) {
 		
 		super(x, y, pos, gc);
@@ -40,6 +42,9 @@ public class MasterAi extends AdvancedGameObject {
 				this.minions.get(i).setTarget(target);
 				if(this.minions.get(i).data1>0){
 					attention = 1;
+					if(this.dropTimer==dropTimeMax){
+						dropTimer--;
+					}
 				}
 				// MINION KILLED?
 				if(this.minions.get(i).HP==0){
@@ -59,11 +64,35 @@ public class MasterAi extends AdvancedGameObject {
 				rTimer=rMax;
 			}
 		}
+		
+		if(dropTimer!=dropTimeMax){
+			dropTimer-=delta;
+			if(dropTimer<0){
+				sendDropToPlayer();
+				dropTimer=dropTimeMax;
+			}
+		}
+		
 		if(Math.random()<1.0/15.0){
 			attention*=0.99f;
 		}
 	}
 	
+	private void sendDropToPlayer() {
+		ObjectPool op = new ObjectPool();
+		ArrayList<SimpleGameObject> minion = op.getHostilelyList();
+		SimpleGameObject hero = op.getFriendlyList().get(0);
+		Vector2f v = new Vector2f(hero.gamePosition.x,hero.gamePosition.y);
+		v.y = 10;
+		Scenery scen = new Scenery();
+		if(!scen.getBlocked((int)(v.x), (int)(v.y))){
+			int index = minion.size();
+			index = (int) (Math.random()*index);
+			minion.get(index).gamePosition =v;
+		}
+		
+	}
+
 	private void sendCopTo(Vector2f goToPos2) {
 		Scenery scen = new Scenery();
 		ObjectPool op = new ObjectPool();

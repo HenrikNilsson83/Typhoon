@@ -29,7 +29,7 @@ public class RobotCop extends AdvancedGameObject {
 	private int turnCooldownMax = 500;
 	private float turnJump = -0.02f;
 	private float jumpV = -0.4f;
-	private float walkSpeed = 0.03f;
+	private float walkSpeed = 0.04f;
 	private Conductor cond;
 	private int visionX = 480;
 	private int visionY = 5;
@@ -227,7 +227,7 @@ public class RobotCop extends AdvancedGameObject {
 			int xG = (int)(((this.gamePosition.x/16)+4));
 			int yG = (int)(((this.gamePosition.y/16)-5));
 			boolean b = isItBlocked(xG,yG);
-			if(!b){
+			if(!b&&data3!=0){
 				this.velocityVector.y = jumpV;
 				jump = true;
 			}

@@ -229,7 +229,7 @@ public class Patrol extends AdvancedGameObject {
 			int xG = (int)(((this.gamePosition.x/16)+4));
 			int yG = (int)(((this.gamePosition.y/16)-5));
 			boolean b = isItBlocked(xG,yG);
-			if(!b){
+			if(!b&&data3!=0){
 				this.velocityVector.y = jumpV;
 				jump = true;
 			}
