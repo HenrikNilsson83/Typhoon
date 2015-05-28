@@ -132,7 +132,7 @@
   </data>
  </layer>
  <objectgroup name="PlayerSpawn" width="600" height="80">
-  <object name="PlayerSpawn" type="spawn" x="329" y="1065" width="72" height="38">
+  <object name="PlayerSpawn" type="spawn" x="639" y="767" width="72" height="38">
    <properties>
     <property name="spawn" value="player1"/>
    </properties>
@@ -194,11 +194,6 @@
     <property name="spawn" value="enemy"/>
    </properties>
   </object>
-  <object name="EnemySpawn" type="spawn" x="1867" y="1122" width="72" height="38">
-   <properties>
-    <property name="spawn" value="enemy"/>
-   </properties>
-  </object>
   <object name="EnemySpawn" type="spawn" x="4742" y="428" width="72" height="38">
    <properties>
     <property name="spawn" value="enemy"/>
@@ -212,6 +207,11 @@
   <object name="EnemySpawn" type="spawn" x="7789" y="500" width="72" height="38">
    <properties>
     <property name="spawn" value="enemy"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="1063" y="1180" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
    </properties>
   </object>
  </objectgroup>

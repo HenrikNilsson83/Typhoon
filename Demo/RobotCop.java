@@ -9,21 +9,32 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path;
 
+import java.util.ArrayList;
+
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.pathfinding.Path;
+
 public class RobotCop extends AdvancedGameObject {
 
 	private Vector2f lastPosition;
 	private int dir;
 
 	private int turnCooldown = 0;
-	private int turnCooldownMax = 200;
+	private int turnCooldownMax = 500;
 	private float turnJump = -0.02f;
-	private float walkSpeed = 0.038f;
-	private int HP;
+	private float jumpV = -0.4f;
+	private float walkSpeed = 0.03f;
 	private Conductor cond;
-	private int visionX = 600;
+	private int visionX = 480;
 	private int visionY = 5;
-	private int reCharge = 600;
-	private int loadTime = 200;
+	private int reCharge = 300;
+	private int loadTime = 300;
 
 
 	public RobotCop(int x, int y, Vector2f pos, GameContainer gc) {
@@ -32,11 +43,12 @@ public class RobotCop extends AdvancedGameObject {
 		jump = false;
 		this.idString = "SimpleEnemy";
 		lastPosition = new Vector2f(x, y);	
-		dir = 0;
+		dir = 1;
 		HP = 1;
 		cond = new Conductor();
 		target = null;
-		this.data1 = 0;
+		this.data1 =0;
+		this.data3 = 0;
 	}
 
 
@@ -49,14 +61,10 @@ public class RobotCop extends AdvancedGameObject {
 		addAnimation("robotcop.png", 0, 0, 3, 0, 250, "WalkRight");
 		addAnimation("robotcop.png", 10, 0, 11, 0, 300, "deadLeft");
 		addAnimation("robotcop.png", 8, 0, 9, 0, 300, "deadRight");
-		//addAnimation("Gris.png", 2, 0, 2, 0, 100, "WalkLeft");
-		//addAnimation("Gris.png", 1, 0, 1, 0, 100, "WalkRight");
-		setCurrentAnimation("WalkLeft");		
-		//this.showBorders = true;
+		addAnimation("patrol.png", 16, 0, 17, 0, 200, "flyLeft");
+		addAnimation("patrol.png", 14, 0, 15, 0, 200, "flyRight");
+		setCurrentAnimation("WalkRight");		
 		this.borderColor = Color.black;
-		//this.showFillRect = true;
-		//this.fillRectColor = Color.pink;
-
 		this.checkForCollision = true;
 		this.checkForGravity = true;
 		this.faction = -1;	
@@ -64,18 +72,45 @@ public class RobotCop extends AdvancedGameObject {
 
 	@Override
 	void update(GameContainer gc, int delta) {
-		lastPosition.x = gamePosition.x;
-		lastPosition.y = gamePosition.y;
-		updateWalk(delta);
-		reCharge(delta);
-		if(target!=null&&Math.random()<10.0/60.0&&HP>0){
-			AI(gc,delta);
-		}				
+		
+		
+		if(HP>0){
+			lastPosition.x = gamePosition.x;
+			lastPosition.y = gamePosition.y;
+			updateWalk(delta);
+			reCharge(delta);
+			setAnimation(gc,delta);
+			if(target!=null&&Math.random()<10.0/60.0&&HP>0){
+				AI(gc,delta);
+			}
+		}
+			
 	}
 
+	private void setAnimation(GameContainer gc, int delta) {
+
+		if(this.velocityVector.x>0){
+			setCurrentAnimation("WalkRight");
+		}
+		else{
+			setCurrentAnimation("WalkLeft");
+		}
+		if(jump){
+			if(this.velocityVector.x>0){
+				setCurrentAnimation("flyRight");
+			}
+			else{
+				setCurrentAnimation("flyLeft");
+			}
+		}
+	}
+
+
+
 	private void AI(GameContainer gc,int delta) {
-		
+
 		boolean enemeyContact = enemyContact(gc,delta);
+
 		if(enemeyContact){
 			reportEnemy(delta);
 			shootAtTarget(gc);
@@ -99,7 +134,7 @@ public class RobotCop extends AdvancedGameObject {
 		if(reCharge<loadTime){
 			reCharge+=delta;
 		}
-		
+
 	}
 
 
@@ -112,36 +147,13 @@ public class RobotCop extends AdvancedGameObject {
 		data1 = 0;
 	}
 
-	public void shootAtTarget(GameContainer gc){
-		
-		if(reCharge>=loadTime){
-			float v = getDirectionToTarget(target);
-			//BUGG MED -1 i BLAST
-			Vector2f mouth = new Vector2f(this.gamePosition.x+32,this.gamePosition.y+16);
-			Blast b = new Blast(6,6 ,mouth,gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))));
-			ObjectPool op = new ObjectPool();
-			op.addToPool(b);
-			reCharge=0;
-		}
-	}
+	
 
 	void updateWalk(int delta){
-
-		if(turnCooldown <= 0 && !jump && dir == 0 && (this.leftObs || !this.southObs)){
-			dir = 1;
-			setCurrentAnimation("WalkRight");
-			this.velocityVector.y = turnJump;
-			jump = true;
-			turnCooldown = turnCooldownMax;
-		}
-		else if(turnCooldown <= 0 && !jump && dir == 1 && (this.rightObs || !this.southObs)){
-			dir = 0;
-			setCurrentAnimation("WalkLeft");
-			this.velocityVector.y = turnJump;
-			jump = true;
-			turnCooldown = turnCooldownMax;
-		}
-
+		// CLIMBING 
+		climbing(delta);
+		goDown(delta);
+		
 		if(this.southObs){
 			jump = false;
 		}
@@ -165,6 +177,77 @@ public class RobotCop extends AdvancedGameObject {
 		}
 	}
 
+	private void goDown(int delta) {
+		if(turnCooldown <= 0 && !jump && dir == 0 ){
+			//dir =1;
+			turnCooldown = turnCooldownMax;
+			int xG = (int)(((this.gamePosition.x/16)-1));
+			int yG = (int)(((this.gamePosition.y/16)+4));
+			boolean b = isItBlocked(xG,yG);
+			if(!b&&this.data3<=0){
+				dir = 1;
+			}
+			
+			
+		}
+		else if(turnCooldown <= 0 && !jump && dir == 1 ){
+			//dir = 0;
+			turnCooldown = turnCooldownMax;
+			int xG = (int)(((this.gamePosition.x/16)+4));
+			int yG = (int)(((this.gamePosition.y/16)+4));
+			boolean b = isItBlocked(xG,yG);
+			if(!b&&this.data3<=0){
+				dir = 0;
+			}
+		}
+		
+	}
+
+
+
+	private void climbing(int delta) {
+		if(turnCooldown <= 0 && !jump && dir == 0 && (this.leftObs)){
+			//dir =1;
+			turnCooldown = turnCooldownMax;
+			int xG = (int)(((this.gamePosition.x/16)-1));
+			int yG = (int)(((this.gamePosition.y/16)-5));
+			boolean b = isItBlocked(xG,yG);
+			if(!b&&data3!=0){
+				this.velocityVector.y = jumpV;
+				jump = true;
+			}
+			else{
+				dir = 1;
+			}
+			
+		}
+		else if(turnCooldown <= 0 && !jump && dir == 1 && (this.rightObs )){
+			//dir = 0;
+			turnCooldown = turnCooldownMax;
+			int xG = (int)(((this.gamePosition.x/16)+4));
+			int yG = (int)(((this.gamePosition.y/16)-5));
+			boolean b = isItBlocked(xG,yG);
+			if(!b){
+				this.velocityVector.y = jumpV;
+				jump = true;
+			}
+			else{
+				dir = 0;
+			}
+		}
+	}
+
+
+
+	private boolean isItBlocked(int xG, int yG) {
+		//System.out.println("X: "+xG);
+		//System.out.println("Y: "+yG);
+		Scenery scen = new Scenery();
+		return scen.getBlocked(xG, yG);
+	}
+
+
+
 	/*
 	@Override
 	void render(GameContainer gc, Graphics g) {
@@ -185,6 +268,14 @@ public class RobotCop extends AdvancedGameObject {
 		HP--;
 		if(HP == 0){
 			cond.playSound("explosion", 0.8f, 0.2f);
+			if(this.velocityVector.x>0){
+				setCurrentAnimation("deadRight");
+			}
+			else{
+				setCurrentAnimation("deadRight");
+			}
+			this.velocityVector.x=0;
+			
 		}
 		//this.remove = true;
 	}
@@ -233,7 +324,7 @@ public class RobotCop extends AdvancedGameObject {
 			}
 		}
 		else{
-			
+
 			//RIGHT SIDE
 			for(int i = 0;i<checkRangeX;i++){
 				if(scen.getBlocked(x+i, y)){
@@ -243,7 +334,7 @@ public class RobotCop extends AdvancedGameObject {
 		}
 		return false;
 	}
-	
+
 	public boolean inVisionRange(SimpleGameObject target){
 		int yRange = (int) Math.abs(this.gamePosition.y-target.gamePosition.y);
 		int xRange = (int) Math.abs(this.gamePosition.x-target.gamePosition.x);
@@ -255,9 +346,9 @@ public class RobotCop extends AdvancedGameObject {
 		}
 		return false;
 	}
-	
+
 	public boolean facingTarget(SimpleGameObject t){
-		
+
 		if(this.velocityVector.x>0&&t.gamePosition.x>this.gamePosition.x){
 			return true;
 		}
@@ -265,6 +356,24 @@ public class RobotCop extends AdvancedGameObject {
 			return true;
 		}
 		return false;
+	}
+
+
+
+
+
+	
+	public void shootAtTarget(GameContainer gc){
+		
+		if(reCharge>=loadTime){
+			float v = getDirectionToTarget(target);
+			//BUGG MED -1 i BLAST
+			Vector2f mouth = new Vector2f(this.gamePosition.x+32,this.gamePosition.y+16);
+			Blast b = new Blast(6,6 ,mouth,gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))));
+			ObjectPool op = new ObjectPool();
+			op.addToPool(b);
+			reCharge=0;
+		}
 	}
 
 

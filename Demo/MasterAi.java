@@ -11,10 +11,15 @@ public class MasterAi extends AdvancedGameObject {
 	public float attention;
 	private int lastPoolSize;
 	private int shootCount = -1;
+	private int rTimer = 5000;
+	private int rMax = 5000;
+	private Vector2f goToPos;
+	private GameContainer gc;
 	public MasterAi(int x, int y, Vector2f pos, GameContainer gc) {
 		
 		super(x, y, pos, gc);
 		target = null;
+		this.gc = gc;
 		this.faction = -1;
 		this.data1 = 0;
 		this.data3 = 0;
@@ -27,6 +32,7 @@ public class MasterAi extends AdvancedGameObject {
 	void update(GameContainer gc, int delta) {
 		//SET TARGET AND SEE IF ANY MINIONS ARE DEAD
 		if(target!=null){
+			
 			ObjectPool op = new ObjectPool();
 			lastPoolSize = op.size;
 			minions = op.getHostilelyList();
@@ -39,16 +45,41 @@ public class MasterAi extends AdvancedGameObject {
 				if(this.minions.get(i).HP==0){
 					attention = 0.4f;
 					this.minions.get(i).HP=-1;
+					goToPos = this.minions.get(i).gamePosition;
+					rTimer-=delta;
 				}
 				
 			}
 		}
 		shootFired(delta);
+		if(rTimer!=rMax){
+			rTimer-=delta;
+			if(rTimer<0){
+				sendCopTo(goToPos);
+				rTimer=rMax;
+			}
+		}
 		if(Math.random()<1.0/15.0){
 			attention*=0.99f;
 		}
 	}
 	
+	private void sendCopTo(Vector2f goToPos2) {
+		Scenery scen = new Scenery();
+		ObjectPool op = new ObjectPool();
+		RobotCop rc = new RobotCop(64,64,goToPos,gc);
+		goToPos = new Vector2f(goToPos.x,goToPos.y);
+		if(!scen.getBlocked((int)(goToPos.x), (int)(goToPos.y))){
+			op.addToPool(rc);
+		}
+		Vector2f v = new Vector2f(goToPos.x+64,goToPos.y-16);
+		rc = new RobotCop(64,64,v,gc);
+		if(!scen.getBlocked((int)(v.x), (int)(v.y))){
+			op.addToPool(rc);
+		}
+		
+	}
+
 	private void shootFired(int delta) {
 		
 		if(target!=null){

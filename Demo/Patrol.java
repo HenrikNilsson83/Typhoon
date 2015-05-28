@@ -84,8 +84,10 @@ public class Patrol extends AdvancedGameObject {
 		else{
 			setCurrentAnimation("WalkLeft");
 		}
-		if(jump){
-			if(this.velocityVector.x>0){
+		
+		if(this.velocityVector.y<0){
+			//BUGG_DENNA SETTS MITT I HOPPET!?
+			if(dir==1){
 				setCurrentAnimation("flyRight");
 			}
 			else{

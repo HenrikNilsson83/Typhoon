@@ -40,6 +40,12 @@ public class AdvancedGameObject extends SimpleGameObject{
 
 
 
+	public AdvancedGameObject(int x, int y, Vector2f pos) {
+		super(x,y,pos);
+	}
+
+
+
 	/*
 		frames - The sprite sheet containing the frames
 		x1 - The x coordinate of the first sprite from the sheet to appear in the animation
