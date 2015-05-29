@@ -24,6 +24,7 @@ public class Patrol extends AdvancedGameObject {
 	private int visionY = 5;
 	private int reCharge = 600;
 	private int loadTime = 600;
+	private int extendedRange = 1;
 
 
 	public Patrol(int x, int y, Vector2f pos, GameContainer gc) {
@@ -102,8 +103,9 @@ public class Patrol extends AdvancedGameObject {
 
 		boolean enemeyContact = enemyContact(gc,delta);
 
-		if(enemeyContact){
-			reportEnemy(delta);
+		if(enemeyContact||extendedRange>1){
+			if(extendedRange<=1)
+				reportEnemy(delta);
 			shootAtTarget(gc);
 		}
 		else {
@@ -132,6 +134,7 @@ public class Patrol extends AdvancedGameObject {
 
 	private void reportEnemy(int delta) {
 		data1 =1;
+		extendedRange = 10;
 	}
 
 	private void noEnemyVision(int delta){
@@ -340,10 +343,10 @@ public class Patrol extends AdvancedGameObject {
 	public boolean inVisionRange(SimpleGameObject target){
 		int yRange = (int) Math.abs(this.gamePosition.y-target.gamePosition.y);
 		int xRange = (int) Math.abs(this.gamePosition.x-target.gamePosition.x);
-		int tileSize = 16;
-		int checkRangeX = this.visionX/tileSize;
+		float v = getDirectionToTarget(target);
+		//int checkRangeX = this.visionX/tileSize;
 
-		if(yRange<visionY&&xRange<visionX){
+		if(yRange<visionY*extendedRange&&xRange<visionX&&v>0&&v<Math.PI){
 			return true;
 		}
 		return false;

@@ -4,7 +4,7 @@ import org.newdawn.slick.util.pathfinding.Path;
 
 
 public class PathFinding {
-	private int MAX_PATH_LENGTH = 100;
+	private int MAX_PATH_LENGTH = 200;
 	private int START_X;
     private int START_Y;
     private int GOAL_X;

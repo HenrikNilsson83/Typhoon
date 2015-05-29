@@ -24,7 +24,7 @@ public class AdvancedGameObject extends SimpleGameObject{
 	Light light;
 	private LinkedHashMap<String,Animation> spriteMap = new LinkedHashMap<String,Animation>();
 
-	private Animation currentAnimation = null;
+	protected Animation currentAnimation = null;
 
 	protected boolean showBorders = false;
 	protected Color borderColor = Color.red;
@@ -131,7 +131,11 @@ public class AdvancedGameObject extends SimpleGameObject{
 		if(currentAnimation != null){
 			currentAnimation.draw(gamePosition.x, gamePosition.y);	
 		}
+		
+		
 	}
+	
+	
 
 	@Override
 	void reset() {

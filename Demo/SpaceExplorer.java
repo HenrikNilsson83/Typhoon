@@ -384,7 +384,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 	public void damage() {
 		if(HP>0){
 			this.cond.playSound("boost", 0.4f, 0.1f);
-			HP--;
+			//HP--;
 		}
 		if(HP<=0){
 			if(this.velocityVector.x>=0){

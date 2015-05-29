@@ -19,7 +19,7 @@ public class PathMap implements TileBasedMap {
 		return MAP[x][y];//&&MAP[x+1][y]&&MAP[x+1][y+1]&&MAP[x][y+1]&&MAP[x-1][y]&&MAP[x-1][y-1]&&MAP[x][y-1];
 	}
 
-	@Override
+	/*@Override
 	public float getCost(PathFindingContext arg0, int x, int y) {
 		if(x+3<HEIGHT&&x-2>0&&y+3<HEIGHT&&y-2>0){
 			if(MAP[x-1][y]){
@@ -76,7 +76,7 @@ public class PathMap implements TileBasedMap {
 		}
 
 		return 1.0f;
-	}
+	}*/
 
 	@Override
 	public int getHeightInTiles() {
@@ -92,6 +92,23 @@ public class PathMap implements TileBasedMap {
 	@Override
 	public void pathFinderVisited(int arg0, int arg1) {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public float getCost(PathFindingContext arg0, int x, int y) {
+		
+
+		// DOWN
+		if(this.MAP[x][y+2]){
+			return 0;
+		}
+		/*if(this.MAP[x+-1][y]||this.MAP[x+1][y]){
+			return 0;
+		}*/
+		else{
+			return 2;
+		}
 
 	}
 

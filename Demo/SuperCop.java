@@ -20,7 +20,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path;
 
-public class RobotCop extends AdvancedGameObject {
+public class SuperCop extends AdvancedGameObject {
 
 	private Vector2f lastPosition;
 	private int dir;
@@ -36,9 +36,17 @@ public class RobotCop extends AdvancedGameObject {
 	private int reCharge = 300;
 	private int loadTime = 300;
 	private int extendedRange = 1;
+	int goalX = 84;
+	int goalY = 105;
+	int mode = 0;
+	private int max = 0;
+	private Path p = null;
+	public int currentStep = 0;
+	public int tempDir = 0;
+	Rectangle player;
 
 
-	public RobotCop(int x, int y, Vector2f pos, GameContainer gc) {
+	public SuperCop(int x, int y, Vector2f pos, GameContainer gc) {
 		super(x, y, pos, gc);
 		size = 64;
 		jump = false;
@@ -50,6 +58,7 @@ public class RobotCop extends AdvancedGameObject {
 		target = null;
 		this.data1 =0;
 		this.data3 = 0;
+		this.velocityVector.x=this.walkSpeed;
 	}
 
 
@@ -75,18 +84,187 @@ public class RobotCop extends AdvancedGameObject {
 	void update(GameContainer gc, int delta) {
 
 
-		if(HP>0){
+		if(HP>0&&mode==0){
 			lastPosition.x = gamePosition.x;
 			lastPosition.y = gamePosition.y;
 			updateWalk(delta);
-			reCharge(delta);
 			setAnimation(gc,delta);
-			if(target!=null&&Math.random()<10.0/60.0&&HP>0){
-				AI(gc,delta);
+			if(Math.random()<1.0/120.0){
+				mode = 1;
+			}
+		}
+		else if(mode ==1&&target!=null){
+			if(target.southObs){
+				PathFinding pf = new PathFinding((int)(this.gamePosition.x/16.0),(int)(this.gamePosition.y/16.0),(int)(target.gamePosition.x/16),(int)(target.gamePosition.y/16));
+				p = pf.getPath();
+				mode = 2;
+				this.currentStep=0;
+				this.max =0;
 			}
 		}
 
+		else if(mode==2&&p!=null){
+			lastPosition.x = gamePosition.x;
+			lastPosition.y = gamePosition.y;
+			//simpleWalk(delta);
+			setAnimation(gc,delta);
+			
+			
+			if(dir ==1){
+				followPathR(gc,delta);
+			}
+			
+			if(dir ==0){
+				followPathL(gc,delta);
+			}
+			if(this.currentStep==p.getLength()-1){
+				mode =0;
+				p = null;
+			}
+			
+
+		}
+
 	}
+
+
+	private void simpleWalk(int delta) {
+		if(this.rightObs){
+			this.velocityVector.x =-this.walkSpeed;
+			dir = 0;
+		}
+		else if(this.leftObs){
+			this.velocityVector.x =this.walkSpeed;
+			dir = 1;
+		}
+	}
+
+	private void followPathR(GameContainer gc, int delta) {
+		whereOnPath();
+
+		int tS = 16;
+		int nextSt = currentStep+1;
+		if(nextSt>=p.getLength()-1){
+			nextSt = p.getLength()-1;
+		}
+		float v = getDirectionToTarget(p.getX(nextSt)*tS,p.getY(nextSt)*tS);
+
+		if(!this.jump){
+			if(this.gamePosition.x>p.getX(nextSt)*16){
+				dir = 0;
+				if(this.leftObs||v>4f&&v<4.76f||(v<0&&v>-0.35f)){
+					this.velocityVector.y = this.jumpV;
+					this.jump = true;
+					this.tempDir = 0;
+				}
+			}
+			else if(this.gamePosition.x<p.getX(nextSt)*16){
+				this.velocityVector.x =this.walkSpeed;
+				dir = 1;
+				// RIGHT
+				if(this.rightObs||(v<-0.5f&&v>-0.7f)){
+					this.velocityVector.y = this.jumpV;
+					this.jump = true;
+					this.tempDir = 1;
+				}
+
+			}
+		}
+		else{
+			if(tempDir==0){
+				this.velocityVector.x = -this.walkSpeed;
+			}
+			else if(tempDir==1){
+				this.velocityVector.x = this.walkSpeed;
+			}
+
+		}
+		if(this.southObs){
+			this.jump=false;
+		}
+
+
+
+
+
+	}
+
+	private void followPathL(GameContainer gc, int delta) {
+		whereOnPath();
+
+		int tS = 16;
+		int nextSt = currentStep+1;
+		if(nextSt>=p.getLength()-1){
+			nextSt = p.getLength()-1;
+		}
+		float v = getDirectionToTarget(p.getX(nextSt)*tS,p.getY(nextSt)*tS);
+		if(!this.jump){
+			if(this.gamePosition.x+64>p.getX(nextSt)*16){
+				// LEFT
+				this.velocityVector.x =-this.walkSpeed;
+				dir = 0;
+				if(this.leftObs||v>4f&&v<4.76f){
+					this.velocityVector.y = this.jumpV;
+					this.jump = true;
+					this.tempDir = 0;
+				}
+			}
+			else if(this.gamePosition.x<p.getX(nextSt)*16){
+
+				this.velocityVector.x =this.walkSpeed;
+				dir = 1;
+				// RIGHT
+				if(this.rightObs){
+					this.velocityVector.y = this.jumpV;
+					this.jump = true;
+					this.tempDir = 1;
+				}
+
+			}
+		}
+		else{
+			if(tempDir==0){
+				this.velocityVector.x = -this.walkSpeed;
+			}
+			else if(tempDir==1){
+				this.velocityVector.x = this.walkSpeed;
+			}
+
+		}
+		if(this.southObs){
+			this.jump=false;
+		}
+
+
+
+
+
+	}
+
+
+
+	private void whereOnPath() {
+
+		Rectangle path;
+		int multi;
+		if(dir == 0){
+			multi = 1;
+		}
+		else{
+			multi =-1;
+		}
+		int tS = 16;
+		for(int i = 0;i<p.getLength();i++){
+			path = new Rectangle(p.getX(i)*tS+32*multi,p.getY(i)*tS,1,1);
+			player = new Rectangle(this.gamePosition.x+32,this.gamePosition.y,1,(int)(this.size*1.5));
+			if(player.intersects(path)&&i>max){
+				max = i;
+			}
+		}
+		this.currentStep = max;
+
+	}
+
 
 
 	@Override
@@ -104,12 +282,40 @@ public class RobotCop extends AdvancedGameObject {
 		if(currentAnimation != null){
 			currentAnimation.draw(gamePosition.x, gamePosition.y);	
 		}
+		
+		if(p!=null&&player!=null){
+			renderPath(gc,g);
+			g.draw(this.player);
+		}
+		if(HP>0){
+			laserSight(gc,g);
+		}
+
+		
 
 
-		laserSight(gc,g);
 
 
 	}
+
+	private void renderPath(GameContainer gc, Graphics g) {
+		int tS = 16;
+		Color c = Color.green;
+		g.setColor(c);
+		g.fillRect(goalX*tS-8, goalY*tS-8, 16, 16);
+		if(p!=null){
+			for(int i = currentStep;i<p.getLength();i++){
+				int stepX = p.getX(i);
+				int stepY = p.getY(i);
+				stepX*=tS;
+				stepY*=tS;
+				g.fillRect(stepX, stepY, 4, 4);
+			}
+		}
+
+	}
+
+
 
 	private void laserSight(GameContainer gc, Graphics g) {
 		Scenery scen = new Scenery();
@@ -118,7 +324,6 @@ public class RobotCop extends AdvancedGameObject {
 		int spacing = 16;
 		int w = 1;
 		int h = 2;
-
 		if(dir==0){
 			//LEFT
 			for(int i = 0;i<this.visionX;i+=spacing){
@@ -148,6 +353,7 @@ public class RobotCop extends AdvancedGameObject {
 				}
 			}
 		}
+
 
 
 	}
@@ -368,6 +574,25 @@ public class RobotCop extends AdvancedGameObject {
 
 		return v;
 	}
+
+	float getDirectionToTarget(float x,float y){
+
+		float v = 0;
+		if(this.gamePosition.x>x){
+			float a = (x-this.gamePosition.x);
+			float b = y -this.gamePosition.y;
+			v = (float) Math.atan(b/a);
+			v+=Math.PI;
+		}
+		else{
+			float a = (x-this.gamePosition.x);
+			float b = y -this.gamePosition.y;
+			v = (float) Math.atan(b/a);
+
+		}
+
+		return v;
+	}
 	// KANSKE EN ABSTRAKT KLASS??
 	public boolean checkForObstaclesX(SimpleGameObject t){
 		Scenery scen = new Scenery();
@@ -447,3 +672,4 @@ public class RobotCop extends AdvancedGameObject {
 
 
 }
+/**/

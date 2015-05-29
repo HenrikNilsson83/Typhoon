@@ -89,7 +89,7 @@ public class Scenery {
 
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
-						op.addToPool(new RobotCop(64, 64, new Vector2f(px,py),container));
+						op.addToPool(new SuperCop(64, 64, new Vector2f(px,py),container));
 					}
 					if(tempString.equals("2")){
 					}
