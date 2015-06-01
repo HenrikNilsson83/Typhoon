@@ -3,12 +3,14 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Scenery {
 	private static int size;
 	private static boolean[][] isBlocked;
+	private static ArrayList<Vector2f> movingBlocks;
 	private TiledMap tiledmap;
 	private static Camera cam;
 	SimpleGameObject focus;
@@ -34,18 +36,33 @@ public class Scenery {
 
 
 	}
-	
+
 	public void Scenery(){
-		
+
 	}
-	
+
 	public boolean getBlocked(int x,int y){
 		if(x>=WIDTH||y>=HEIGHT||x<0||y<0){
 			return false;
 		}
 		return this.isBlocked[x][y];
+	}
+
+	public boolean getMovingBlocked(float x,float y){
+		Rectangle object = new Rectangle(x,y,1,1);
+		Rectangle block;
+		if(x>=WIDTH||y>=HEIGHT||x<0||y<0){
+			for(int i = 0;i<this.movingBlocks.size();i++){
+				block = new Rectangle(movingBlocks.get(i).x,movingBlocks.get(i).y,size,size);
+				if(block.intersects(object)){
+					return true;
+				}
+			}
+		}
+
+		return false;
 	} 
-	
+
 	public void translateGFX(){
 		cam.translateGraphics();
 	}
@@ -79,7 +96,7 @@ public class Scenery {
 					}
 				}
 			}
-			
+
 			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
 				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
 
@@ -95,10 +112,58 @@ public class Scenery {
 					}
 				}
 			}
+
+			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
+				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
+
+					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
+
+					if(tempString.equals("birdbear")){
+
+						int px = tiledmap.getObjectX(i, j);
+						int py = tiledmap.getObjectY(i, j);
+						op.addToPool(new BirdBear(64, 64, new Vector2f(px,py),container));
+					}
+					if(tempString.equals("2")){
+					}
+				}
+			}
 			
+			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
+				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
+
+					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
+
+					if(tempString.equals("mrgray")){
+
+						int px = tiledmap.getObjectX(i, j);
+						int py = tiledmap.getObjectY(i, j);
+						op.addToPool(new MrGray(128, 128, new Vector2f(px,py),container));
+					}
+					if(tempString.equals("2")){
+					}
+				}
+			}
+			// MOVING PLATFORM
+			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
+				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
+
+					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
+
+					if(tempString.equals("movingplattform")){
+
+						int px = tiledmap.getObjectX(i, j);
+						int py = tiledmap.getObjectY(i, j);
+						op.addToPool(new MovingPlattform(128, 5, new Vector2f(px,py)));
+					}
+					if(tempString.equals("2")){
+					}
+				}
+			}
+
 			//Items spawn
 			if(tiledmap.getObjectName(i,0).equals("PickUpSpawn")){
-				
+
 				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
 
 					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
@@ -112,7 +177,7 @@ public class Scenery {
 					}
 				}
 			}
-			
+
 			// PLAYER_SPAWN
 			if(tiledmap.getObjectName(i,0).equals("PlayerSpawn")){
 

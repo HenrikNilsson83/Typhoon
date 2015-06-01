@@ -38,6 +38,7 @@ public class Demo_Level extends WorldObject {
 		pool = new ObjectPool(0, 0, new Vector2f(0,0));
 		Color light = new Color(1f,1f,1f);
 		scenery = new Scenery(((TileMapResource) resourceHandler.get("Level5.tmx")).getMap(),gc,light);
+		//scenery = new Scenery(((TileMapResource) resourceHandler.get("smalltest.tmx")).getMap(),gc,light);
 		physic = new Physic(true);
 		
 		//SET UP MASTER-AI
@@ -67,6 +68,7 @@ public class Demo_Level extends WorldObject {
 		physic.update(delta);
 		scenery.update(delta);
 		cond.loopMusic("dawn", 0.8f);
+		//cond.loopMusic("too_quiet_in_here", 0.8f);
 		//pool.updateGUI();
 		GUI.guiContent(gc, delta);
 		//updateLightCycle(delta);
@@ -178,6 +180,20 @@ public class Demo_Level extends WorldObject {
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
 		
+		id = "LiquidSoldier.png";
+		path = "images/LiquidSoldier.png";
+		xSize = 64;
+		ySize = 64;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
+		
+		id = "BirdBear.png";
+		path = "images/BirdBear.png";
+		xSize = 64;
+		ySize = 64;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
+		
 		/*
 		id = "PixelNightWithSheild.png";
 		path = "images/PixelNightWithSheild.png";
@@ -241,6 +257,14 @@ public class Demo_Level extends WorldObject {
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
 		
+		
+		id = "MrGray.png";
+		path = "images/MrGray.png";
+		xSize = 128;
+		ySize = 128;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
+		
 		id = "weaponinfo.png";
 		path = "images/weaponinfo.png";
 		xSize = 64;
@@ -255,6 +279,11 @@ public class Demo_Level extends WorldObject {
 		*/
 		id ="Level5.tmx";
 		path = "TileMap/Level5.tmx";
+		resource = new TileMapResource(id, path);
+		resourceHandler.add(resource);
+		
+		id ="smalltest.tmx";
+		path = "TileMap/smalltest.tmx";
 		resource = new TileMapResource(id, path);
 		resourceHandler.add(resource);
 		/*
@@ -280,7 +309,7 @@ public class Demo_Level extends WorldObject {
 		
 		
 		//AUDIO
-		//cond.addMusic("forest_night","audio/music/ForestNight.aif");
+		cond.addMusic("too_quiet_in_here","audio/music/too_quiet_in_here.aif");
 		cond.addMusic("dawn","audio/music/Dawn.aif");
 		//cond.addMusic("birds","audio/music/birds.aif");
 		//cond.addSound("zombie1","audio/sound/zombie1.aif");

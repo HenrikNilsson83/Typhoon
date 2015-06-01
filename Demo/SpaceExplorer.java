@@ -16,7 +16,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private GameContainer container;
 	private GUI gui;
 	MouseInput mIn;
-	
+
 	private int shotCoolDown = 0;
 	private int shotRampUp = 0;
 	private int shotNum = 0;
@@ -26,20 +26,20 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private int jumpNum = 0;
 	private int lastRunDir = 0;
 	Conductor cond;
-	
+
 	//Player vars
-	private int shotCoolDownTime = 300;
-	private int shotRampUpTime = 700;
+	private int shotCoolDownTime = 200;
+	private int shotRampUpTime = 0;
 	private int shotNumMax = 1;
-	
+
 	private int jumpMaxTimer = 300;
 	private int jumpNumMax = 3;
 	private float jumpVelocity = -0.2f;
-	
+
 	private float runMaxX = 0.20f;
 	private float runAccX = 0.0005f;
 	private float runDeAccX = 0.0005f;
-	
+
 	private boolean dashing = false;
 	private int dashTimerMax = 300;
 	private int dashTimer = dashTimerMax;
@@ -48,9 +48,9 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private boolean dashkeyPressed = false;
 	private float dashSpeed = 0.4f;
 
-	
+
 	private boolean crouchkeyPressed = false;
-	
+
 
 	public SpaceExplorer(int x, int y, Vector2f gamePosition, GameContainer gc) {
 		super(x, y, gamePosition, gc);
@@ -67,7 +67,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		this.checkForGravity = true;
 		cond = new Conductor();
 		this.resource1 = 3;
-		
+
 
 	}
 	@Override
@@ -81,8 +81,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 		addAnimation("MooYeah.png", 10, 0, 10, 0, 100, "ShootRight");
 		addAnimation("MooYeah.png", 13, 0, 13, 0, 100, "JumpLeft");
 		addAnimation("MooYeah.png", 12, 0, 12, 0, 100, "JumpRight");
-		*/
-		
+		 */
+
 		addAnimation("SpaceExplorer.png", 1, 0, 1, 0, 100, "StandLeft");
 		addAnimation("SpaceExplorer.png", 0, 0, 0, 0, 100, "StandRight");
 		addAnimation("SpaceExplorer.png", 6, 0, 9, 0, 170, "WalkLeft");
@@ -107,7 +107,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		a = new Animation(sprite, 21, 0, 22, 0,true, 250,true);
 		aList.add(a);
 		addAnimation("DeadRight",aList);
-		
+
 		//CREATING COMPLEX ANIMATION DEAD LEFT
 		aList = new ArrayList<Animation>();
 		a = new Animation(sprite, 23, 0, 27, 0,true, 180,true);
@@ -116,12 +116,12 @@ public class SpaceExplorer extends AdvancedGameObject{
 		a = new Animation(sprite, 28, 0, 29, 0,true, 250,true);
 		aList.add(a);
 		addAnimation("DeadLeft",aList);
-		
+
 		setCurrentAnimation("StandLeft");
-		
+
 	}
 
-	
+
 	@Override
 	void update(GameContainer gc, int delta) {
 		lastPosition.x = gamePosition.x;
@@ -129,11 +129,15 @@ public class SpaceExplorer extends AdvancedGameObject{
 		if(HP>0){
 			getInput(delta,gc);
 		}
+		// FOR PLATFORM TILLF€LLIG L…SNING - FIXA EN FUNKTION SOM STYR VILKEN ANIMATION SOM VISAS
+		if(data1>0){
+			setCurrentAnimation("StandLeft");
+		}
 	}
 
 
 	private void getInput(int delta,GameContainer gc) {
-		
+
 		//Crouch
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)){
 			if(!crouchkeyPressed){
@@ -159,6 +163,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
 			if((!isJump && this.southObs == true) || (jumpNum > 0 && !jumpButtonPressed)){
 				isJump = true;
+				jump = true;
 				jumpTimer = jumpMaxTimer;
 				this.velocityVector.y = jumpVelocity;
 				this.cond.playSound("boost", 1, 0.15f);
@@ -172,6 +177,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		else if(this.southObs == true){
 			jumpButtonPressed = false;
 			isJump = false;
+			jump = false;
 			jumpTimer = 0;
 			jumpNum = jumpNumMax;
 		}
@@ -183,7 +189,13 @@ public class SpaceExplorer extends AdvancedGameObject{
 			isJump = true;
 			jumpTimer = 0;
 		}
-		
+		if(jump==false){
+			isJump = false;
+			jump = false;
+			jumpTimer = 0;
+			jumpNum = jumpNumMax;
+		}
+
 		//LEFT RIGHT
 		if (Keyboard.isKeyDown(Keyboard.KEY_D) && !this.stuck && !dashing) {
 			setCurrentAnimation("WalkRight");
@@ -206,7 +218,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 					this.velocityVector.x = -runMaxX;
 				}
 			}
-			
+
 		}
 		else if(!dashing){		//deacceleration
 			if(lastRunDir == 2){
@@ -227,7 +239,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				this.velocityVector.x = 0;
 			}
 		}
-		
+
 		//Dash
 		if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
 			if(!dashing && dashCD <= 0 && !dashkeyPressed){
@@ -249,7 +261,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				dashing = true;
 				dashTimer = dashTimerMax;
 				this.velocityVector.y = jumpVelocity;
-				
+
 				this.velocityVector.x = dashSpeed;
 				this.cond.playSound("boost", 0.6f, 0.15f);
 				//dashCD = dashCDMax;
@@ -257,7 +269,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				ObjectPool op = new ObjectPool();
 				this.melee.setFaction(0);
 				op.addToPool(this.melee);*/
-				
+
 			}
 			dashkeyPressed = true;
 		}
@@ -275,12 +287,12 @@ public class SpaceExplorer extends AdvancedGameObject{
 		}
 		if(dashCD > 0){
 			dashCD -= delta;
-			
+
 		}
 		if(dashTimer <= 0 || this.leftObs || this.rightObs || this.stuck){
 			if(dashing){
-				
-				
+
+
 				dashCD = dashCDMax;
 				if(this.velocityVector.x < 0){
 					this.velocityVector.x = -this.runMaxX;
@@ -290,11 +302,11 @@ public class SpaceExplorer extends AdvancedGameObject{
 				}
 			}
 			dashing = false;
-			
+
 		}
-		
+
 		//SHOOTING
-		if((dir == 0 || dir == 1) && this.southObs == true&&this.resource1>0){
+		if( /*&& this.southObs == true*/this.resource1>0){
 			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 				if(this.shotRampUp==0){
 					this.cond.playSound("charge", 0.6f, 0.1f);
@@ -302,10 +314,10 @@ public class SpaceExplorer extends AdvancedGameObject{
 				shotRampUp += delta;
 				dir = 4;
 				setCurrentAnimation("ShootLeft");
-				
+
 				if(this.shotCoolDown <= 0 && shotRampUp >= shotRampUpTime && shotNum > 0){
 					this.op.addToPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX(), this.gamePosition.getY() + 16), container, -1, 0));
-					resource1--;
+					//resource1--;
 					shotCoolDown = shotCoolDownTime;
 					this.cond.playSound("shoot", 1, 0.15f);
 					shotNum--;
@@ -320,7 +332,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				setCurrentAnimation("ShootRight");
 				if(this.shotCoolDown <= 0  && shotRampUp >= shotRampUpTime && shotNum > 0){
 					this.cond.playSound("shoot", 1, 0.15f);
-					resource1--;
+					//resource1--;
 					this.op.addToPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX() + 48, this.gamePosition.getY() + 16), container, 2, 0));
 					shotCoolDown = shotCoolDownTime;
 					shotNum--;
@@ -338,7 +350,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		if(shotCoolDown > 0){
 			shotCoolDown-=delta;
 		}
-		
+
 		// SET JUMP ANIMATION
 		if(this.southObs == false && !dashing){
 			if(lastRunDir == 2){
@@ -356,8 +368,10 @@ public class SpaceExplorer extends AdvancedGameObject{
 					setCurrentAnimation("FallRight");
 			}
 		}
+
+
 	}
-/*
+	/*
 	@Override
 	void render(GameContainer gc, Graphics g) {
 		super.render(gc, g);
@@ -365,7 +379,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		mIn.render(gc, g);
 
 	}
-*/
+	 */
 	@Override
 	void reset() {
 		// MAYBEE?
@@ -373,7 +387,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		isJump = false;
 		jumpTimer = 0;
 		jumpNum = jumpNumMax;
-		
+
 		gamePosition.x = lastPosition.x;
 		gamePosition.y = lastPosition.y;
 		this.velocityVector.y = 0;
@@ -395,10 +409,10 @@ public class SpaceExplorer extends AdvancedGameObject{
 			}
 			this.velocityVector.x = 0;
 		}
-		
+
 
 	}
-    
+
 	public void setUpGUI() {
 		int xW =250;
 		int yH = 70;
