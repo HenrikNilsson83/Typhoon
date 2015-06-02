@@ -45,6 +45,7 @@ public class MasterAi extends AdvancedGameObject {
 					if(this.dropTimer==dropTimeMax){
 						dropTimer--;
 					}
+					this.minions.get(i).data1=0;
 				}
 				// MINION KILLED?
 				if(this.minions.get(i).HP==0){

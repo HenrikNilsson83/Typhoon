@@ -29,7 +29,7 @@ public class SuperCop extends AdvancedGameObject {
 	private int turnCooldownMax = 500;
 	private float turnJump = -0.02f;
 	private float jumpV = -0.4f;
-	private float walkSpeed = 0.04f;
+	private float walkSpeed = 0.03f;
 	private Conductor cond;
 	private int visionX = 380;
 	private int visionY = 5;
@@ -39,11 +39,18 @@ public class SuperCop extends AdvancedGameObject {
 	int goalX = 84;
 	int goalY = 105;
 	int mode = 0;
-	private int max = 0;
+	private int max = 7;
 	private Path p = null;
-	public int currentStep = 0;
+	public int currentStep = 7;
 	public int tempDir = 0;
+	public int approachDir;
+	public int engageTimer = 3000;
+	public int engageMax = 3000; 
 	Rectangle player;
+	private int timeToPath=2000;
+	private int PathFreq = 2000;
+	private boolean renderPath= false;
+
 
 
 	public SuperCop(int x, int y, Vector2f pos, GameContainer gc) {
@@ -67,12 +74,12 @@ public class SuperCop extends AdvancedGameObject {
 	void init(GameContainer gc) {
 		//SETTING UP SPRITE&ANIMATION
 
-		addAnimation("robotcop.png", 4, 0, 7, 0, 250, "WalkLeft");
-		addAnimation("robotcop.png", 0, 0, 3, 0, 250, "WalkRight");
-		addAnimation("robotcop.png", 10, 0, 11, 0, 300, "deadLeft");
-		addAnimation("robotcop.png", 8, 0, 9, 0, 300, "deadRight");
-		addAnimation("patrol.png", 16, 0, 17, 0, 200, "flyLeft");
-		addAnimation("patrol.png", 14, 0, 15, 0, 200, "flyRight");
+		addAnimation("LiquidSoldier.png", 20, 0, 23, 0, 250, "WalkLeft");
+		addAnimation("LiquidSoldier.png", 0, 0, 3, 0, 250, "WalkRight");
+		addAnimation("LiquidSoldier.png", 27, 0, 39, 0, 65, "deadLeft",false);
+		addAnimation("LiquidSoldier.png", 7, 0, 19, 0, 65, "deadRight",false);
+		addAnimation("LiquidSoldier.png", 24, 0, 25, 0, 150, "flyLeft");
+		addAnimation("LiquidSoldier.png", 4, 0, 5, 0, 150, "flyRight");
 		setCurrentAnimation("WalkRight");		
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
@@ -82,47 +89,108 @@ public class SuperCop extends AdvancedGameObject {
 
 	@Override
 	void update(GameContainer gc, int delta) {
+		
+		lastPosition.x = gamePosition.x;
+		lastPosition.y = gamePosition.y;
+		// MODE 0 - SIMPLE PATROL WALK
+		//System.out.println(mode);
+		if(HP>0){
+			if(mode==0){
+				simpleWalk(delta);
+				setAnimation(gc,delta);
+				if(this.target!=null&&enemyContact(gc,delta)){
+					mode = 3;
+					
+				}
+			}
+			// MODE 1 - SET UP PATHFINDING 
+			else if(mode ==1&&target!=null){
+				if(target.southObs&&this.southObs){
+					PathFinding pf = new PathFinding((int)(this.gamePosition.x/16.0),(int)(this.gamePosition.y/16.0),(int)(target.gamePosition.x/16+1),(int)(target.gamePosition.y/16));
+					p = pf.getPath();
+					mode = 2;
+					System.out.println("MODE 2");
+					// PATHFINDING KOMMER INTE FUNKA OM SPELAREN STÅR NÄRA EN VÄG
+					if(p==null){
+						
+						System.out.println("NULL PATH");
+						mode = 0;
+						return;
+					}
+					this.currentStep=7;
+					this.max =7;
+				}
+				else{
+					mode =1;
+				}
+			}
+			// MODE 2 - FOLLOW PATH
+			else if(mode==2&&p!=null){
+				if(this.timeToPath<this.PathFreq){
+					timeToPath+=delta;
+				}
+				else{
+					mode = 1;
+					timeToPath = 0;
+				}
+				if(this.enemyContact(gc, delta)){
+					mode = 3;
+					this.currentStep = 7;
+					this.max = 7;
+				}
+				setAnimation(gc,delta);
 
+				//CHOSE PATH- ALGORITHM
+				if(dir ==1){
+					followPathR(gc,delta);
+				}
+				else{
+					followPathL(gc,delta);
+				}
 
-		if(HP>0&&mode==0){
-			lastPosition.x = gamePosition.x;
-			lastPosition.y = gamePosition.y;
-			updateWalk(delta);
-			setAnimation(gc,delta);
-			if(Math.random()<1.0/120.0){
-				mode = 1;
+				//ARRIVED AT GOAL LOCATION ?
+				if(this.currentStep>=p.getLength()-1){
+					mode =0;
+					p = null;
+				}
 			}
-		}
-		else if(mode ==1&&target!=null){
-			if(target.southObs){
-				PathFinding pf = new PathFinding((int)(this.gamePosition.x/16.0),(int)(this.gamePosition.y/16.0),(int)(target.gamePosition.x/16),(int)(target.gamePosition.y/16));
-				p = pf.getPath();
-				mode = 2;
-				this.currentStep=0;
-				this.max =0;
-			}
-		}
+			// MODE 3 - ENGAGE
+			else if(mode == 3){
+				this.extendedRange =30; 
+				setAnimation(gc,delta);
+				boolean b = enemyContact(gc,delta);
+				if(b){
+					//reportEnemy(delta);
+					shootAtTarget(gc,delta);
+				}
+				else{
+					this.engageTimer--;
+				}
+				if(engageTimer<0){
+					this.engageTimer=engageMax;
+					mode = 0;
+					engageTimer =engageMax;
+					this.extendedRange =1;
+					return;
+				}
+				if(this.target.gamePosition.x>this.gamePosition.x){
+					dir = 1;
+					this.velocityVector.x =this.walkSpeed;
+				}
+				else{
+					dir = 0;
+					this.velocityVector.x = -this.walkSpeed;
+				}
+				// USE PATHFINDING TO FIND PLAYER
+				if(this.leftObs||this.rightObs){
+					System.out.println(this.leftObs);
+					mode = 1;
+					engageTimer =engageMax;
+					this.extendedRange =1;
+					return;
+				}
 
-		else if(mode==2&&p!=null){
-			lastPosition.x = gamePosition.x;
-			lastPosition.y = gamePosition.y;
-			//simpleWalk(delta);
-			setAnimation(gc,delta);
-			
-			
-			if(dir ==1){
-				followPathR(gc,delta);
 			}
-			
-			if(dir ==0){
-				followPathL(gc,delta);
-			}
-			if(this.currentStep==p.getLength()-1){
-				mode =0;
-				p = null;
-			}
-			
-
 		}
 
 	}
@@ -136,6 +204,9 @@ public class SuperCop extends AdvancedGameObject {
 		else if(this.leftObs){
 			this.velocityVector.x =this.walkSpeed;
 			dir = 1;
+		}
+		if(this.visionX==0){
+			this.velocityVector.x = this.walkSpeed;
 		}
 	}
 
@@ -282,8 +353,8 @@ public class SuperCop extends AdvancedGameObject {
 		if(currentAnimation != null){
 			currentAnimation.draw(gamePosition.x, gamePosition.y);	
 		}
-		
-		if(p!=null&&player!=null){
+
+		if(p!=null&&player!=null&&renderPath){
 			renderPath(gc,g);
 			g.draw(this.player);
 		}
@@ -291,7 +362,7 @@ public class SuperCop extends AdvancedGameObject {
 			laserSight(gc,g);
 		}
 
-		
+
 
 
 
@@ -386,7 +457,7 @@ public class SuperCop extends AdvancedGameObject {
 
 		if(enemeyContact){
 			reportEnemy(delta);
-			shootAtTarget(gc);
+			shootAtTarget(gc,delta);
 		}
 		else {
 			noEnemyVision(delta);
@@ -398,7 +469,14 @@ public class SuperCop extends AdvancedGameObject {
 		boolean blocked = checkForObstaclesX(target);
 		boolean inVisionRange = inVisionRange(target);
 		boolean facingTarget = facingTarget(target);
-		return !blocked&&inVisionRange&&facingTarget&&target.HP>0;
+		boolean retur = !blocked&&inVisionRange&&facingTarget&&target.HP>0;
+			if(retur&&target.gamePosition.x>this.gamePosition.x){
+				this.approachDir =1; 
+			}
+			else if(retur&&target.gamePosition.x<this.gamePosition.x){
+				this.approachDir =0; 
+			}
+			return !blocked&&inVisionRange&&facingTarget&&target.HP>0;
 	}
 
 
@@ -517,6 +595,7 @@ public class SuperCop extends AdvancedGameObject {
 		//System.out.println("X: "+xG);
 		//System.out.println("Y: "+yG);
 		Scenery scen = new Scenery();
+		
 		return scen.getBlocked(xG, yG);
 	}
 
@@ -602,6 +681,7 @@ public class SuperCop extends AdvancedGameObject {
 		int y = (int) (this.gamePosition.y/tileSize);
 		int xRange = (int) Math.abs(this.gamePosition.x-target.gamePosition.x);
 		xRange/=tileSize;
+		
 		if(xRange<checkRangeX){
 			checkRangeX = xRange;
 		}
@@ -625,15 +705,13 @@ public class SuperCop extends AdvancedGameObject {
 				}
 			}
 		}
+		
 		return false;
 	}
 
 	public boolean inVisionRange(SimpleGameObject target){
 		int yRange = (int) Math.abs(this.gamePosition.y-target.gamePosition.y);
 		int xRange = (int) Math.abs(this.gamePosition.x-target.gamePosition.x);
-		int tileSize = 16;
-		//int checkRangeX = this.visionX/tileSize;
-
 		if(yRange<visionY*extendedRange&&xRange<visionX){
 			return true;
 		}
@@ -656,7 +734,7 @@ public class SuperCop extends AdvancedGameObject {
 
 
 
-	public void shootAtTarget(GameContainer gc){
+	public void shootAtTarget(GameContainer gc,int delta){
 
 		if(reCharge>=loadTime){
 			float v = getDirectionToTarget(target);
@@ -667,6 +745,7 @@ public class SuperCop extends AdvancedGameObject {
 			op.addToPool(b);
 			reCharge=0;
 		}
+		this.reCharge(delta);
 	}
 
 
