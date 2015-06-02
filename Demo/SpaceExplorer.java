@@ -126,6 +126,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 	void update(GameContainer gc, int delta) {
 		lastPosition.x = gamePosition.x;
 		lastPosition.y = gamePosition.y;
+		
 		if(HP>0){
 			getInput(delta,gc);
 		}
@@ -269,28 +270,25 @@ public class SpaceExplorer extends AdvancedGameObject{
 			if(this.velocityVector.x > 0){
 				this.velocityVector.x = dashSpeed;
 			}
-			else{
+			else if(this.velocityVector.x > 0){
 				this.velocityVector.x = -dashSpeed;
 			}
 		}
 		if(dashCD > 0){
-			dashCD -= delta;
-			
+			dashCD -= delta;	
 		}
-		if(dashTimer <= 0 || this.leftObs || this.rightObs || this.stuck){
+		//if(dashTimer <= 0 || this.leftObs || this.rightObs || this.stuck){
+		if(dashTimer <= 0 ){
 			if(dashing){
-				
-				
 				dashCD = dashCDMax;
 				if(this.velocityVector.x < 0){
 					this.velocityVector.x = -this.runMaxX;
 				}
-				else{
+				else if(this.velocityVector.x > 0) {
 					this.velocityVector.x = this.runMaxX;
 				}
 			}
 			dashing = false;
-			
 		}
 		
 		//SHOOTING

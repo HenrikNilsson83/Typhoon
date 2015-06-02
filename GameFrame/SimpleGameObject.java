@@ -5,6 +5,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 public abstract class SimpleGameObject {
 	protected Vector2f gamePosition;
+	protected Vector2f lastGamePosition;
 	protected Vector2f velocityVector;
 	protected int faction = 0;
 	protected boolean checkForCollision=false;
@@ -33,6 +34,7 @@ public abstract class SimpleGameObject {
 	public SimpleGameObject(int x,int y, Vector2f pos){
 		if(pos !=null){
 			gamePosition = new Vector2f(pos.x,pos.y);
+			lastGamePosition = new Vector2f(pos.x,pos.y);
 		}
 		else{
 			gamePosition = null;
