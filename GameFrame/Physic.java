@@ -174,31 +174,16 @@ public class Physic {
 		if (isBlocked[0].length < yAxis + yMax) {
 			yMax = isBlocked[1].length - yAxis;
 		}
-
-
-		for(int i = 0; i < isBlocked.length; i++){
-			for(int j = 0; j < isBlocked[i].length; j++){
-				if(isBlocked[i][j]){
-					Rectangle mapBlock = new Rectangle(i * 16, j * 16, 16, 16);
-					if (player.intersects(mapBlock)){
-						return true;
-					}
-				}
-			}
-		}
-
-		/*
+		
 		for (int xRange = 0; xRange < xMax; xRange++) {
 
 			for (int yRange = 0; yRange < yMax; yRange++) {
 				Rectangle block = new Rectangle(xAxis * tileSize + xRange * tileSize, yAxis * tileSize + yRange * tileSize, tileSize, tileSize);
 				if (player.intersects(block) && isBlocked[xAxis + xRange][yAxis + yRange]) {
-					System.out.println(block.getX());
 					return true;
 				}
 			}
 		}
-		 */
 		return isInCollision;
 	}
 
