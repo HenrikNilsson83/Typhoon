@@ -36,7 +36,7 @@ public class MainClass extends StateBasedGame {
 		AppGameContainer app = new AppGameContainer(new MainClass("GAME"));
 		//app.setDisplayMode(1280, 800, true);//FULLSCREN
 		app.setDisplayMode((int)(0.7*1280), (int)(0.7*800), false);//smallFULLSCREN
-		//app.setDisplayMode(1920, 1080, true);//FULLSCREN
+		//app.setDisplayMode(1280, 800, true);//FULLSCREN
 		app.setVSync(true);
 		app.start();
 	}

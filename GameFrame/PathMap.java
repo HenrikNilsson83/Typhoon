@@ -100,7 +100,8 @@ public class PathMap implements TileBasedMap {
 		
 
 		// DOWN
-		if(this.MAP[x][y+2]){
+		
+		if((y+2<this.HEIGHT)&&this.MAP[x][y+2]){
 			return 0;
 		}
 		/*if(this.MAP[x+-1][y]||this.MAP[x+1][y]){

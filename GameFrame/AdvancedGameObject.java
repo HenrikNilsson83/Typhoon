@@ -129,7 +129,7 @@ public class AdvancedGameObject extends SimpleGameObject{
 		}
 
 		if(currentAnimation != null){
-			currentAnimation.draw(gamePosition.x, gamePosition.y);	
+			currentAnimation.draw(gamePosition.x, gamePosition.y+1);	
 		}
 		
 		

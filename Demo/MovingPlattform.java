@@ -18,13 +18,14 @@ public class MovingPlattform extends AdvancedGameObject {
 	private Rectangle p;
 	private boolean debugg = false;
 	public MovingPlattform(int x, int y, Vector2f pos) {
+		
 		super(x, y, pos);
 		this.checkForCollision =false;
 		this.checkForGravity = false;
 		this.faction = 0;
 		this.showFillRect=true;
 		//PLATTFORM VARS
-		speed = 0.03f;
+		speed = 0.06f;
 		this.dir = 2;
 		powerd = true;
 		xRange = 0;

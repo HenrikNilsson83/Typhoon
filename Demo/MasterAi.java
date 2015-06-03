@@ -69,7 +69,7 @@ public class MasterAi extends AdvancedGameObject {
 		if(dropTimer!=dropTimeMax){
 			dropTimer-=delta;
 			if(dropTimer<0){
-				sendDropToPlayer();
+				//sendDropToPlayer();
 				dropTimer=dropTimeMax;
 			}
 		}

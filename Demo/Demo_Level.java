@@ -282,6 +282,12 @@ public class Demo_Level extends WorldObject {
 		resource = new TileMapResource(id, path);
 		resourceHandler.add(resource);
 		
+		id ="Level52" +
+				".tmx";
+		path = "TileMap/Level52.tmx";
+		resource = new TileMapResource(id, path);
+		resourceHandler.add(resource);
+		
 		id ="smalltest.tmx";
 		path = "TileMap/smalltest.tmx";
 		resource = new TileMapResource(id, path);
