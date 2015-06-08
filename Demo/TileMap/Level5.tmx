@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="160" height="40" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" width="390" height="40" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="SpaceTilesV1" tilewidth="16" tileheight="16">
   <image source="Tiles/SpaceTilesV1.png" width="512" height="512"/>
   <tile id="0">
@@ -127,52 +127,90 @@
  <tileset firstgid="4837" name="DarkGround" tilewidth="16" tileheight="16">
   <image source="Tiles/DarkGround.png" width="500" height="408"/>
  </tileset>
- <layer name="FarBackGround" width="160" height="40">
+ <tileset firstgid="5612" name="Grass&amp;Material2" tilewidth="16" tileheight="16">
+  <image source="Tiles/Grass&amp;Material2.png" width="128" height="128"/>
+ </tileset>
+ <layer name="FarBackGround" width="390" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDXAF0TSAQAZAAA
+   H4sIAAAAAAAAA+3DAQkAAAwDoJV4/4ILsR5HwV5SVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV3x7bCQuvwPMAAA==
   </data>
  </layer>
- <layer name="ColisionLayer" width="160" height="40">
+ <layer name="BackGround" width="390" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3SwQ3AIAwEQdJe+i8oDfCyHA7JM9L9kdm1AAAAAAAAAAAAAAAAAACgx5t+AMc9xf1Bf/PojyT9kaQ/kvRH0k39MY/+SNIfSfpj51QT+mNnYn/avof+SNIfSfqjout++qOi+p9mHfsAYsgIpABkAAA=
+   H4sIAAAAAAAAA+3aSU7EMBAF0OyAm4Dg/ucDqXuFoDN04hr8nlT7qPTLrkheFgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg0utPvUV/BBwgu+v0iD1elltmPu71Ffs5sJnsrtMj9vqdGdmZW6WdMiq7ekR3f2VGduZTcaccnV09orv/9gjZmU+1nTIiu3rEDLZkRnbmUG2njMiuHtHZ57I9L7LTW7WdMiK7ekRnW/MtO/OoslNGZleP6OzZzMhOH9V2yojs6hGdnbFHyE4P1XbKiOzqkfmewdmZkZ26onfKve/+I7KrR+a7syv2CNmpKXqn3PvuPyK7emS+Z3B1ZmSnjsid8si7/4js6pH57mzEHiE7NWTYKfe8+4/I7vu99Mh8dzY6M7KTV+ROeeTdf9SdcPW9ULlH5ru2iD1CdnLKsFPuffff8T+heo/Wvp/8ojMjO3lE7pRH3/2PrIg7oVqPHn0/+WX4T5CdHDJmIVtF3gldynznl/UckJ3xsmYhU7kTzinznVf2c0B2xvCfsF7+E84v851PlXNAdq5XJQuqX5nvPKqdA7JznWpZUP3KfMereg7IzvmqZkH1K/Mdp/o5IDvnqZ4F1a/M93hdzgHZeV6XLKh+Zb5vvgFWGEJQwPMAAA==
   </data>
  </layer>
- <layer name="BackGround" width="160" height="40">
+ <layer name="ColisionLayer" width="390" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDXAF0TSAQAZAAA
+   H4sIAAAAAAAAA+3aQQrCQAwFUMHbef8DiXTjppS2k2QyfQ+yTRw75EP19QIAAAAAAAAAAAAAAAAAAABgRe/gAqAXuQAAAAAAAAAAAABABP9T5YncZ9gnF3gi9xmAIzIAgH9yAYgwy3uImd6JfBJn3SEXgAiz7GK5cJ5cAFYmF86TC8DK5MJ5cgE2/qe6ppmezZVcqLhv7i5s5EJfXZ6NXADI0SUXRon+/N2/H4AfudCnP0AGudCnP0AGudCnP0AGudCnPxDj7m+t6v7eq8ohuQDHqveK6l1XZc/bmztadH/IUr1bVN8aKbJ31oyMM0Cm6h2j+tVIkb2zZmScASpU7xrVp0aK7J01I+MMUKV636geNVJk76wZGWeAStU7J6q+M8tWQ8DzAAA=
   </data>
  </layer>
- <layer name="WalkingLayer" width="160" height="40">
+ <layer name="WalkingLayer" width="390" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDXAF0TSAQAZAAA
+   H4sIAAAAAAAAA+3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM8GcqpBZMDzAAA=
   </data>
  </layer>
- <layer name="ForeGround" width="160" height="40">
+ <layer name="ForeGround" width="390" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDXAF0TSAQAZAAA
+   H4sIAAAAAAAAA+3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM8GcqpBZMDzAAA=
   </data>
  </layer>
- <objectgroup name="PlayerSpawn" width="160" height="40">
-  <object name="PlayerSpawn" type="spawn" x="772" y="263" width="72" height="38">
+ <objectgroup name="PlayerSpawn" width="390" height="40">
+  <object name="PlayerSpawn" type="spawn" x="321" y="464" width="72" height="38">
    <properties>
     <property name="spawn" value="player1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="EnemySpawn" width="160" height="40">
-  <object name="EnemySpawn" type="spawn" x="851" y="315" width="72" height="38">
+ <objectgroup name="EnemySpawn" width="390" height="40">
+  <object name="EnemySpawn" type="spawn" x="1211" y="320" width="72" height="38">
    <properties>
     <property name="spawn" value="robotcop"/>
    </properties>
   </object>
-  <object name="EnemySpawn" type="spawn" x="1228" y="459" width="72" height="38">
+  <object name="EnemySpawn" type="spawn" x="1609" y="270" width="72" height="38">
    <properties>
     <property name="spawn" value="movingplattform"/>
    </properties>
   </object>
-  <object name="EnemySpawn" type="spawn" x="1603" y="228" width="72" height="38">
+  <object name="EnemySpawn" type="spawn" x="2083" y="228" width="72" height="38">
    <properties>
     <property name="spawn" value="movingplattform"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="1728" y="469" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="1954" y="371" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="5343" y="466" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="2338" y="225" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="5693" y="339" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="5538" y="55" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="5845" y="217" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
    </properties>
   </object>
  </objectgroup>

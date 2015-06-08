@@ -33,6 +33,10 @@ public class Scenery {
 		HEIGHT = map.getHeight();
 		WIDTH = map.getWidth();
 		alphaMap = new AlphaMap(gc,c);
+		
+		ParticleFx pFx = new ParticleFx(0, 0, new Vector2f(0,0));
+		ObjectPool op = new ObjectPool();
+		op.addToPool(pFx);
 
 
 	}

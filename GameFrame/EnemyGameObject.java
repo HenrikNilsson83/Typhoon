@@ -194,7 +194,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 	}
 
 	private void followPath(GameContainer gc,int delta){
-		if(p ==null&&target!=null){
+		if(p ==null&&target!=null&&target.southObs){
 
 			int sX = (int)(this.gamePosition.x/tileSize);
 			int sY = (int)(this.gamePosition.y/tileSize);
@@ -206,15 +206,32 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 				this.currentStep = 0;
 				max = 0;
 			}
+			// SET START VELOCITY_X
+			if(p.getX(0)*tileSize>this.gamePosition.x){
+				this.velocityVector.x=this.walkSpeed;
+			}
+			else{
+				this.velocityVector.x=-this.walkSpeed;
+			}
 
 		}
 
 		if(p!=null){
-			if(this.p.getX(currentStep)*tileSize>this.gamePosition.x+size){
-				followPathR(gc,delta);
+
+			if(this.velocityVector.x>0){
+				System.out.println("RIGHT");
+				{
+					player = new Rectangle(this.gamePosition.x+size*1.2f,this.gamePosition.y,4,(int)(this.size));
+					followPathR(gc,delta);
+				}
 			}
-			else{
-				followPathL(gc,delta);
+
+			if(this.velocityVector.x<0){
+				System.out.println("LEFT");
+				{
+					player = new Rectangle(this.gamePosition.x+size*1.2f,this.gamePosition.y,4,(int)(this.size));
+					followPathR(gc,delta);
+				}
 			}
 		}
 	}
@@ -233,13 +250,13 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 			max = 0;
 			return;
 		}
-		
+
 		float v = getDirectionToTarget(p.getX(nextSt)*tS,p.getY(nextSt)*tS);
 
 		if(!this.jump){
 			if(this.gamePosition.x>p.getX(nextSt)*16){
 				dir = 0;
-				if(this.leftObs||v>4f&&v<4.76f||(v<0&&v>-0.35f)){
+				if(this.leftObs){
 					this.velocityVector.y = this.jumpV;
 					this.jump = true;
 					this.tempDir = 0;
@@ -250,8 +267,8 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 				this.velocityVector.x =this.walkSpeed;
 				dir = 1;
 				// RIGHT
-				if(this.rightObs||(v<-0.5f&&v>-0.7f)){
-					
+				if(this.rightObs){
+
 					this.velocityVector.y = this.jumpV;
 					this.jump = true;
 					this.tempDir = 1;
@@ -280,65 +297,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 
 	}
 
-	private void followPathL(GameContainer gc, int delta) {
-		whereOnPath();
-
-		int tS = 16;
-		int nextSt = currentStep+1;
-		if(nextSt>=p.getLength()-1){
-			nextSt = p.getLength()-1;
-		}
-		if(nextSt+3 >p.getLength()){
-			p = null;
-			this.currentStep = 0;
-			max = 0;
-			return;
-		}
-		float v = getDirectionToTarget(p.getX(nextSt)*tS,p.getY(nextSt)*tS);
-		if(!this.jump){
-			if(this.gamePosition.x+64>p.getX(nextSt)*16){
-				// LEFT
-				this.velocityVector.x =-this.walkSpeed;
-				dir = 0;
-				if(this.leftObs||v>4f&&v<4.76f){
-					this.velocityVector.y = this.jumpV;
-					this.jump = true;
-					this.tempDir = 0;
-				}
-			}
-			else if(this.gamePosition.x<p.getX(nextSt)*16&&turnCooldown<=0){
-				turnCooldown = this.turnCooldownMax; 
-				this.velocityVector.x =this.walkSpeed;
-				dir = 1;
-				// RIGHT
-				if(this.rightObs){
-					this.velocityVector.y = this.jumpV;
-					this.jump = true;
-					this.tempDir = 1;
-				}
-
-			}
-		}
-		else{
-			if(tempDir==0 && turnCooldown <= 0 ){
-				turnCooldown = this.turnCooldownMax; 
-				this.velocityVector.x = -this.walkSpeed;
-			}
-			else if(tempDir==1 && turnCooldown <= 0){
-				turnCooldown = this.turnCooldownMax; 
-				this.velocityVector.x = this.walkSpeed;
-			}
-
-		}
-		if(this.southObs){
-			this.jump=false;
-		}
-
-
-
-
-
-	}
+	
 
 
 
@@ -355,7 +314,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 		int tS = 16;
 		for(int i = 0;i<p.getLength();i++){
 			path = new Rectangle(p.getX(i)*tS+32*multi,p.getY(i)*tS,1,1);
-			player = new Rectangle(this.gamePosition.x,this.gamePosition.y,64,(int)(this.size));
+			//player = new Rectangle(this.gamePosition.x,this.gamePosition.y,64,(int)(this.size));
 			if(player.intersects(path)&&i>max){
 				max = i;
 			}
@@ -588,7 +547,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 			g.setColor(fillRectColor);
 			g.fillRect(this.gamePosition.x, this.gamePosition.y, width, height);
 		}
-
+		
 		if(currentAnimation != null){
 			currentAnimation.draw(gamePosition.x, gamePosition.y+1);	
 		}

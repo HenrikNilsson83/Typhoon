@@ -61,7 +61,7 @@ public class MasterAi extends AdvancedGameObject {
 		if(rTimer!=rMax){
 			rTimer-=delta;
 			if(rTimer<0){
-				sendCopTo(goToPos);
+				//sendCopTo(goToPos);
 				rTimer=rMax;
 			}
 		}

@@ -72,11 +72,14 @@ public class Blast extends AdvancedGameObject {
 	void update(GameContainer gc, int delta) {
 		
 		if(this.rightObs||this.leftObs||this.northObs||this.southObs){
-			this.remove = true;
+			//explode(delta);
+			this.damage();
 		}
 
 	}
 
+
+	
 
 	@Override
 	void reset() {
@@ -84,6 +87,7 @@ public class Blast extends AdvancedGameObject {
 	}
 	
 	public void damage(){
+		ParticleFx.addExplosion(this.gamePosition.x, this.gamePosition.y); 
 		this.remove = true;
 	}
 

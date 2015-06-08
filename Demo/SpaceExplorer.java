@@ -29,14 +29,14 @@ public class SpaceExplorer extends AdvancedGameObject{
 	
 	//Player vars
 	private int shotCoolDownTime = 300;
-	private int shotRampUpTime = 700;
+	private int shotRampUpTime = 50;
 	private int shotNumMax = 1;
 	
 	private int jumpMaxTimer = 300;
 	private int jumpNumMax = 3;
-	private float jumpVelocity = -0.2f;
+	private float jumpVelocity = -0.25f;
 	
-	private float runMaxX = 0.20f;
+	private float runMaxX = 0.26f;
 	private float runAccX = 0.0005f;
 	private float runDeAccX = 0.0005f;
 	
@@ -66,7 +66,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		this.checkForCollision = true;
 		this.checkForGravity = true;
 		cond = new Conductor();
-		this.resource1 = 3;
+		this.resource1 = 9;
 		
 
 	}
@@ -83,18 +83,18 @@ public class SpaceExplorer extends AdvancedGameObject{
 		addAnimation("MooYeah.png", 12, 0, 12, 0, 100, "JumpRight");
 		*/
 		
-		addAnimation("SpaceExplorer.png", 1, 0, 1, 0, 100, "StandLeft");
-		addAnimation("SpaceExplorer.png", 0, 0, 0, 0, 100, "StandRight");
-		addAnimation("SpaceExplorer.png", 6, 0, 9, 0, 170, "WalkLeft");
-		addAnimation("SpaceExplorer.png", 2, 0, 5, 0, 170, "WalkRight");
-		addAnimation("SpaceExplorer.png", 1, 0, 1, 0, 100, "ShootLeft");
-		addAnimation("SpaceExplorer.png", 0, 0, 0, 0, 100, "ShootRight");
-		addAnimation("SpaceExplorer.png", 11, 0, 11, 0, 100, "JumpLeft");
-		addAnimation("SpaceExplorer.png", 10, 0, 10, 0, 100, "JumpRight");
-		addAnimation("SpaceExplorer.png", 13, 0, 13, 0, 100, "FallLeft");
-		addAnimation("SpaceExplorer.png", 12, 0, 12, 0, 100, "FallRight");
-		addAnimation("SpaceExplorer.png", 15, 0, 15, 0, 100, "DashLeft");
-		addAnimation("SpaceExplorer.png", 14, 0, 14, 0, 100, "DashRight");
+		addAnimation("Death.png", 5, 0, 9, 0, 200, "StandLeft");
+		addAnimation("Death.png", 0, 0, 4, 0, 200, "StandRight");
+		addAnimation("Death.png", 16, 0, 19, 0, 170, "WalkLeft");
+		addAnimation("Death.png", 12, 0, 15, 0, 170, "WalkRight");
+		addAnimation("Death.png", 11, 0, 11, 0, 100, "ShootLeft");
+		addAnimation("Death.png", 10, 0, 10, 0, 100, "ShootRight");
+		addAnimation("Death.png", 22, 0, 23, 0, 150, "JumpLeft");
+		addAnimation("Death.png", 20, 0, 21, 0, 150, "JumpRight");
+		addAnimation("Death.png", 25, 0, 25, 0, 100, "FallLeft");
+		addAnimation("Death.png", 24, 0, 24, 0, 100, "FallRight");
+		addAnimation("Death.png", 27, 0, 27, 0, 100, "DashLeft");
+		addAnimation("Death.png", 26, 0, 26, 0, 100, "DashRight");
 		//CREATING COMPLEX ANIMATION: DEAD RIGHT
 		SpriteSheet sprite;
 		ResourceHandler rs = new ResourceHandler();
@@ -292,7 +292,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		}
 		
 		//SHOOTING
-		if((dir == 0 || dir == 1) && this.southObs == true&&this.resource1>0){
+		if(this.resource1>0){
 			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 				if(this.shotRampUp==0){
 					this.cond.playSound("charge", 0.6f, 0.1f);
@@ -305,7 +305,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 					this.op.addToPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX(), this.gamePosition.getY() + 16), container, -1, 0));
 					resource1--;
 					shotCoolDown = shotCoolDownTime;
-					this.cond.playSound("shoot", 1, 0.15f);
+					this.cond.playSound("shoot", 0.7f, 0.15f);
 					shotNum--;
 				}
 			}
@@ -317,7 +317,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				dir = 5;
 				setCurrentAnimation("ShootRight");
 				if(this.shotCoolDown <= 0  && shotRampUp >= shotRampUpTime && shotNum > 0){
-					this.cond.playSound("shoot", 1, 0.15f);
+					this.cond.playSound("shoot", 0.68f, 0.15f);
 					resource1--;
 					this.op.addToPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX() + 48, this.gamePosition.getY() + 16), container, 2, 0));
 					shotCoolDown = shotCoolDownTime;
@@ -341,14 +341,14 @@ public class SpaceExplorer extends AdvancedGameObject{
 		if(this.southObs == false && !dashing){
 			if(lastRunDir == 2){
 				dir = 6;
-				if(this.velocityVector.y < 0.16)
+				if(this.velocityVector.y < 0)
 					setCurrentAnimation("JumpLeft");
 				else
 					setCurrentAnimation("FallLeft");
 			}
 			else{
 				dir = 7;
-				if(this.velocityVector.y < 0.16)
+				if(this.velocityVector.y < 0)
 					setCurrentAnimation("JumpRight");
 				else
 					setCurrentAnimation("FallRight");

@@ -100,8 +100,15 @@ public class AdvancedGameObject extends SimpleGameObject{
 			System.out.println(animationName + " NOT FOUND!!!!!!");
 		}
 	}
+	
+	public void resetAnimation(String animationName){
 
-
+		if(spriteMap.containsKey(animationName)&&spriteMap.get(animationName).isStopped()){ 
+			spriteMap.get(animationName).restart();
+		}
+		
+	}
+	
 
 
 	@Override
@@ -129,7 +136,7 @@ public class AdvancedGameObject extends SimpleGameObject{
 		}
 
 		if(currentAnimation != null){
-			currentAnimation.draw(gamePosition.x, gamePosition.y+1);	
+			currentAnimation.draw((int)(gamePosition.x),(int)( gamePosition.y+3));	
 		}
 		
 		

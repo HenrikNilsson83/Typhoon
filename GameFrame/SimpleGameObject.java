@@ -44,12 +44,15 @@ public abstract class SimpleGameObject {
 		height = y;
 	}
 	
+	public SimpleGameObject() {
+		// TODO Auto-generated constructor stub
+	}
+
 	abstract void init(GameContainer gc);
 	abstract void update(GameContainer gc,int delta);
 	abstract void render(GameContainer gc, Graphics g);
 
 	public int getSize() {
-		
 		return size;
 	}
 	

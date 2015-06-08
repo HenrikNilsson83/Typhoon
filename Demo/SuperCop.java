@@ -24,15 +24,15 @@ public class SuperCop extends EnemyGameObject {
 
 	private Vector2f lastPosition;
 
-	
+
 	int mode = 0;
-	
+
 
 	public int engageTimer = 3000;
 	public int engageMax = 3000; 
-	
-	
-	
+
+
+
 
 
 
@@ -58,29 +58,39 @@ public class SuperCop extends EnemyGameObject {
 	void init(GameContainer gc) {
 		//SETTING UP SPRITE&ANIMATION
 
-		addAnimation("LiquidSoldier.png", 20, 0, 23, 0, 150, "WalkLeft");
+		/*addAnimation("LiquidSoldier.png", 20, 0, 23, 0, 150, "WalkLeft");
 		addAnimation("LiquidSoldier.png", 0, 0, 3, 0, 150, "WalkRight");
 		addAnimation("LiquidSoldier.png", 27, 0, 39, 0, 65, "deadLeft",false);
 		addAnimation("LiquidSoldier.png", 7, 0, 19, 0, 65, "deadRight",false);
 		addAnimation("LiquidSoldier.png", 24, 0, 25, 0, 150, "flyLeft");
-		addAnimation("LiquidSoldier.png", 4, 0, 5, 0, 150, "flyRight");
+		addAnimation("LiquidSoldier.png", 4, 0, 5, 0, 150, "flyRight");*/
+		
+		
+		addAnimation("SimpleGreenGuard.png", 6, 0, 9, 0, 150, "WalkLeft");
+		addAnimation("SimpleGreenGuard.png", 2, 0, 5, 0, 150, "WalkRight");
+		addAnimation("SimpleGreenGuard.png", 14, 0, 17, 0, 65, "deadLeft",false);
+		addAnimation("SimpleGreenGuard.png", 10, 0, 13, 0, 65, "deadRight",false);
+		addAnimation("SimpleGreenGuard.png", 19, 0, 19, 0, 150, "flyLeft");
+		addAnimation("SimpleGreenGuard.png", 18, 0, 18, 0, 150, "flyRight");
+		
+		
 		setCurrentAnimation("WalkRight");		
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
 		this.faction = -1;	
 	}
-	
+
 	@Override
 	public void aiBehaviour(GameContainer gc, int delta) {
-		//this.simpleWalk = true;
+		this.simpleWalk = true;
 		//this.jumpAtObstacle = true;
 		//this.shootAtPlayer = true;
-		//this.turnAtGap = true;
-		this.followPlayerPathFinding = true;
-		
+		this.turnAtGap = true;
+		//this.followPlayerPathFinding = true;
+
 	}
-	
+
 
 	@Override
 	void render(GameContainer gc, Graphics g) {
@@ -95,7 +105,7 @@ public class SuperCop extends EnemyGameObject {
 		}
 
 		if(currentAnimation != null){
-			currentAnimation.draw(gamePosition.x, gamePosition.y+1);	
+			currentAnimation.draw((int)(gamePosition.x), (int)(gamePosition.y+1));	
 		}
 
 		if(HP>0){
@@ -112,7 +122,7 @@ public class SuperCop extends EnemyGameObject {
 
 	}
 
-	
+
 
 
 
@@ -161,20 +171,25 @@ public class SuperCop extends EnemyGameObject {
 
 	protected void setAnimation(GameContainer gc, int delta) {
 
-		if(this.velocityVector.x>0){
-			setCurrentAnimation("WalkRight");
-		}
-		else{
-			setCurrentAnimation("WalkLeft");
-		}
-		if(!southObs){
+		if(this.HP>0){
+
+
 			if(this.velocityVector.x>0){
-				setCurrentAnimation("flyRight");
+				setCurrentAnimation("WalkRight");
 			}
 			else{
-				setCurrentAnimation("flyLeft");
+				setCurrentAnimation("WalkLeft");
+			}
+			if(!southObs){
+				if(this.velocityVector.x>0){
+					setCurrentAnimation("flyRight");
+				}
+				else{
+					setCurrentAnimation("flyLeft");
+				}
 			}
 		}
+
 	}
 
 
@@ -206,7 +221,7 @@ public class SuperCop extends EnemyGameObject {
 				setCurrentAnimation("deadRight");
 			}
 			else{
-				setCurrentAnimation("deadRight");
+				setCurrentAnimation("deadLeft");
 			}
 			this.velocityVector.x=0;
 
@@ -215,14 +230,14 @@ public class SuperCop extends EnemyGameObject {
 	}
 
 
-	
-
-
-	
 
 
 
-	
+
+
+
+
+
 
 
 

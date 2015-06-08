@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Physic {
 	private static boolean systemGravity;
-	private float accekeration = 0.03f;
+	private float acceleration = 0.028f*0.028f;
 	private static int tileSize = 16;
 
 	private Vector2f resetPosistion = new Vector2f(0,0);
@@ -191,7 +191,7 @@ public class Physic {
 		for (int i = 0; i < objectList.size(); i++) {
 			if(systemGravity && objectList.get(i).checkForGravity && !objectList.get(i).southObs ){
 				if (objectList.get(i).checkForCollision && objectList.get(i).velocityVector.y < delta) {
-					objectList.get(i).velocityVector.y += delta * this.accekeration * this.accekeration;
+					objectList.get(i).velocityVector.y += delta * this.acceleration ;
 				}
 			}
 
@@ -213,5 +213,10 @@ public class Physic {
 				}
 			}
 		}
+	}
+	
+	public float calculateJumpHeight(float f){
+		
+		return 0;
 	}
 }

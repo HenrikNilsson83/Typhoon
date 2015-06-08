@@ -31,12 +31,12 @@ public class Demo_Level extends WorldObject {
 		
 		multi = 1.9f;
 		this.twilight = false;
-		this.dayLight = false;
+		this.dayLight =	false;
 		night = false;
 		timer = 0;
 		setUpResources();
 		pool = new ObjectPool(0, 0, new Vector2f(0,0));
-		Color light = new Color(1f,1f,1f);
+		Color light = new Color(0.1f,0.1f,1f);
 		scenery = new Scenery(((TileMapResource) resourceHandler.get("Level5.tmx")).getMap(),gc,light);
 		//scenery = new Scenery(((TileMapResource) resourceHandler.get("smalltest.tmx")).getMap(),gc,light);
 		physic = new Physic(true);
@@ -49,9 +49,6 @@ public class Demo_Level extends WorldObject {
 		int x = 128+8;
 		int y = 64+8;
 		this.GUI = new GUI(128+8, 64+8, new Vector2f(gc.getWidth()/2-x/2,0));
-		
-		
-		
 	}
 	
 	public void render(GameContainer gc, Graphics g) {
@@ -158,6 +155,13 @@ public class Demo_Level extends WorldObject {
 		Resource resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
 		
+		id = "Death.png";
+		path = "images/Death.png";
+		xSize = 64;
+		ySize = 64;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
+		
 		/*
 		id = "Mr_Deo.png";
 		path = "images/Mr_Deo.png";
@@ -257,6 +261,12 @@ public class Demo_Level extends WorldObject {
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
 		
+		id = "SimpleGreenGuard.png";
+		path = "images/SimpleGreenGuard.png";
+		xSize = 64;
+		ySize = 64;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
 		
 		id = "MrGray.png";
 		path = "images/MrGray.png";
@@ -282,16 +292,12 @@ public class Demo_Level extends WorldObject {
 		resource = new TileMapResource(id, path);
 		resourceHandler.add(resource);
 		
-		id ="Level52" +
-				".tmx";
-		path = "TileMap/Level52.tmx";
-		resource = new TileMapResource(id, path);
-		resourceHandler.add(resource);
 		
-		id ="smalltest.tmx";
+		
+		/*id ="smalltest.tmx";
 		path = "TileMap/smalltest.tmx";
 		resource = new TileMapResource(id, path);
-		resourceHandler.add(resource);
+		resourceHandler.add(resource);*/
 		/*
 		id ="Level3.tmx";
 		path = "TileMap/Level3.tmx";
