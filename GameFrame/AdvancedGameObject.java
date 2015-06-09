@@ -128,7 +128,7 @@ public class AdvancedGameObject extends SimpleGameObject{
 
 		if(showBorders){
 			g.setColor(borderColor);
-			g.drawRect(this.gamePosition.x, this.gamePosition.y, width, height);
+			g.drawRect(this.hitbox.getXPos(), this.hitbox.yPos, this.hitbox.getWidth(), this.hitbox.getHeight());
 		}
 		if(showFillRect){
 			g.setColor(fillRectColor);
@@ -136,7 +136,7 @@ public class AdvancedGameObject extends SimpleGameObject{
 		}
 
 		if(currentAnimation != null){
-			currentAnimation.draw((int)(gamePosition.x),(int)( gamePosition.y+3));	
+			currentAnimation.draw((int)(gamePosition.x),(int)( gamePosition.y));	
 		}
 		
 		

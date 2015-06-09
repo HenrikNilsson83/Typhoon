@@ -47,7 +47,7 @@ public class Scenery {
 
 	public boolean getBlocked(int x,int y){
 		if(x>=WIDTH||y>=HEIGHT||x<0||y<0){
-			return false;
+			return true;
 		}
 		return this.isBlocked[x][y];
 	}
@@ -111,6 +111,22 @@ public class Scenery {
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
 						op.addToPool(new SuperCop(64, 64, new Vector2f(px,py),container));
+					}
+					if(tempString.equals("2")){
+					}
+				}
+			}
+			
+			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
+				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
+
+					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
+
+					if(tempString.equals("angel")){
+
+						int px = tiledmap.getObjectX(i, j);
+						int py = tiledmap.getObjectY(i, j);
+						op.addToPool(new Angel(64, 64, new Vector2f(px,py),container));
 					}
 					if(tempString.equals("2")){
 					}

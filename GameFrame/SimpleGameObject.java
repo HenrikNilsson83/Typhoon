@@ -30,18 +30,22 @@ public abstract class SimpleGameObject {
 	public float data1;
 	public float data2;
 	public float data3;
+	public Hitbox hitbox;
 	
-	public SimpleGameObject(int x,int y, Vector2f pos){
+	public SimpleGameObject(int w,int h, Vector2f pos){
 		if(pos !=null){
 			gamePosition = new Vector2f(pos.x,pos.y);
 			lastGamePosition = new Vector2f(pos.x,pos.y);
+			this.hitbox = new Hitbox(w,h,(int)(pos.x),(int)(pos.y));
 		}
 		else{
 			gamePosition = null;
+			this.hitbox = new Hitbox(w,h,0,0);
 		}
 		velocityVector = new Vector2f(0,0);
-		width = x;
-		height = y;
+		width = w;
+		height = h;
+		
 	}
 	
 	public SimpleGameObject() {

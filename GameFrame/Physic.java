@@ -73,6 +73,12 @@ public class Physic {
 		}
 	}
 
+	private SimpleGameObject updateHitbox(SimpleGameObject sGO){
+		sGO.hitbox.setXPos(sGO.gamePosition.x);
+		sGO.hitbox.setYPos(sGO.gamePosition.y);
+		return sGO;
+	}
+
 	private void checkStuck(ArrayList<SimpleGameObject> objectList, int delta) {
 		Scenery s = new Scenery();
 		SimpleGameObject sGO;
@@ -81,46 +87,61 @@ public class Physic {
 		for (int i = 0; i < objectList.size(); i++) {
 			sGO = objectList.get(i);
 			if (sGO.checkForCollision) {
-
+				sGO = this.updateHitbox(sGO);
 				sGO.setSouthObs(false);
 				sGO.setNorthObs(false);
 				sGO.setLeftObs(false);
 				sGO.setRightObs(false);
 				
-				if(isBlocked(sGO.gamePosition.x, sGO.gamePosition.y, sGO.size, sGO.size, s)){
+				if(isBlocked(sGO.hitbox, s)){
 
 					resetPosistion.x = sGO.gamePosition.x;
 					resetPosistion.y = sGO.gamePosition.y;
+					
+					sGO.hitbox.setXPos(resetPosistion.x);
 
 					sGO.gamePosition.x = sGO.lastGamePosition.x;
-
-					while(isBlocked(sGO.gamePosition.x, sGO.gamePosition.y, sGO.size, sGO.size, s) && sGO.velocityVector.y != 0){
+					sGO = this.updateHitbox(sGO);
+					while(isBlocked(sGO.hitbox, s) && sGO.velocityVector.y != 0){
 						if (sGO.velocityVector.y >= 0){
 							sGO.gamePosition.y = (float) Math.ceil(sGO.gamePosition.y);
 							sGO.gamePosition.y -= 1;
+							sGO = this.updateHitbox(sGO);
 						}
 						else {
 							sGO.gamePosition.y = (float) Math.floor(sGO.gamePosition.y);
 							sGO.gamePosition.y += 1;
+							sGO = this.updateHitbox(sGO);
 						}
 					}
 
 					sGO.gamePosition.x = resetPosistion.x;
-					while(isBlocked(sGO.gamePosition.x, sGO.gamePosition.y, sGO.size, sGO.size, s)){
+					sGO = this.updateHitbox(sGO);
+					while(isBlocked(sGO.hitbox,s)){
 						if (sGO.velocityVector.x >= 0){
 							sGO.gamePosition.x = (float) Math.ceil(sGO.gamePosition.x);
 							sGO.gamePosition.x -= 1;
+							sGO = this.updateHitbox(sGO);
 						}
 						else {
 							sGO.gamePosition.x = (float) Math.floor(sGO.gamePosition.x);
 							sGO.gamePosition.x += 1;
+							sGO = this.updateHitbox(sGO);
 						}
 					}
 				}
-				boolean top 	= isBlocked(sGO.gamePosition.x + distToWallCheck, sGO.gamePosition.y - distToWallCheck, sGO.size - (distToWallCheck * 2), distToWallCheck * 2, s);
-				boolean bottom 	= isBlocked(sGO.gamePosition.x + distToWallCheck, sGO.gamePosition.y + sGO.size - distToWallCheck, sGO.size - (distToWallCheck * 2), distToWallCheck * 2, s);
-				boolean left 	= isBlocked(sGO.gamePosition.x - distToWallCheck, sGO.gamePosition.y + distToWallCheck, distToWallCheck * 2, sGO.size - (distToWallCheck * 2), s);
-				boolean right	= isBlocked(sGO.gamePosition.x + sGO.size - distToWallCheck, sGO.gamePosition.y + distToWallCheck, distToWallCheck * 2, sGO.size - (distToWallCheck * 2), s);
+				//int w,int h,float x,float y
+				Hitbox tempBox = new Hitbox( sGO.hitbox.getWidth() - (distToWallCheck * 2), distToWallCheck * 2,sGO.hitbox.getXPos() + distToWallCheck, sGO.hitbox.getYPos() - distToWallCheck);
+				boolean top 	= isBlocked(tempBox, s);
+				
+				tempBox = new Hitbox(sGO.hitbox.getWidth() - (distToWallCheck * 2), distToWallCheck * 2,sGO.hitbox.getXPos() + distToWallCheck, sGO.hitbox.getYPos() + sGO.hitbox.height - distToWallCheck);
+				boolean bottom 	= isBlocked(tempBox, s);
+				
+				tempBox = new Hitbox(distToWallCheck * 2, sGO.hitbox.getWidth() - (distToWallCheck * 2),sGO.hitbox.getXPos() - distToWallCheck, sGO.hitbox.getYPos() + distToWallCheck);
+				boolean left = isBlocked(tempBox,s);
+				
+				tempBox = new Hitbox(distToWallCheck * 2, sGO.hitbox.getWidth() - (distToWallCheck * 2),sGO.hitbox.getXPos() + sGO.hitbox.getWidth() - distToWallCheck, sGO.hitbox.getYPos() + distToWallCheck);
+				boolean right	= isBlocked(tempBox,s);
 
 				if(bottom){
 					sGO.setSouthObs(true);
@@ -149,7 +170,7 @@ public class Physic {
 			}
 		}
 	}
-	
+
 	private boolean isBlocked(float x, float y, int sizex, int sizey, Scenery s) {
 
 		boolean isInCollision = false;
@@ -174,12 +195,49 @@ public class Physic {
 		if (isBlocked[0].length < yAxis + yMax) {
 			yMax = isBlocked[1].length - yAxis;
 		}
-		
+
 		for (int xRange = 0; xRange < xMax; xRange++) {
 
 			for (int yRange = 0; yRange < yMax; yRange++) {
 				Rectangle block = new Rectangle(xAxis * tileSize + xRange * tileSize, yAxis * tileSize + yRange * tileSize, tileSize, tileSize);
 				if (player.intersects(block) && isBlocked[xAxis + xRange][yAxis + yRange]) {
+					return true;
+				}
+			}
+		}
+		return isInCollision;
+	}
+
+	private boolean isBlocked(Hitbox hb, Scenery s) {
+
+		boolean isInCollision = false;
+		Rectangle player = new Rectangle(hb.getXPos() ,hb.getYPos() ,hb.getWidth() ,hb.height );
+		boolean[][] isBlocked = s.getBlocked();
+		int xAxis = (int) (hb.getXPos() / tileSize);
+		int yAxis = (int) (hb.getYPos() / tileSize);
+		int xMax = 12;
+		int yMax = 12;
+		xAxis -= 3;
+		yAxis -= 3;
+		/*if (xAxis < 0) {
+			xAxis = 0;
+		}
+		if (yAxis < 0) {
+			yAxis = 0;
+		}*/
+
+		if (isBlocked.length <= xAxis + xMax) {
+			xMax = isBlocked.length - xAxis;
+		}
+		if (isBlocked[0].length < yAxis + yMax) {
+			yMax = isBlocked[1].length - yAxis;
+		}
+
+		for (int xRange = 0; xRange < xMax; xRange++) {
+
+			for (int yRange = 0; yRange < yMax; yRange++) {
+				Rectangle block = new Rectangle(xAxis * tileSize + xRange * tileSize, yAxis * tileSize + yRange * tileSize, tileSize, tileSize);
+				if (player.intersects(block) && s.getBlocked(xAxis + xRange,yAxis + yRange)) {
 					return true;
 				}
 			}
@@ -194,7 +252,7 @@ public class Physic {
 					objectList.get(i).velocityVector.y += delta * this.acceleration ;
 				}
 			}
-
+			
 			objectList.get(i).lastGamePosition.x = objectList.get(i).gamePosition.x;
 			objectList.get(i).lastGamePosition.y = objectList.get(i).gamePosition.y;
 			objectList.get(i).gamePosition.x += delta * objectList.get(i).velocityVector.x;
@@ -214,9 +272,9 @@ public class Physic {
 			}
 		}
 	}
-	
+
 	public float calculateJumpHeight(float f){
-		
+
 		return 0;
 	}
 }

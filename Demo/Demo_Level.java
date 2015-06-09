@@ -49,6 +49,7 @@ public class Demo_Level extends WorldObject {
 		int x = 128+8;
 		int y = 64+8;
 		this.GUI = new GUI(128+8, 64+8, new Vector2f(gc.getWidth()/2-x/2,0));
+		pool.addToPool(new SnowFall(0,0,0));
 	}
 	
 	public void render(GameContainer gc, Graphics g) {
@@ -64,7 +65,7 @@ public class Demo_Level extends WorldObject {
 		pool.update(gc, delta);
 		physic.update(delta);
 		scenery.update(delta);
-		cond.loopMusic("dawn", 0.8f);
+		cond.loopMusic("dawn", 0.0f);
 		//cond.loopMusic("too_quiet_in_here", 0.8f);
 		//pool.updateGUI();
 		GUI.guiContent(gc, delta);
@@ -179,6 +180,13 @@ public class Demo_Level extends WorldObject {
 		*/
 		id = "patrol.png";
 		path = "images/patrol.png";
+		xSize = 64;
+		ySize = 64;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
+		
+		id = "Angel.png";
+		path = "images/Angel.png";
 		xSize = 64;
 		ySize = 64;
 		resource = new SpriteResource(id, path, xSize, ySize);

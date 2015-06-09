@@ -18,10 +18,10 @@ public class Camera {
 	protected int numTilesY;
 
 	/** the height of the map in pixel */
-	protected int mapHeight;
+	protected static int mapHeight;
 
 	/** the width of the map in pixel */
-	protected int mapWidth;
+	protected static int mapWidth;
 
 	/** the width of one tile of the map in pixel */
 	protected int tileWidth;
