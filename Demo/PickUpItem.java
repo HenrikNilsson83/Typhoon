@@ -5,8 +5,8 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class PickUpItem extends AdvancedGameObject{
 
-	public PickUpItem(int x, int y, Vector2f pos, GameContainer gc) {
-		super(x, y, pos, gc);
+	public PickUpItem(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
+		super(x, y, pos, gc, objPool);
 		size = 64;
 		init(gc);
 		jump = false;

@@ -9,16 +9,14 @@ import org.newdawn.slick.particles.ConfigurableEmitter.SimpleValue;
 import org.newdawn.slick.particles.ParticleIO;
 import org.newdawn.slick.particles.ParticleSystem;
 
-
-
 public class ParticleFx extends SimpleGameObject {
 
 	private static ConfigurableEmitter smallExplosionEmitter; // initial explosion - will be duplicated and placed as needed
 	private static ConfigurableEmitter rain; // initial explosion - will be duplicated and placed as needed
 	private static ParticleSystem effectSystem; // stores all particle effects
-	public boolean first = true;;
-	public ParticleFx(int x, int y, Vector2f pos) {
-		super(x, y, pos);
+	public boolean first = true;
+	public ParticleFx(int x, int y, Vector2f pos, ObjectPool objPool) {
+		super(x, y, pos, objPool);
 		init();
 	}
 
@@ -98,8 +96,8 @@ public class ParticleFx extends SimpleGameObject {
 		effectSystem.setRemoveCompletedEmitters(true);
 		
 		if(Math.random()<-1){
-			ObjectPool op = new ObjectPool();
-			SimpleGameObject p = op.getFriendlyList().get(0);
+			//ObjectPool op = new ObjectPool();
+			SimpleGameObject p = this.objPool.getCollisionPool().get(0);
 			double rng = Math.random();
 			System.out.println(effectSystem.getEmitterCount());
 			if(rng<0.3)

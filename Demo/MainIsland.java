@@ -9,7 +9,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class MainIsland extends BasicGameState {
 	ResourceHandler resourceHandler;
 	//private static Pirate p;
-	ObjectPool pool;
+	ObjectPool pool;			//Needed?!
 	Physic physic;
 	Scenery scenery;
 	Demo_Level wObj;

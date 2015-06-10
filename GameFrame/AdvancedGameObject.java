@@ -32,16 +32,16 @@ public class AdvancedGameObject extends SimpleGameObject{
 	protected boolean showFillRect = false;
 	protected Color fillRectColor = Color.blue;
 
-	public AdvancedGameObject(int x, int y, Vector2f pos, GameContainer gc) {
-		super(x, y, pos);
+	public AdvancedGameObject(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
+		super(x, y, pos, objPool);
 		init(gc);
 		gc = container;
 	}
 
 
 
-	public AdvancedGameObject(int x, int y, Vector2f pos) {
-		super(x,y,pos);
+	public AdvancedGameObject(int x, int y, Vector2f pos, ObjectPool objPool) {
+		super(x,y,pos, objPool);
 	}
 
 

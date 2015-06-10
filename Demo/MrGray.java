@@ -55,8 +55,8 @@ public class MrGray extends AdvancedGameObject {
 	private boolean b = true;
 
 
-	public MrGray(int x, int y, Vector2f pos, GameContainer gc) {
-		super(x, y/2, pos, gc);
+	public MrGray(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
+		super(x, y/2, pos, gc, objPool);
 		size = 64;
 		jump = false;
 		this.idString = "SimpleEnemy";
@@ -701,9 +701,10 @@ public class MrGray extends AdvancedGameObject {
 			float v = getDirectionToTarget(target);
 			//BUGG MED -1 i BLAST
 			Vector2f mouth = new Vector2f(this.gamePosition.x+32,this.gamePosition.y+16);
-			Blast b = new Blast(6,6 ,mouth,gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))));
-			ObjectPool op = new ObjectPool();
-			op.addToPool(b);
+			Blast b = new Blast(6,6 ,mouth,gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))), objPool);
+			//ObjectPool op = new ObjectPool();
+			this.objPool.addToCollisionPool(b);
+			//op.addToPool(b);
 			reCharge=0;
 		}
 		this.reCharge(delta);

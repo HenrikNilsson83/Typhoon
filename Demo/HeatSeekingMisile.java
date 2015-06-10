@@ -12,8 +12,8 @@ public class HeatSeekingMisile extends AdvancedGameObject {
 	private int lifeTime = 5000;
 
 
-	public HeatSeekingMisile(SimpleGameObject target, Vector2f pos, GameContainer gc,int fact,Vector2f vec) {
-		super(6, 6, pos, gc);
+	public HeatSeekingMisile(SimpleGameObject target, Vector2f pos, GameContainer gc,int fact,Vector2f vec, ObjectPool objPool) {
+		super(6, 6, pos, gc, objPool);
 		//blast = new Rectangle(pos.x,pos.y,x,y);
 		size =6;
 		init(gc);

@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -16,22 +18,23 @@ public class Physic {
 		systemGravity = gravity;
 	}
 
-	public void update(int delta) {
-		ObjectPool op = new ObjectPool();
-		ArrayList<SimpleGameObject> objectList = op.getList();
+	public void update(int delta, ObjectPool objPool) {
+		//ObjectPool op = new ObjectPool();
+		ConcurrentHashMap<SimpleGameObject,SimpleGameObject> collisionPool = objPool.getCollisionPool();
 
 		// MOVE
-		move(objectList, delta);
+		move(collisionPool, delta);
 
 		// CHECK STUCK
-		checkStuck(objectList, delta);
+		checkStuck(collisionPool, delta);
 
 		// Check Damage
-		checkDamage(delta);
+		checkDamage(collisionPool, delta);
 	}
 
-	private void checkDamage(int delta) {
-
+	private void checkDamage(ConcurrentHashMap<SimpleGameObject,SimpleGameObject> collisionPool, int delta) {
+		//REMAKE AFTER THE OTHER SHIT WORKS!!!!!
+		/*
 		ObjectPool op = new ObjectPool();
 		ArrayList<SimpleGameObject> heroList = op.getFriendlyList();
 		ArrayList<SimpleGameObject> hostileList = op.getHostilelyList();
@@ -71,6 +74,7 @@ public class Physic {
 				}
 			}
 		}
+		*/
 	}
 
 	private SimpleGameObject updateHitbox(SimpleGameObject sGO){
@@ -79,13 +83,15 @@ public class Physic {
 		return sGO;
 	}
 
-	private void checkStuck(ArrayList<SimpleGameObject> objectList, int delta) {
+	// här ska nog inte check for col kollas då det är uppenbart att det ska kontrolleras??!?!?
+	private void checkStuck(ConcurrentHashMap<SimpleGameObject,SimpleGameObject> collisionPool, int delta) {
 		Scenery s = new Scenery();
 		SimpleGameObject sGO;
 		int distToWallCheck = 1;
-
-		for (int i = 0; i < objectList.size(); i++) {
-			sGO = objectList.get(i);
+		Iterator<SimpleGameObject> itCol = collisionPool.keySet().iterator();
+		while(itCol.hasNext()){
+		//for (int i = 0; i < objectList.size(); i++) {
+			sGO = itCol.next();
 			if (sGO.checkForCollision) {
 				sGO = this.updateHitbox(sGO);
 				sGO.setSouthObs(false);
@@ -244,19 +250,22 @@ public class Physic {
 		}
 		return isInCollision;
 	}
-
-	private void move(ArrayList<SimpleGameObject> objectList, int delta) {
-		for (int i = 0; i < objectList.size(); i++) {
-			if(systemGravity && objectList.get(i).checkForGravity && !objectList.get(i).southObs ){
-				if (objectList.get(i).checkForCollision && objectList.get(i).velocityVector.y < delta) {
-					objectList.get(i).velocityVector.y += delta * this.acceleration ;
+	
+	//Antar att nonCol ska gås igenom här med
+	private void move(ConcurrentHashMap<SimpleGameObject,SimpleGameObject> collisionPool, int delta) {
+		SimpleGameObject sGO;
+		Iterator<SimpleGameObject> itCol = collisionPool.keySet().iterator();
+		while(itCol.hasNext()){
+			sGO = itCol.next();
+			if(systemGravity && sGO.checkForGravity && !sGO.southObs ){
+				if (sGO.checkForCollision && sGO.velocityVector.y < delta) {
+					sGO.velocityVector.y += delta * this.acceleration ;
 				}
 			}
-			
-			objectList.get(i).lastGamePosition.x = objectList.get(i).gamePosition.x;
-			objectList.get(i).lastGamePosition.y = objectList.get(i).gamePosition.y;
-			objectList.get(i).gamePosition.x += delta * objectList.get(i).velocityVector.x;
-			objectList.get(i).gamePosition.y += delta * objectList.get(i).velocityVector.y;
+			sGO.lastGamePosition.x = sGO.gamePosition.x;
+			sGO.lastGamePosition.y = sGO.gamePosition.y;
+			sGO.gamePosition.x += delta * sGO.velocityVector.x;
+			sGO.gamePosition.y += delta * sGO.velocityVector.y;
 		}
 	}
 

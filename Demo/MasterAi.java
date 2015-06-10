@@ -17,9 +17,9 @@ public class MasterAi extends AdvancedGameObject {
 	private GameContainer gc;
 	private int dropTimer = 10000;
 	private int dropTimeMax = 10000;
-	public MasterAi(int x, int y, Vector2f pos, GameContainer gc) {
+	public MasterAi(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
 		
-		super(x, y, pos, gc);
+		super(x, y, pos, gc, objPool);
 		target = null;
 		this.gc = gc;
 		this.faction = -1;
@@ -30,12 +30,15 @@ public class MasterAi extends AdvancedGameObject {
 		
 	}
 	
+	//THIS WILL BE FIXED LATER WHEN STUFF WORKS AGAIN!
 	@Override
 	void update(GameContainer gc, int delta) {
 		//SET TARGET AND SEE IF ANY MINIONS ARE DEAD
+		
+		/*
 		if(target!=null){
 			
-			ObjectPool op = new ObjectPool();
+			//ObjectPool op = new ObjectPool();
 			lastPoolSize = op.size;
 			minions = op.getHostilelyList();
 			for(int i = 0; i<this.minions.size();i++){
@@ -77,8 +80,9 @@ public class MasterAi extends AdvancedGameObject {
 		if(Math.random()<1.0/15.0){
 			attention*=0.99f;
 		}
+		*/
 	}
-	
+	/*
 	private void sendDropToPlayer() {
 		ObjectPool op = new ObjectPool();
 		ArrayList<SimpleGameObject> minion = op.getHostilelyList();
@@ -132,5 +136,5 @@ public class MasterAi extends AdvancedGameObject {
 	public void setTarget(SimpleGameObject t){
 		target = t;
 	}
-
+	 */
 }

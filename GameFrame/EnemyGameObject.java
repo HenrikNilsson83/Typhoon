@@ -71,8 +71,8 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 	protected boolean followPlayerPathFinding;
 	protected boolean shootAtPlayer;
 
-	public EnemyGameObject(int x, int y, Vector2f pos, GameContainer gc) {
-		super(x, y, pos);
+	public EnemyGameObject(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
+		super(x, y, pos, objPool);
 		//GROUP 1
 		followPlayerPathFinding = false;
 		followPlayerSimple = false;
@@ -89,8 +89,8 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 
 
 
-	public EnemyGameObject(int x, int y, Vector2f pos) {
-		super(x,y,pos);
+	public EnemyGameObject(int x, int y, Vector2f pos, ObjectPool objPool) {
+		super(x,y,pos, objPool);
 	}
 
 	void addAnimation(String filename, int x1, int y1, int x2, int y2, int duration, String animationName){
@@ -486,9 +486,10 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 			float v = getDirectionToTarget(target);
 			//BUGG MED -1 i BLAST
 			Vector2f mouth = new Vector2f(this.gamePosition.x+32,this.gamePosition.y+16);
-			Blast b = new Blast(6,6 ,mouth,gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))));
-			ObjectPool op = new ObjectPool();
-			op.addToPool(b);
+			Blast b = new Blast(6,6 ,mouth,gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))), objPool);
+			//ObjectPool op = new ObjectPool();
+			this.objPool.addToCollisionPool(b);
+			//op.addToPool(b);
 			reCharge=0;
 		}
 		this.reCharge(delta);

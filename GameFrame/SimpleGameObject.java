@@ -31,8 +31,9 @@ public abstract class SimpleGameObject {
 	public float data2;
 	public float data3;
 	public Hitbox hitbox;
+	protected ObjectPool objPool;   //Kanske ska ha till vilken Level objectet tillhör istället??!?
 	
-	public SimpleGameObject(int w,int h, Vector2f pos){
+	public SimpleGameObject(int w,int h, Vector2f pos, ObjectPool objPool){
 		if(pos !=null){
 			gamePosition = new Vector2f(pos.x,pos.y);
 			lastGamePosition = new Vector2f(pos.x,pos.y);
@@ -45,6 +46,7 @@ public abstract class SimpleGameObject {
 		velocityVector = new Vector2f(0,0);
 		width = w;
 		height = h;
+		this.objPool = objPool;
 		
 	}
 	

@@ -17,9 +17,9 @@ public class MovingPlattform extends AdvancedGameObject {
 	private Rectangle zone;
 	private Rectangle p;
 	private boolean debugg = false;
-	public MovingPlattform(int x, int y, Vector2f pos) {
+	public MovingPlattform(int x, int y, Vector2f pos, ObjectPool objPool) {
 		
-		super(x, y, pos);
+		super(x, y, pos, objPool);
 		this.checkForCollision =false;
 		this.checkForGravity = false;
 		this.faction = 0;
@@ -39,9 +39,9 @@ public class MovingPlattform extends AdvancedGameObject {
 	@Override
 	void update(GameContainer gc, int delta) {
 		
-		ObjectPool op = new ObjectPool();
+		//ObjectPool op = new ObjectPool();
 		// GET THE PLAYER 
-		SimpleGameObject player = op.getFriendlyList().get(0);
+		SimpleGameObject player = this.objPool.mainChar;
 		p = new Rectangle(player.gamePosition.x,player.gamePosition.y+62,player.width,7);
 		zone = new Rectangle(this.gamePosition.x,this.gamePosition.y,this.width,3);
 		if(player.velocityVector.y>0&&p.intersects(zone)){

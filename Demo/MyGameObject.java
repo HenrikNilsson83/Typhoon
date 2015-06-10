@@ -6,8 +6,8 @@ import org.newdawn.slick.geom.Vector2f;
 public abstract class MyGameObject extends SimpleGameObject {
 	
 	Light light;
-	public MyGameObject(int x, int y,Vector2f gamePosition) {
-		super(x, y, gamePosition);
+	public MyGameObject(int x, int y,Vector2f gamePosition, ObjectPool objPool) {
+		super(x, y, gamePosition, objPool);
 	}
 
 	@Override

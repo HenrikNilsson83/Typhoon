@@ -25,8 +25,8 @@ public class AlphaMap extends SimpleGameObject {
 	float B;
 	float brightness =1.7f;
 	
-	public AlphaMap(GameContainer container){
-		super(0, 0, new Vector2f(0,0));
+	public AlphaMap(GameContainer container, ObjectPool objPool){
+		super(0, 0, new Vector2f(0,0), objPool);
 		//sl = new SearchLight(25,25);
 		//init(container);
 		//this.WIDTH = container.getWidth();
@@ -40,8 +40,8 @@ public class AlphaMap extends SimpleGameObject {
 	}
 	
 	
-	public AlphaMap(GameContainer container, Color color) {
-		super(0, 0, new Vector2f(0,0));
+	public AlphaMap(GameContainer container, Color color, ObjectPool objPool) {
+		super(0, 0, new Vector2f(0,0), objPool);
 		sl = new SearchLight(25,25);
 		init(container);
 		this.WIDTH = container.getWidth();

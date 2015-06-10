@@ -35,21 +35,22 @@ public class Demo_Level extends WorldObject {
 		night = false;
 		timer = 0;
 		setUpResources();
-		pool = new ObjectPool(0, 0, new Vector2f(0,0));
+		//pool = new ObjectPool(0, 0, new Vector2f(0,0));
+		pool = new ObjectPool();
 		Color light = new Color(0.1f,0.1f,1f);
-		scenery = new Scenery(((TileMapResource) resourceHandler.get("Level5.tmx")).getMap(),gc,light);
+		scenery = new Scenery(((TileMapResource) resourceHandler.get("Level5.tmx")).getMap(),gc,light,pool);
 		//scenery = new Scenery(((TileMapResource) resourceHandler.get("smalltest.tmx")).getMap(),gc,light);
 		physic = new Physic(true);
 		
 		//SET UP MASTER-AI
-		ma = new MasterAi(0, 0, new Vector2f(0,0), gc);
-		SimpleGameObject t = pool.getFriendlyList().get(0);
+		ma = new MasterAi(0, 0, new Vector2f(0,0), gc, pool);
+		SimpleGameObject t = pool.getCollisionPool().get(0);
 		ma.setTarget(t);
-		pool.addToPool(ma);
+		pool.addToCollisionPool(ma);
 		int x = 128+8;
 		int y = 64+8;
-		this.GUI = new GUI(128+8, 64+8, new Vector2f(gc.getWidth()/2-x/2,0));
-		pool.addToPool(new SnowFall(0,0,0));
+		this.GUI = new GUI(128+8, 64+8, new Vector2f(gc.getWidth()/2-x/2,0), pool);
+		pool.addToNonCollisionPool(new SnowFall(0,0,0, pool));
 	}
 	
 	public void render(GameContainer gc, Graphics g) {
@@ -63,7 +64,7 @@ public class Demo_Level extends WorldObject {
 	}
 	public void update(GameContainer gc, int delta) {
 		pool.update(gc, delta);
-		physic.update(delta);
+		physic.update(delta, pool);
 		scenery.update(delta);
 		cond.loopMusic("dawn", 0.0f);
 		//cond.loopMusic("too_quiet_in_here", 0.8f);

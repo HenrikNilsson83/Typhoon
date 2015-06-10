@@ -8,7 +8,7 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path;
-
+/*
 public class SmallMonster extends AdvancedGameObject {
 
 	private Vector2f lastPosition;
@@ -86,12 +86,6 @@ public class SmallMonster extends AdvancedGameObject {
 		}
 	}
 	
-	/*
-	@Override
-	void render(GameContainer gc, Graphics g) {
-		this.animationList.get(dir).draw(this.gamePosition.x,this.gamePosition.y);
-	}
-	 */
 	@Override
 	void reset() {
 		gamePosition.x = lastPosition.x;
@@ -107,3 +101,4 @@ public class SmallMonster extends AdvancedGameObject {
 	}
 
 }
+*/

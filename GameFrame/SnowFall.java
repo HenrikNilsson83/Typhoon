@@ -16,13 +16,15 @@ public class SnowFall extends SimpleGameObject {
 	int maxFlakes;
 	int mapHeight;
 	
-	public SnowFall(int x,int y,int s){
+	public SnowFall(int x,int y,int s, ObjectPool objPool){
+		this.objPool = objPool;
 		this.gamePosition = new Vector2f(x,y);
 		this.size = s;
 		this.checkForCollision = false;
 		this.checkForGravity = false;
-		ObjectPool op = new ObjectPool();
-		target = op.getFriendlyList().get(0);
+		//ObjectPool op = new ObjectPool();
+		ObjectPool op = this.objPool;
+		target = op.mainChar;
 		snow = new ArrayList<SnowFlake>();
 		this.lastGamePosition = new Vector2f(0,0);
 		this.velocityVector = new Vector2f(0,0);

@@ -27,8 +27,8 @@ public class Patrol extends AdvancedGameObject {
 	private int extendedRange = 1;
 
 
-	public Patrol(int x, int y, Vector2f pos, GameContainer gc) {
-		super(x, y, pos, gc);
+	public Patrol(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
+		super(x, y, pos, gc, objPool);
 		size = 64;
 		jump = false;
 		this.idString = "SimpleEnemy";
@@ -147,9 +147,10 @@ public class Patrol extends AdvancedGameObject {
 			float v = getDirectionToTarget(target);
 			//BUGG MED -1 i BLAST
 			Vector2f mouth = new Vector2f(this.gamePosition.x+32,this.gamePosition.y+16);
-			HeatSeekingMisile b = new HeatSeekingMisile(target,mouth, gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))));
-			ObjectPool op = new ObjectPool();
-			op.addToPool(b);
+			HeatSeekingMisile b = new HeatSeekingMisile(target,mouth, gc,-2,new Vector2f((float)(1*Math.cos(v)),(float) (1*Math.sin(v))), objPool);
+			//ObjectPool op = new ObjectPool();
+			this.objPool.addToCollisionPool(b);
+			//op.addToPool(b);
 			reCharge=0;
 		}
 	}

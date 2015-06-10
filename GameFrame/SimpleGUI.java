@@ -11,8 +11,8 @@ public abstract class SimpleGUI extends MyGameObject {
 	private Rectangle back;
 	private int hight;
 	private Camera cam = new Camera();
-	public SimpleGUI(int x, int y, Vector2f gamePosition) {
-		super(x, y, gamePosition);
+	public SimpleGUI(int x, int y, Vector2f gamePosition, ObjectPool objPool) {
+		super(x, y, gamePosition, objPool);
 		// TODO Auto-generated constructor stub
 		width = x;
 		hight = y;

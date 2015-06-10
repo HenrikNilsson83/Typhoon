@@ -12,7 +12,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 
 	private int dir;
 	private Vector2f lastPosition;
-	private ObjectPool op;
+	//private ObjectPool op;
 	private GameContainer container;
 	private GUI gui;
 	MouseInput mIn;
@@ -52,15 +52,15 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private boolean crouchkeyPressed = false;
 
 
-	public SpaceExplorer(int x, int y, Vector2f gamePosition, GameContainer gc) {
-		super(x, y, gamePosition, gc);
+	public SpaceExplorer(int x, int y, Vector2f gamePosition, GameContainer gc, ObjectPool objPool){
+		super(x, y, gamePosition, gc, objPool);
 		mIn = new MouseInput(0,0,gc);
 		dir = 0;
 		size = 64;
 		lastPosition = new Vector2f(x,y);
 		jump = false;
 		this.idString ="BODY_male";
-		op = new ObjectPool();
+		//op = new ObjectPool();
 		light = new SearchLight(0,0);
 		setLight(light);
 		this.checkForCollision = true;
@@ -314,7 +314,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				setCurrentAnimation("ShootLeft");
 
 				if(this.shotCoolDown <= 0 && shotRampUp >= shotRampUpTime && shotNum > 0){
-					this.op.addToPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX(), this.gamePosition.getY() + 16), container, -1, 0));
+					this.objPool.addToCollisionPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX(), this.gamePosition.getY() + 16), container, -1, 0, objPool));
 					resource1--;
 					shotCoolDown = shotCoolDownTime;
 					this.cond.playSound("shoot", 0.7f, 0.15f);
@@ -331,7 +331,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 				if(this.shotCoolDown <= 0  && shotRampUp >= shotRampUpTime && shotNum > 0){
 					this.cond.playSound("shoot", 0.68f, 0.15f);
 					resource1--;
-					this.op.addToPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX() + 48, this.gamePosition.getY() + 16), container, 2, 0));
+					this.objPool.addToCollisionPool(new Blast(8, 8, new Vector2f(this.gamePosition.getX() + 48, this.gamePosition.getY() + 16), container, 2, 0, objPool));
 					shotCoolDown = shotCoolDownTime;
 					shotNum--;
 				}
@@ -385,7 +385,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 	}
 	private void addParticle(GameContainer gc, int delta) {
 		if(this.dashing){
-			ParticleFx.addExplosion(this.gamePosition.x+size/2, this.gamePosition.y+size);
+			//ParticleFx.addExplosion(this.gamePosition.x+size/2, this.gamePosition.y+size);
 		}
 
 
@@ -462,9 +462,9 @@ public class SpaceExplorer extends AdvancedGameObject{
 		int xW =250;
 		int yH = 70;
 		Camera cam = new Camera();
-		gui = new GUI(xW,yH, new Vector2f(cam.getDisplayWidth()/2-xW/2,25)) ;
-		ObjectPool op = new ObjectPool();
-		op.addGUI(gui);
+		gui = new GUI(xW,yH, new Vector2f(cam.getDisplayWidth()/2-xW/2,25), objPool) ;
+		//ObjectPool op = new ObjectPool();
+		this.objPool.addToNonCollisionPool(gui);
 
 	}	
 

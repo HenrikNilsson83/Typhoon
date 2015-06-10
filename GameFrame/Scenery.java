@@ -18,11 +18,11 @@ public class Scenery {
 	public static int HEIGHT;
 	public static int WIDTH;
 	public static AlphaMap alphaMap;
+	private ObjectPool objectPool;
 
 
-
-	public Scenery(TiledMap map,GameContainer gc,Color c) {
-
+	public Scenery(TiledMap map,GameContainer gc,Color c, ObjectPool objPool) {
+		this.objectPool = objPool;
 		this.size = map.getTileHeight();
 		isBlocked = new boolean[map.getWidth()][map.getHeight()];
 		setBlocked(map);
@@ -32,12 +32,10 @@ public class Scenery {
 		this.container = gc;
 		HEIGHT = map.getHeight();
 		WIDTH = map.getWidth();
-		alphaMap = new AlphaMap(gc,c);
+		alphaMap = new AlphaMap(gc,c, objectPool);
 		
-		ParticleFx pFx = new ParticleFx(0, 0, new Vector2f(0,0));
-		ObjectPool op = new ObjectPool();
-		op.addToPool(pFx);
-
+		ParticleFx pFx = new ParticleFx(0, 0, new Vector2f(0,0), this.objectPool);
+		objectPool.addToNonCollisionPool(pFx);
 
 	}
 
@@ -80,10 +78,32 @@ public class Scenery {
 
 	private void spawnObjects(GameContainer gc) {
 
-		ObjectPool op = new ObjectPool();
-		ArrayList<SimpleGameObject> fList =  op.getFriendlyList();
+		//ArrayList<SimpleGameObject> fList =  op.getFriendlyList();
 		for(int i=0;i<tiledmap.getObjectGroupCount();i++){
 
+			// PLAYER_SPAWN
+			if(tiledmap.getObjectName(i,0).equals("PlayerSpawn")){
+
+				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
+
+					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
+
+
+					if(tempString.equals("player1")){
+
+						int px = tiledmap.getObjectX(i, j);
+						int py = tiledmap.getObjectY(i, j);
+						SpaceExplorer p = new SpaceExplorer(64, 64, new Vector2f(px,py),gc, objectPool);
+						p.setFaction(1);
+						objectPool.addToCollisionPool(p);
+						objectPool.mainChar = p;
+						p.setUpGUI();
+						this.focus = p;
+					}
+				}
+			}
+
+			
 			// ENEMY SPAWN
 			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
 				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
@@ -94,7 +114,7 @@ public class Scenery {
 
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
-						op.addToPool(new Patrol(64, 64, new Vector2f(px,py),container));
+						objectPool.addToCollisionPool(new Patrol(64, 64, new Vector2f(px,py),container, objectPool));
 					}
 					if(tempString.equals("2")){
 					}
@@ -110,7 +130,7 @@ public class Scenery {
 
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
-						op.addToPool(new SuperCop(64, 64, new Vector2f(px,py),container));
+						objectPool.addToCollisionPool(new SuperCop(64, 64, new Vector2f(px,py),container, objectPool));
 					}
 					if(tempString.equals("2")){
 					}
@@ -126,7 +146,7 @@ public class Scenery {
 
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
-						op.addToPool(new Angel(64, 64, new Vector2f(px,py),container));
+						objectPool.addToCollisionPool(new Angel(64, 64, new Vector2f(px,py),container, objectPool));
 					}
 					if(tempString.equals("2")){
 					}
@@ -142,7 +162,7 @@ public class Scenery {
 
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
-						op.addToPool(new BirdBear(64, 64, new Vector2f(px,py),container));
+						objectPool.addToCollisionPool(new BirdBear(64, 64, new Vector2f(px,py),container, objectPool));
 					}
 					if(tempString.equals("2")){
 					}
@@ -158,7 +178,7 @@ public class Scenery {
 
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
-						op.addToPool(new MrGray(128, 128, new Vector2f(px,py),container));
+						objectPool.addToCollisionPool(new MrGray(128, 128, new Vector2f(px,py),container, objectPool));
 					}
 					if(tempString.equals("2")){
 					}
@@ -174,7 +194,7 @@ public class Scenery {
 
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
-						op.addToPool(new MovingPlattform(128, 5, new Vector2f(px,py)));
+						objectPool.addToCollisionPool(new MovingPlattform(128, 5, new Vector2f(px,py), objectPool));
 					}
 					if(tempString.equals("2")){
 					}
@@ -191,30 +211,9 @@ public class Scenery {
 					if(tempString.equals("pickup")){
 						int px = tiledmap.getObjectX(i, j);
 						int py = tiledmap.getObjectY(i, j);
-						op.addToPool(new PickUpItem(64, 64, new Vector2f(px,py),container));
+						objectPool.addToCollisionPool(new PickUpItem(64, 64, new Vector2f(px,py),container, objectPool));
 					}
 					if(tempString.equals("2")){
-					}
-				}
-			}
-
-			// PLAYER_SPAWN
-			if(tiledmap.getObjectName(i,0).equals("PlayerSpawn")){
-
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-
-					if(tempString.equals("player1")){
-
-						int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						SpaceExplorer p = new SpaceExplorer(64, 64, new Vector2f(px,py),gc);
-						p.setFaction(1);
-						op.addToPool(p);
-						p.setUpGUI();
-						this.focus = p;
 					}
 				}
 			}
@@ -296,9 +295,9 @@ public class Scenery {
 
 	}
 	public void renderLight(GameContainer gc, Graphics g){
-		ObjectPool op = new ObjectPool();
-		ArrayList<Light>lightList = op.getLights();
-		alphaMap.render((int)(cam.getLightX()),(int)(cam.getLightY()),lightList);
+		//ObjectPool op = new ObjectPool();
+		//ArrayList<Light>lightList = op.getLights();
+		//alphaMap.render((int)(cam.getLightX()),(int)(cam.getLightY()),lightList);
 		//alphaMap.setList(lightList);
 	}
 

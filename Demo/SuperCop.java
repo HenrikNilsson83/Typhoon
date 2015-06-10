@@ -36,8 +36,8 @@ public class SuperCop extends EnemyGameObject {
 
 
 
-	public SuperCop(int x, int y, Vector2f pos, GameContainer gc) {
-		super(x, y, pos, gc);
+	public SuperCop(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
+		super(x, y, pos, gc, objPool);
 		size = 64;
 		jump = false;
 		this.idString = "SimpleEnemy";

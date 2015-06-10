@@ -11,14 +11,14 @@ public class GUI extends SimpleGUI {
 	private Image[] buttons;
 	private int buttonCount = 2;
 	private int exception=0;
-	private ObjectPool op;
+	//private ObjectPool op;
 	private static SpriteSheet wepInf;
 	public float vision;
-	public GUI(int x, int y, Vector2f gamePosition) {
-		super(x, y, gamePosition);
+	public GUI(int x, int y, Vector2f gamePosition, ObjectPool objPool) {
+		super(x, y, gamePosition, objPool);
 		
 		buttons = new Image[buttonCount];
-		op = new ObjectPool();
+		//op = new ObjectPool();
 		/*ResourceHandler rh = new ResourceHandler();
 		ImageResource resource;
 		resource = (ImageResource) rh.get("button1.png");*/
@@ -42,7 +42,7 @@ public class GUI extends SimpleGUI {
 	public void guiContent(GameContainer gc, int delta) {
 		exception = delta;
 		// WEAPON STATS
-		SimpleGameObject hero = op.getFriendlyList().get(0);
+		SimpleGameObject hero = this.objPool.mainChar;
 		int r = hero.resource1;
 		ResourceHandler rs = new ResourceHandler();
 		SpriteResource sr = (SpriteResource) rs.get("weaponinfo.png");
