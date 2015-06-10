@@ -17,11 +17,11 @@ public class Scenery {
 	GameContainer container;
 	public static int HEIGHT;
 	public static int WIDTH;
-	public static AlphaMap alphaMap;
+	
 	private ObjectPool objectPool;
 
 
-	public Scenery(TiledMap map,GameContainer gc,Color c, ObjectPool objPool) {
+	public Scenery(TiledMap map,GameContainer gc, ObjectPool objPool) {
 		this.objectPool = objPool;
 		this.size = map.getTileHeight();
 		isBlocked = new boolean[map.getWidth()][map.getHeight()];
@@ -32,15 +32,12 @@ public class Scenery {
 		this.container = gc;
 		HEIGHT = map.getHeight();
 		WIDTH = map.getWidth();
-		alphaMap = new AlphaMap(gc,c, objectPool);
-		
 		ParticleFx pFx = new ParticleFx(0, 0, new Vector2f(0,0), this.objectPool);
 		objectPool.addToNonCollisionPool(pFx);
-
 	}
 
-	public void Scenery(){
-
+	public Scenery(){
+	
 	}
 
 	public boolean getBlocked(int x,int y){
@@ -72,9 +69,7 @@ public class Scenery {
 		cam.untranslateGraphics();
 	}
 
-	public Scenery(){
-
-	}
+	
 
 	private void spawnObjects(GameContainer gc) {
 
@@ -97,7 +92,6 @@ public class Scenery {
 						p.setFaction(1);
 						objectPool.addToCollisionPool(p);
 						objectPool.mainChar = p;
-						p.setUpGUI();
 						this.focus = p;
 					}
 				}
@@ -241,13 +235,7 @@ public class Scenery {
 
 
 
-	public Scenery(TiledMap tileMap) {
-		this.size = tileMap.getTileHeight();
-		isBlocked = new boolean[tileMap.getWidth()][tileMap.getHeight()];
-		setBlocked(tileMap);
-
-
-	}
+	
 
 	private void setBlocked(TiledMap tileMap) {
 		for (int x = 0; x < tileMap.getWidth(); x++) {
@@ -268,15 +256,11 @@ public class Scenery {
 		return isBlocked;
 	}
 
-	public void update(int delta){
-		
-	}
+	
 
 	
 
-	public void updateLight(float multi,int delta){
-		this.alphaMap.update(multi, delta);
-	}
+	
 
 
 
@@ -287,21 +271,13 @@ public class Scenery {
 
 	}
 
-	public void drawLightningsAndForGround(GameContainer gc, Graphics g) {
-
-
+	public void drawForGround(GameContainer gc, Graphics g) {
 		cam.untranslateGraphics();
 		cam.drawForGround();
 		cam.translateGraphics();
-		//renderLight(gc,g);
 
 	}
-	public void renderLight(GameContainer gc, Graphics g){
-		//ObjectPool op = new ObjectPool();
-		//ArrayList<Light>lightList = op.getLights();
-		//alphaMap.render((int)(cam.getLightX()),(int)(cam.getLightY()),lightList);
-		//alphaMap.setList(lightList);
-	}
+	
 
 
 

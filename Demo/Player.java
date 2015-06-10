@@ -59,7 +59,7 @@ public class Player extends AdvancedGameObject{
 		jump = false;
 		this.idString ="BODY_male";
 		//op = new ObjectPool();
-		light = new SearchLight(0,0);
+		
 		setLight(light);
 		this.checkForCollision = true;
 		this.checkForGravity = true;

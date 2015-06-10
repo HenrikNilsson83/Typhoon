@@ -16,7 +16,7 @@ public class AlphaMap extends SimpleGameObject {
 	Image darkness;
 	public int WIDTH;
 	public int HEIGHT;
-	SearchLight sl;
+	
 	
 	Image im;
 	Color c;
@@ -25,24 +25,11 @@ public class AlphaMap extends SimpleGameObject {
 	float B;
 	float brightness =1.7f;
 	
-	public AlphaMap(GameContainer container, ObjectPool objPool){
-		super(0, 0, new Vector2f(0,0), objPool);
-		//sl = new SearchLight(25,25);
-		//init(container);
-		//this.WIDTH = container.getWidth();
-		//this.HEIGHT = container.getHeight();
-		////this.c = new Color(0.015f*1.7f*1,0.015f*1.7f,0.09f*1.7f);
-		//this.c = new Color(0.04f*brightness,0.04f*brightness,0.04f*brightness);
-		
-		//B = c.b;
-		//G = c.g;
-		//R = c.r;
-	}
 	
 	
-	public AlphaMap(GameContainer container, Color color, ObjectPool objPool) {
-		super(0, 0, new Vector2f(0,0), objPool);
-		sl = new SearchLight(25,25);
+	
+	public AlphaMap(GameContainer container, Color color) {
+		super(0, 0, new Vector2f(0,0),null);
 		init(container);
 		this.WIDTH = container.getWidth();
 		this.HEIGHT = container.getHeight();
@@ -87,7 +74,7 @@ public class AlphaMap extends SimpleGameObject {
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		for(int i = 0;i<lights.size();i++){
 			if(lights.get(i).visible){
-				g.drawImage(lights.get(i).getImage(), lights.get(i).lightPosition.getX() -x, lights.get(i).lightPosition.getY()-y);
+				g.drawImage(lights.get(i).getImage(), lights.get(i).lightPosition.getX() -x+lights.get(i).xOffset, lights.get(i).lightPosition.getY()-y+lights.get(i).yOffset);
 			}
 		}
 		g.flush();

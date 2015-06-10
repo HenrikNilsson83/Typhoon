@@ -61,8 +61,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 		jump = false;
 		this.idString ="BODY_male";
 		//op = new ObjectPool();
-		light = new SearchLight(0,0);
-		setLight(light);
+		light = new SpotLight(0,0);
+		//setLight(light);
 		this.checkForCollision = true;
 		this.checkForGravity = true;
 		cond = new Conductor();
@@ -77,17 +77,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 	}
 	@Override
 	void init(GameContainer gc) {
-		/*
-		addAnimation("MooYeah.png", 1, 0, 1, 0, 100, "StandLeft");
-		addAnimation("MooYeah.png", 0, 0, 0, 0, 100, "StandRight");
-		addAnimation("MooYeah.png", 6, 0, 9, 0, 170, "WalkLeft");
-		addAnimation("MooYeah.png", 2, 0, 5, 0, 170, "WalkRight");
-		addAnimation("MooYeah.png", 11, 0, 11, 0, 100, "ShootLeft");
-		addAnimation("MooYeah.png", 10, 0, 10, 0, 100, "ShootRight");
-		addAnimation("MooYeah.png", 13, 0, 13, 0, 100, "JumpLeft");
-		addAnimation("MooYeah.png", 12, 0, 12, 0, 100, "JumpRight");
-		 */
-
 		addAnimation("Death.png", 5, 0, 9, 0, 200, "StandLeft");
 		addAnimation("Death.png", 0, 0, 4, 0, 200, "StandRight");
 		addAnimation("Death.png", 16, 0, 19, 0, 170, "WalkLeft");
@@ -132,10 +121,17 @@ public class SpaceExplorer extends AdvancedGameObject{
 	void update(GameContainer gc, int delta) {
 		lastPosition.x = gamePosition.x;
 		lastPosition.y = gamePosition.y;
-
+		setLight();
 		if(HP>0){
 			getInput(delta,gc);
 		}
+	}
+	
+	private void setLight(){
+		LightFX lfx = new LightFX();
+		light.lightPosition.x = this.gamePosition.x+this.width/2;
+		light.lightPosition.y = this.gamePosition.y+this.height/2;
+		lfx.addLight(light);
 	}
 
 
@@ -382,15 +378,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 
 	}
 	
-	/*
-	@Override
-	void render(GameContainer gc, Graphics g) {
-		super.render(gc, g);
-		//this.animationList.get(dir).draw(this.gamePosition.x,this.gamePosition.y);	
-		mIn.render(gc, g);
-
-	}
-	*/
+	
 	
 	@Override
 	void reset() {
@@ -449,15 +437,4 @@ public class SpaceExplorer extends AdvancedGameObject{
 
 
 	}
-
-	public void setUpGUI() {
-		int xW =250;
-		int yH = 70;
-		Camera cam = new Camera();
-		gui = new GUI(xW,yH, new Vector2f(cam.getDisplayWidth()/2-xW/2,25), objPool) ;
-		//ObjectPool op = new ObjectPool();
-		this.objPool.addToNonCollisionPool(gui);
-
-	}	
-
 }
