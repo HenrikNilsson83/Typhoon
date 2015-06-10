@@ -24,9 +24,17 @@ public class ObjectPool {
 	public void addToNonCollisionPool(SimpleGameObject sGO){
 		nonCollisionPool.put(sGO,sGO);
 	}
+
 	
 	public ConcurrentHashMap<SimpleGameObject,SimpleGameObject> getCollisionPool(){
 		return collisionPool;
+
+
+	
+		
+
+
+
 	}
 	
 	public ConcurrentHashMap<SimpleGameObject,SimpleGameObject> getNonCollisionPool(){
@@ -35,7 +43,7 @@ public class ObjectPool {
 	
 	void render(GameContainer gc, Graphics g) {
 		Iterator<SimpleGameObject> itCol = collisionPool.keySet().iterator();
-		Iterator<SimpleGameObject> itNonCol = collisionPool.keySet().iterator();
+		Iterator<SimpleGameObject> itNonCol = nonCollisionPool.keySet().iterator();
 		while(itCol.hasNext()){
 			itCol.next().render(gc, g);
 		}
@@ -46,12 +54,24 @@ public class ObjectPool {
 	
 	void update(GameContainer gc, int delta) {
 		Iterator<SimpleGameObject> itCol = collisionPool.keySet().iterator();
-		Iterator<SimpleGameObject> itNonCol = collisionPool.keySet().iterator();
+		Iterator<SimpleGameObject> itNonCol = nonCollisionPool.keySet().iterator();
 		while(itCol.hasNext()){
-			itCol.next().update(gc, delta);
+			SimpleGameObject sgo = itCol.next();
+			if(!sgo.remove){
+				sgo.update(gc, delta);
+			}
+			else{
+				itCol.remove();
+			}
 		}
 		while(itNonCol.hasNext()){
-			itNonCol.next().update(gc, delta);
+			SimpleGameObject sgo = itNonCol.next();
+			if(!sgo.remove){
+				sgo.update(gc, delta);
+			}
+			else{
+				itCol.remove();
+			}
 		}
 	}
 }

@@ -269,8 +269,10 @@ public class Scenery {
 	}
 
 	public void update(int delta){
-
+		
 	}
+
+	
 
 	public void updateLight(float multi,int delta){
 		this.alphaMap.update(multi, delta);

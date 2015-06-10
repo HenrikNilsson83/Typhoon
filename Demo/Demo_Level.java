@@ -38,6 +38,7 @@ public class Demo_Level extends WorldObject {
 		//pool = new ObjectPool(0, 0, new Vector2f(0,0));
 		pool = new ObjectPool();
 		Color light = new Color(0.1f,0.1f,1f);
+
 		scenery = new Scenery(((TileMapResource) resourceHandler.get("Level5.tmx")).getMap(),gc,light,pool);
 		//scenery = new Scenery(((TileMapResource) resourceHandler.get("smalltest.tmx")).getMap(),gc,light);
 		physic = new Physic(true);
@@ -298,6 +299,11 @@ public class Demo_Level extends WorldObject {
 		*/
 		id ="Level5.tmx";
 		path = "TileMap/Level5.tmx";
+		resource = new TileMapResource(id, path);
+		resourceHandler.add(resource);
+		
+		id ="Hell.tmx";
+		path = "TileMap/Hell.tmx";
 		resource = new TileMapResource(id, path);
 		resourceHandler.add(resource);
 		

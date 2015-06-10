@@ -128,7 +128,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 
 	}
 
-
 	@Override
 	void update(GameContainer gc, int delta) {
 		lastPosition.x = gamePosition.x;
@@ -244,7 +243,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 				lastRunDir = 2;
 				dashing = true;
 				dashTimer = dashTimerMax;
-				addParticle(gc,delta);
 				this.velocityVector.x = -dashSpeed;
 
 				this.velocityVector.y = jumpVelocity;
@@ -260,7 +258,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 				dashing = true;
 				dashTimer = dashTimerMax;
 				this.velocityVector.y = jumpVelocity;
-				addParticle(gc,delta);
 				this.velocityVector.x = dashSpeed;
 				this.cond.playSound("boost", 0.6f, 0.15f);
 				//dashCD = dashCDMax;
@@ -349,11 +346,12 @@ public class SpaceExplorer extends AdvancedGameObject{
 			shotCoolDown-=delta;
 		}
 
+		
 		setAnimation(gc,delta);
-
 		wallJump(gc,delta);
 
 	}
+	
 	private void setAnimation(GameContainer gc, int delta) {
 		// SET JUMP ANIMATION
 		if(this.southObs == false && !dashing){
@@ -380,17 +378,10 @@ public class SpaceExplorer extends AdvancedGameObject{
 		else if(!this.southObs&&(this.rightObs)&&(!Keyboard.isKeyDown(Keyboard.KEY_A))&&(!Keyboard.isKeyDown(Keyboard.KEY_SPACE))){
 			setCurrentAnimation("WallSlideRight");
 		}
-		
-
-	}
-	private void addParticle(GameContainer gc, int delta) {
-		if(this.dashing){
-			//ParticleFx.addExplosion(this.gamePosition.x+size/2, this.gamePosition.y+size);
-		}
-
 
 
 	}
+	
 	/*
 	@Override
 	void render(GameContainer gc, Graphics g) {
@@ -399,7 +390,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 		mIn.render(gc, g);
 
 	}
-	 */
+	*/
+	
 	@Override
 	void reset() {
 		// MAYBEE?

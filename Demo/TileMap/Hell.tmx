@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="80" height="80" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="SpaceTilesV1" tilewidth="16" tileheight="16">
+  <image source="Tiles/SpaceTilesV1.png" width="512" height="512"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="1025" name="Planet" tilewidth="16" tileheight="16">
+  <image source="Tiles/Planet.png" width="256" height="256"/>
+  <tile id="72">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="1281" name="DropPod" tilewidth="16" tileheight="16">
+  <image source="Tiles/DropPod.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="1297" name="Crusified" tilewidth="16" tileheight="16">
+  <image source="Tiles/Crusified.png" width="128" height="64"/>
+ </tileset>
+ <tileset firstgid="1329" name="BackgroundSky" tilewidth="16" tileheight="16">
+  <image source="Tiles/BackgroundSky.png" width="100" height="82"/>
+ </tileset>
+ <tileset firstgid="1359" name="Ground2" tilewidth="16" tileheight="16">
+  <image source="Tiles/Ground2.png" width="259" height="190"/>
+ </tileset>
+ <tileset firstgid="1535" name="DarkBuildTrans" tilewidth="16" tileheight="16">
+  <image source="Tiles/DarkBuildTrans.png" width="382" height="323"/>
+ </tileset>
+ <tileset firstgid="1995" name="GrayWall" tilewidth="16" tileheight="16">
+  <image source="Tiles/GrayWall.png" width="932" height="799"/>
+ </tileset>
+ <tileset firstgid="4837" name="DarkGround" tilewidth="16" tileheight="16">
+  <image source="Tiles/DarkGround.png" width="500" height="408"/>
+ </tileset>
+ <tileset firstgid="5612" name="Grass&amp;Material2" tilewidth="16" tileheight="16">
+  <image source="Tiles/Grass&amp;Material2.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="5676" name="LavaBack" tilewidth="16" tileheight="16">
+  <image source="Tiles/LavaBack.png" width="768" height="256"/>
+ </tileset>
+ <layer name="FarBackGround" width="80" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3DMQ0AAAwDoMqYf5096mE3JPSSqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq8DQUc/kQBkAAA=
+  </data>
+ </layer>
+ <layer name="BackGround" width="80" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3TUQrCMBBF0fypSxHd//oUFAq1xYhtM5OcA/MfLi+lAAAAAAAAAAAAAAAAAAAAAABwft6l9SMSOpVXu+v77m2fk8q8nYa/WWqn4Xdru9OwTk07DT/dSn03DSe1/1XDZf+2G7XhFrsbueHW7UZpuMfuRmq4d7teGx6xu54bHt2ul4YtdtdTw9btsjaMsLvMDaO1y9QwarsMDaO3i9wwS7uIDbO1i9Qwa7sIDbO3W2v4ABJLaSAAZAAA
+  </data>
+ </layer>
+ <layer name="ColisionLayer" width="80" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3R2wkCMRRF0YBNTP91qBWpNZgGhGE2PoJrwfm+YWcMAAAAAAAAAAAAAAAAAABWctoxXtOv0a/Rr9Gv0a/Rr9Gv0a/Rr9Gv0a/Rr/mVfqv+nX6Nfo1+jX7NJ/vtuaVfu6Vfv6dfu6dfu6dfu2dm9q4dteKb/51+sK7zNsZl7rp9+yVrus1u97mHfoc8ARo0V9gAZAAA
+  </data>
+ </layer>
+ <layer name="WalkingLayer" width="80" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2YZ27bQBCFqUJHN+AaSLlAmmRL8mHSLFF2DpNe/6Qndi6RcoE0RbKUQ6RcIO0t+IgIkpeCEIIFeB/wQEsLY8XhzLxZep4QQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhCgTw8DzPkMjaAztGs/rQw3oIIiuwk0F8alCNagOTYPou20TxXVL8Uukifi0oA1o00Sft5mDfeagcGNj1WOsQshn/GxdHzGRhJsuc6zC65cg+i6u47bil4j1i13Grs58s71wNp7CTZX1a3tg7L879BTrHz3lXyKTIIqdjVeHOTdgH6zTT4QbO/cdcP7bZN+zMbtsotpV/SZj52ObbzYPQ/4dsg/auE4Uv0Sm9Nsa+6D1W/t5ix7SVf0m4jPnrHf4rN+O+efLa4pfIrPntRrPIA3Oz7YHjjKq3yfY5yn0DHoOvYD2StA7esyxEX23Tu+N58Gs4vcpWHyXUYaz44j5N6J/hDO1WzUZ+q9ZfJfhl6B3jOmxNn5tzsxV/v4W7yULzprFdxllODvGz7zJmaVJP+nTewcZ3cMls/guI6u9/4dwxnvtdco6bjGWw5Tr1+UTZY3feKZft+gbbV79lOcXm+sun5jw2c2vF50+Z74B3xs0KJ+5l+b8bOPn8ok19o/59aLToGfEtVPnWa7CPp72DOHyiQ777fx60anxWXeZA0P2vw3mQ5jyPbj63A5npvn1orPFGa/P5x7n44Q9KO/8e4D9H0KPoMeB23/2oZc5rLfMcu2luO+q+fcO//Me+gB9PMRflvlPUdbz2vcn9Av6Df2BVvWfoqznte9J6BR0GjpzSH0vq/+irOe17znoPHQBumhWr/+irOe17xXoKnQNug7dgG5Ct6Db0B3oLnQPul+C9ax5hT1fQ2+gtznsX3a+ImbfoO/QD8VvZY6ue94x6Dh0Yj3vXyOEWIW/9IjrdABkAAA=
+  </data>
+ </layer>
+ <layer name="ForeGround" width="80" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3Qt01EAQBEwV8APoBm8DG+DnyMrwdfD74SXgEElx0nzUgvX+0wAAAAAAAAAAAAAAAAAAAAAAD/2dbiMGzXTu3WXu3XweK4l02Gi366rKu6rpu6rTv/jeS+nx7qsZ7quV7q1X8jeeun9/qoz/qq7/rx30imloZhumZqtuZqvhaWxr1sMiz300qt1lqt10Zt+m8kh/10VMd1Uqd1Vuf+AwAAAAAA/vALKakjNgBkAAA=
+  </data>
+ </layer>
+ <objectgroup name="PlayerSpawn" width="80" height="80">
+  <object name="PlayerSpawn" type="spawn" x="293" y="961" width="72" height="38">
+   <properties>
+    <property name="spawn" value="player1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="EnemySpawn" width="80" height="80">
+  <object name="EnemySpawn" type="spawn" x="497" y="745" width="72" height="38">
+   <properties>
+    <property name="spawn" value="angel"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="40" y="967" width="72" height="38">
+   <properties>
+    <property name="spawn" value="angel"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
