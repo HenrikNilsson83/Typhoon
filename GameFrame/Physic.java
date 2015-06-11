@@ -85,7 +85,7 @@ public class Physic {
 
 	// här ska nog inte check for col kollas då det är uppenbart att det ska kontrolleras??!?!?
 	private void checkStuck(ConcurrentHashMap<SimpleGameObject,SimpleGameObject> collisionPool, int delta) {
-		Scenery s = new Scenery();
+		MapInfo s = new MapInfo();
 		SimpleGameObject sGO;
 		int distToWallCheck = 1;
 		Iterator<SimpleGameObject> itCol = collisionPool.keySet().iterator();
@@ -177,7 +177,7 @@ public class Physic {
 		}
 	}
 
-	private boolean isBlocked(float x, float y, int sizex, int sizey, Scenery s) {
+	private boolean isBlocked(float x, float y, int sizex, int sizey, MapInfo s) {
 
 		boolean isInCollision = false;
 		Rectangle player = new Rectangle(x ,y ,sizex ,sizey );
@@ -214,7 +214,7 @@ public class Physic {
 		return isInCollision;
 	}
 
-	private boolean isBlocked(Hitbox hb, Scenery s) {
+	private boolean isBlocked(Hitbox hb, MapInfo s) {
 
 		boolean isInCollision = false;
 		Rectangle player = new Rectangle(hb.getXPos() ,hb.getYPos() ,hb.getWidth() ,hb.height );
@@ -271,7 +271,7 @@ public class Physic {
 
 	public void render(GameContainer gc, Graphics g) {
 		boolean[][] isBlocked;
-		Scenery s = new Scenery();
+		MapInfo s = new MapInfo();
 		isBlocked = s.getBlocked();
 		for(int x = 0;x<isBlocked.length;x++){
 			for(int y = 0;y<isBlocked.length;y++){

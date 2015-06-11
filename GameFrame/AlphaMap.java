@@ -31,8 +31,8 @@ public class AlphaMap extends SimpleGameObject {
 	public AlphaMap(GameContainer container, Color color) {
 		super(0, 0, new Vector2f(0,0),null);
 		init(container);
-		this.WIDTH = container.getWidth();
-		this.HEIGHT = container.getHeight();
+		this.WIDTH = container.getWidth()+5;
+		this.HEIGHT = container.getHeight()+5;
 		this.c = color;
 		B = c.b;
 		G = c.g;
@@ -118,6 +118,20 @@ public class AlphaMap extends SimpleGameObject {
 	@Override
 	public void damage() {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void update(float r, float g, float b) {
+		
+		this.c.r =r;
+		this.c.g =g;
+		this.c.b =b;
+	}
+
+
+	public void update(Color c2) {
+		this.c = c2;
 		
 	}
 }

@@ -32,5 +32,15 @@ public class LightFX {
 	public void addLight(Light l){
 		this.lightList.add(l);
 	}
+
+	public void updateLight(float r, float g, float b) {
+		this.alphaMap.update(r,b,g);
+		
+	}
+
+	public void updateLight(Color c) {
+		this.alphaMap.update(c);
+		
+	}
 	
 }

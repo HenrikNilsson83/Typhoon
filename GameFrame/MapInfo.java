@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
 
-public class Scenery {
+public class MapInfo {
 	private static int size;
 	private static boolean[][] isBlocked;
 	private static ArrayList<Vector2f> movingBlocks;
@@ -21,7 +21,7 @@ public class Scenery {
 	private ObjectPool objectPool;
 
 
-	public Scenery(TiledMap map,GameContainer gc, ObjectPool objPool) {
+	public MapInfo(TiledMap map,GameContainer gc, ObjectPool objPool) {
 		this.objectPool = objPool;
 		this.size = map.getTileHeight();
 		isBlocked = new boolean[map.getWidth()][map.getHeight()];
@@ -34,7 +34,7 @@ public class Scenery {
 		
 	}
 
-	public Scenery(){
+	public MapInfo(){
 	
 	}
 

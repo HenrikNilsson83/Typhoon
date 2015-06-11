@@ -128,7 +128,7 @@ public class Angel extends EnemyGameObject {
 
 
 	private void laserSight(GameContainer gc, Graphics g) {
-		Scenery scen = new Scenery();
+		MapInfo scen = new MapInfo();
 		int tS = 16;
 		Color c = Color.red;
 		int spacing = 16;

@@ -425,7 +425,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 	}
 
 	public boolean checkForObstaclesX(SimpleGameObject t){
-		Scenery scen = new Scenery();
+		MapInfo scen = new MapInfo();
 		int tileSize = 16;
 		int checkRangeX = this.visionX/tileSize;
 		int x = (int) (this.gamePosition.x/tileSize);
@@ -612,7 +612,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 	}
 
 	protected boolean isItBlocked(int xG, int yG) {
-		Scenery scen = new Scenery();		
+		MapInfo scen = new MapInfo();		
 		return scen.getBlocked(xG, yG);
 	}
 

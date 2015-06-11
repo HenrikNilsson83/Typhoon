@@ -292,7 +292,7 @@ public class BirdBear extends AdvancedGameObject {
 
 
 	private void laserSight(GameContainer gc, Graphics g) {
-		Scenery scen = new Scenery();
+		MapInfo scen = new MapInfo();
 		int tS = 16;
 		Color c = Color.red;
 		int spacing = 16;
@@ -497,7 +497,7 @@ public class BirdBear extends AdvancedGameObject {
 	private boolean isItBlocked(int xG, int yG) {
 		//System.out.println("X: "+xG);
 		//System.out.println("Y: "+yG);
-		Scenery scen = new Scenery();
+		MapInfo scen = new MapInfo();
 		return scen.getBlocked(xG, yG);
 	}
 
@@ -576,7 +576,7 @@ public class BirdBear extends AdvancedGameObject {
 	}
 	// KANSKE EN ABSTRAKT KLASS??
 	public boolean checkForObstaclesX(SimpleGameObject t){
-		Scenery scen = new Scenery();
+		MapInfo scen = new MapInfo();
 		int tileSize = 16;
 		int checkRangeX = this.visionX/tileSize;
 		int x = (int) (this.gamePosition.x/tileSize);

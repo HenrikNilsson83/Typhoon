@@ -13,36 +13,43 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Level1 extends TiledMapGameState {
 
 	Physic physic; // GAME PHYSIC
-	Conductor cond = new Conductor();
-	public Level1() {
-
-	}
+	private int nextState = 0;
+	private boolean switchToNextState;
+	
 
 	public void initState(GameContainer gc, StateBasedGame arg1) {
 
 		pool.addToNonCollisionPool(new SnowFall(0,0,0, pool));
 		physic = new Physic(true);
+		Color tempColor = new Color(1f,0.2f,0,2f);
+		tempColor.a = 0.2f;
+		updateLight(tempColor);
 
 	}
 
 	public void renderState(GameContainer gc, StateBasedGame arg1, Graphics g) {
 		this.scenery.render(gc,g);
 		pool.render(gc, g);
-		this.scenery.drawForGround(gc,g);
+		
 	}
 	public void updateState(GameContainer gc, StateBasedGame sbg, int delta) {
 		if(delta<500){
-			if(gc.getInput().isKeyPressed(Input.KEY_ESCAPE)){
-				System.out.println("GO TO MAIN MENU");
-				sbg.enterState(1);
-			}
+			switchState(gc,sbg);
 			physic.update(delta, pool);
-			cond.loopMusic("dawn", 0.0f);
+			//cond.loopMusic("dawn", 0.0f);
 			//cond.loopMusic("too_quiet_in_here", 0.8f);
 			//pool.updateGUI();
 		}
 	}
-
+	private void switchState(GameContainer gc,StateBasedGame sbg){
+		if(this.switchToNextState){
+			sbg.enterState(1);
+			switchToNextState = false;
+		}
+		else if(gc.getInput().isKeyPressed(Input.KEY_ESCAPE)){
+			switchToNextState = true;
+		}
+	}
 	protected void setUpResources() {
 		resourceHandler = new ResourceHandler();
 
@@ -59,7 +66,6 @@ public class Level1 extends TiledMapGameState {
 		ySize = 64;
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
-
 
 		id = "patrol.png";
 		path = "images/patrol.png";
@@ -88,7 +94,6 @@ public class Level1 extends TiledMapGameState {
 		ySize = 64;
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
-
 
 		id = "robotcop.png";
 		path = "images/robotcop.png";

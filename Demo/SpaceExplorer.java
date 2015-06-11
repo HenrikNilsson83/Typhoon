@@ -122,7 +122,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 	void update(GameContainer gc, int delta) {
 		lastPosition.x = gamePosition.x;
 		lastPosition.y = gamePosition.y;
-		setLight();
+		//setLight();
 		if(HP>0){
 			getInput(delta,gc);
 		}

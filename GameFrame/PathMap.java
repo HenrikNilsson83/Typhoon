@@ -7,7 +7,7 @@ public class PathMap implements TileBasedMap {
 	private int HEIGHT;
 	private int WIDTH;
 	public PathMap(){
-		Scenery scen = new Scenery();
+		MapInfo scen = new MapInfo();
 		MAP = scen.getBlocked();
 		HEIGHT = scen.HEIGHT;
 		WIDTH = scen.WIDTH;

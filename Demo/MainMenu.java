@@ -28,11 +28,12 @@ public class MainMenu extends BasicGameState {
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int arg2) throws SlickException {
-		if(gc.getInput().isKeyPressed(Input.KEY_ESCAPE)){
+		Input input = gc.getInput();
+		if(input.isKeyPressed(Input.KEY_ESCAPE)){
 			System.out.println("GO TO LEVEL1");
 			sbg.enterState(0);
 		}
-		if(gc.getInput().isKeyPressed( Input.KEY_R ))
+		if(input.isKeyDown( Input.KEY_R ))
         {
             
 			System.out.println("RESET LEVEL1");

@@ -40,7 +40,7 @@ public class MouseInput {
 
 	public void render(GameContainer gc, Graphics g){
 		g.setColor(Color.orange);
-		Scenery temScen = new Scenery();
+		MapInfo temScen = new MapInfo();
 		temScen.unTranslateGFX();
 		g.fillOval(mPos.x+size/2, mPos.y+size/2, size, size);
 		temScen.translateGFX();

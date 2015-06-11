@@ -13,11 +13,12 @@ import org.newdawn.slick.tiled.TiledMap;
 public abstract class TiledMapGameState extends BasicGameState {
 
 	protected ObjectPool pool;
-	protected Scenery scenery;//THE SCENERY OF THE GAME
+	protected MapInfo scenery;//THE SCENERY OF THE GAME
 	protected ResourceHandler resourceHandler;
 	protected TiledMap tiledmap;
 	protected LightFX lFx;
 	protected SimpleGUI GUI;
+	Conductor cond;
 
 	//ABSTRACT CLASSES
 	protected abstract void setUpResources();
@@ -30,10 +31,16 @@ public abstract class TiledMapGameState extends BasicGameState {
 	public abstract String getTiledMapName();
 	protected abstract GUI getGUI(GameContainer gc);
 
-	public void init(GameContainer gc, StateBasedGame arg1){
-		setUpResources();
-		pool = new ObjectPool();
+	public TiledMapGameState(){
 		light = new Color(0.05f,0.05f,0.2f);
+		cond = new Conductor();
+		setUpResources();
+	}
+	
+	public void init(GameContainer gc, StateBasedGame arg1){
+		
+		pool = new ObjectPool();
+		
 		lFx = new LightFX(gc,light);
 
 		String s = this.getTiledMapName();
@@ -41,7 +48,7 @@ public abstract class TiledMapGameState extends BasicGameState {
 			s +=".tmx"; 
 		}
 		tiledmap = ((TileMapResource) resourceHandler.get(s)).getMap();
-		scenery = new Scenery(tiledmap,gc,pool);
+		scenery = new MapInfo(tiledmap,gc,pool);
 		this.spawnGameObjects(gc);
 		this.initState(gc, arg1);
 		GUI = this.getGUI(gc);
@@ -55,6 +62,7 @@ public abstract class TiledMapGameState extends BasicGameState {
 
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)throws SlickException {
 		this.renderState(gc, arg1, g);
+		this.scenery.drawForGround(gc,g);
 		this.lFx.renderLight(gc);
 		if(this.GUI!=null){
 			this.GUI.render(gc, g);
@@ -80,6 +88,13 @@ public abstract class TiledMapGameState extends BasicGameState {
 		}
 		return retur;
 	}
-
+	
+	protected void updateLight(float r,float g,float b){
+		this.lFx.updateLight(r,g,b);
+	}
+	
+	protected void updateLight(Color c){
+		this.lFx.updateLight(c);
+	}
 
 }
