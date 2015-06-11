@@ -28,12 +28,10 @@ public class Scenery {
 		setBlocked(map);
 		this.tiledmap =map;
 		cam = new Camera(gc, this.tiledmap);
-		spawnObjects(gc);
 		this.container = gc;
 		HEIGHT = map.getHeight();
 		WIDTH = map.getWidth();
-		ParticleFx pFx = new ParticleFx(0, 0, new Vector2f(0,0), this.objectPool);
-		objectPool.addToNonCollisionPool(pFx);
+		
 	}
 
 	public Scenery(){
@@ -69,174 +67,6 @@ public class Scenery {
 		cam.untranslateGraphics();
 	}
 
-	
-
-	private void spawnObjects(GameContainer gc) {
-
-		//ArrayList<SimpleGameObject> fList =  op.getFriendlyList();
-		for(int i=0;i<tiledmap.getObjectGroupCount();i++){
-
-			// PLAYER_SPAWN
-			if(tiledmap.getObjectName(i,0).equals("PlayerSpawn")){
-
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-
-					if(tempString.equals("player1")){
-
-						int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						SpaceExplorer p = new SpaceExplorer(64, 64, new Vector2f(px,py),gc, objectPool);
-						p.setFaction(1);
-						objectPool.addToCollisionPool(p);
-						objectPool.mainChar = p;
-						this.focus = p;
-					}
-				}
-			}
-
-			
-			// ENEMY SPAWN
-			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-					if(tempString.equals("enemy")){
-
-						int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						objectPool.addToCollisionPool(new Patrol(64, 64, new Vector2f(px,py),container, objectPool));
-					}
-					if(tempString.equals("2")){
-					}
-				}
-			}
-
-			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-					if(tempString.equals("robotcop")){
-
-						int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						objectPool.addToCollisionPool(new SuperCop(64, 64, new Vector2f(px,py),container, objectPool));
-					}
-					if(tempString.equals("2")){
-					}
-				}
-			}
-			
-			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-					if(tempString.equals("angel")){
-
-						int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						objectPool.addToCollisionPool(new Angel(64, 64, new Vector2f(px,py),container, objectPool));
-					}
-					if(tempString.equals("2")){
-					}
-				}
-			}
-
-			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-					if(tempString.equals("birdbear")){
-
-						int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						objectPool.addToCollisionPool(new BirdBear(64, 64, new Vector2f(px,py),container, objectPool));
-					}
-					if(tempString.equals("2")){
-					}
-				}
-			}
-			
-			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-					if(tempString.equals("mrgray")){
-
-						int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						objectPool.addToCollisionPool(new MrGray(128, 128, new Vector2f(px,py),container, objectPool));
-					}
-					if(tempString.equals("2")){
-					}
-				}
-			}
-			// MOVING PLATFORM
-			if(tiledmap.getObjectName(i,0).equals("EnemySpawn")){
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-					if(tempString.equals("movingplattform")){
-
-						int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						objectPool.addToCollisionPool(new MovingPlattform(128, 5, new Vector2f(px,py), objectPool));
-					}
-					if(tempString.equals("2")){
-					}
-				}
-			}
-
-			//Items spawn
-			if(tiledmap.getObjectName(i,0).equals("PickUpSpawn")){
-
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-					if(tempString.equals("pickup")){
-						int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						objectPool.addToCollisionPool(new PickUpItem(64, 64, new Vector2f(px,py),container, objectPool));
-					}
-					if(tempString.equals("2")){
-					}
-				}
-			}
-
-			if(tiledmap.getObjectName(i,0).equals("PlayerSpawn")){
-
-				for(int j = 0;j<tiledmap.getObjectCount(i);j++){
-
-					String tempString = tiledmap.getObjectProperty(i, j,"spawn" , "false");
-
-					if(tempString.equals("Army")){
-
-						/*int px = tiledmap.getObjectX(i, j);
-						int py = tiledmap.getObjectY(i, j);
-						SmallArmy p = new SmallArmy(32, 32, new Vector2f(px,py),gc);
-						p.setFaction(1);
-						op.addToPool(p);*/
-					}
-				}
-			}
-
-		}
-
-	}
-
-
-
-	
-
 	private void setBlocked(TiledMap tileMap) {
 		for (int x = 0; x < tileMap.getWidth(); x++) {
 
@@ -256,14 +86,6 @@ public class Scenery {
 		return isBlocked;
 	}
 
-	
-
-	
-
-	
-
-
-
 	public void render(GameContainer gc,Graphics g){
 		centerOn();
 		cam.drawMap2();
@@ -278,11 +100,8 @@ public class Scenery {
 
 	}
 	
-
-
-
 	public void centerOn() {
-		cam.centerOn((this.focus.gamePosition.x), (this.focus.gamePosition.y));
+		cam.centerOn((objectPool.mainChar.gamePosition.x), (objectPool.mainChar.gamePosition.y));
 	}
 
 	public int getXOffSet() {

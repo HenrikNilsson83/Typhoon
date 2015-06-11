@@ -67,6 +67,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		this.checkForGravity = true;
 		cond = new Conductor();
 		this.resource1 = 9;
+		this.faction = 1;
 		//HITBOX SETUP
 		this.hitbox.setWidth(21);
 		this.hitbox.setXOffset(21);
