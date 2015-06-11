@@ -64,16 +64,16 @@ public class Angel extends EnemyGameObject {
 		addAnimation("LiquidSoldier.png", 7, 0, 19, 0, 65, "deadRight",false);
 		addAnimation("LiquidSoldier.png", 24, 0, 25, 0, 150, "flyLeft");
 		addAnimation("LiquidSoldier.png", 4, 0, 5, 0, 150, "flyRight");*/
-		
-		
+
+
 		addAnimation("Angel.png", 4, 0, 7, 0, 200, "WalkLeft");
 		addAnimation("Angel.png", 0, 0, 3, 0, 200, "WalkRight");
 		addAnimation("SimpleGreenGuard.png", 14, 0, 17, 0, 65, "deadLeft",false);
 		addAnimation("SimpleGreenGuard.png", 10, 0, 13, 0, 65, "deadRight",false);
 		addAnimation("Angel.png", 4, 0, 7, 0, 150, "flyLeft");
 		addAnimation("Angel.png", 0, 0, 3, 0, 150, "flyRight");
-		
-		
+
+
 		setCurrentAnimation("WalkRight");		
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
@@ -203,45 +203,25 @@ public class Angel extends EnemyGameObject {
 		data1 = 0;
 	}
 
-
 	@Override
-	void reset() {
-		gamePosition.x = lastPosition.x;
-		gamePosition.y = lastPosition.y;
-		this.velocityVector.y = 0;
-		//this.velocityVector.x = 0;
-	}
+	public void objectCollide(SimpleGameObject sGO) {
+		if(sGO.getClass().equals(Blast.class)){
+			walkSpeed = 0f;
+			HP--;
+			this.checkForGravity = true;
+			if(HP == 0){
+				cond.playSound("explosion", 0.8f, 0.2f);
+				if(this.velocityVector.x>0){
+					setCurrentAnimation("deadRight");
+				}
+				else{
+					setCurrentAnimation("deadLeft");
+				}
+				this.velocityVector.x=0;
 
-	@Override
-	public void damage() {
-		walkSpeed = 0f;
-		HP--;
-		this.checkForGravity = true;
-		if(HP == 0){
-			cond.playSound("explosion", 0.8f, 0.2f);
-			if(this.velocityVector.x>0){
-				setCurrentAnimation("deadRight");
 			}
-			else{
-				setCurrentAnimation("deadLeft");
-			}
-			this.velocityVector.x=0;
-
 		}
 		//this.remove = true;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
 }
-/**/

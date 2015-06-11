@@ -127,7 +127,7 @@ public class MrGray extends AdvancedGameObject {
 			
 			simpleWalk(delta);
 			if(HP>0&&this.target!=null&&enemyContact(gc,delta)&&this.deadTimer<=0){
-				this.damage();
+				this.objectCollide(this);  //TODO INGEN BRA LÖSNING!!!!!!!!!!!!!!
 			}
 		}
 		if(this.deadTimer<this.wakeUp&&HP<0){
@@ -576,7 +576,7 @@ public class MrGray extends AdvancedGameObject {
 	}
 
 	@Override
-	public void damage() {
+	public void objectCollide(SimpleGameObject sGO) {
 		
 		HP=-1;
 		if(HP == -1&&b){

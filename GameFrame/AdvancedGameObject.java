@@ -6,7 +6,7 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Vector2f;
 import java.util.*;
 
-public class AdvancedGameObject extends SimpleGameObject{	
+public abstract class AdvancedGameObject extends SimpleGameObject{	
 	//en dict med animations?
 	//functiotioner för att lägga till anims
 	//en var som bestämmer current anim
@@ -150,11 +150,11 @@ public class AdvancedGameObject extends SimpleGameObject{
 
 	}
 
-	@Override
-	public void damage() {
+	//@Override
+	//public void damage(SimpleGameObject sGO) {
 		// TODO Auto-generated method stub
 
-	}
+	//}
 
 	//inte säker på detta
 	public void setFaction(int f ){

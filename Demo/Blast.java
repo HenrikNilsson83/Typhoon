@@ -73,7 +73,8 @@ public class Blast extends AdvancedGameObject {
 		
 		if(this.rightObs||this.leftObs||this.northObs||this.southObs){
 			//explode(delta);
-			this.damage();
+			//this.damage();
+			this.remove = true;
 		}
 
 	}
@@ -86,7 +87,7 @@ public class Blast extends AdvancedGameObject {
 	
 	}
 	
-	public void damage(){
+	public void objectCollide(SimpleGameObject sGO){
 		//ParticleFx.addExplosion(this.gamePosition.x, this.gamePosition.y); 
 		this.remove = true;
 	}

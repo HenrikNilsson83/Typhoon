@@ -64,16 +64,16 @@ public class SuperCop extends EnemyGameObject {
 		addAnimation("LiquidSoldier.png", 7, 0, 19, 0, 65, "deadRight",false);
 		addAnimation("LiquidSoldier.png", 24, 0, 25, 0, 150, "flyLeft");
 		addAnimation("LiquidSoldier.png", 4, 0, 5, 0, 150, "flyRight");*/
-		
-		
+
+
 		addAnimation("SimpleGreenGuard.png", 6, 0, 9, 0, 150, "WalkLeft");
 		addAnimation("SimpleGreenGuard.png", 2, 0, 5, 0, 150, "WalkRight");
 		addAnimation("SimpleGreenGuard.png", 14, 0, 17, 0, 65, "deadLeft",false);
 		addAnimation("SimpleGreenGuard.png", 10, 0, 13, 0, 65, "deadRight",false);
 		addAnimation("SimpleGreenGuard.png", 19, 0, 19, 0, 150, "flyLeft");
 		addAnimation("SimpleGreenGuard.png", 18, 0, 18, 0, 150, "flyRight");
-		
-		
+
+
 		setCurrentAnimation("WalkRight");		
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
@@ -212,21 +212,23 @@ public class SuperCop extends EnemyGameObject {
 	}
 
 	@Override
-	public void damage() {
-		walkSpeed = 0f;
-		HP--;
-		if(HP == 0){
-			cond.playSound("explosion", 0.8f, 0.2f);
-			if(this.velocityVector.x>0){
-				setCurrentAnimation("deadRight");
-			}
-			else{
-				setCurrentAnimation("deadLeft");
-			}
-			this.velocityVector.x=0;
+	public void objectCollide(SimpleGameObject sGO) {
+		if(sGO.getClass().equals(SpaceExplorer.class)){
+			walkSpeed = 0f;
+			HP--;
+			if(HP == 0){
+				cond.playSound("explosion", 0.8f, 0.2f);
+				if(this.velocityVector.x>0){
+					setCurrentAnimation("deadRight");
+				}
+				else{
+					setCurrentAnimation("deadLeft");
+				}
+				this.velocityVector.x=0;
 
+			}
+			//this.remove = true;
 		}
-		//this.remove = true;
 	}
 
 

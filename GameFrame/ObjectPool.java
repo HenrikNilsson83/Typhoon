@@ -70,7 +70,7 @@ public class ObjectPool {
 				sgo.update(gc, delta);
 			}
 			else{
-				itCol.remove();
+				itNonCol.remove();
 			}
 		}
 	}

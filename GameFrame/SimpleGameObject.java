@@ -66,7 +66,7 @@ public abstract class SimpleGameObject {
 		return jump;
 	}
 
-	abstract void reset();
+	abstract void reset();						//Not needed anymore?!?!?!?!?!?
 
 	public void setJump(boolean b) {
 		jump = b;
@@ -129,6 +129,6 @@ public abstract class SimpleGameObject {
 		this.target = t;
 	}
 
-	public abstract void damage();
+	public abstract void objectCollide(SimpleGameObject sGO);
 	
 }

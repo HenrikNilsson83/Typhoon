@@ -331,7 +331,7 @@ public class RobotCop extends AdvancedGameObject {
 	}
 
 	@Override
-	public void damage() {
+	public void objectCollide(SimpleGameObject sGO) {
 		walkSpeed = 0f;
 		HP--;
 		if(HP == 0){

@@ -109,6 +109,12 @@ public class MovingPlattform extends AdvancedGameObject {
 		
 	}
 
+	@Override
+	public void objectCollide(SimpleGameObject sGO) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

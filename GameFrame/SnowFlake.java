@@ -44,7 +44,7 @@ public class SnowFlake extends SimpleGameObject {
 	}
 
 	@Override
-	public void damage() {
+	public void objectCollide(SimpleGameObject sGO) {
 		// TODO Auto-generated method stub
 		
 	}

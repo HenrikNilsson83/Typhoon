@@ -137,4 +137,10 @@ public class MasterAi extends AdvancedGameObject {
 		target = t;
 	}
 	 */
+
+	@Override
+	public void objectCollide(SimpleGameObject sGO) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -52,7 +52,7 @@ public abstract class SimpleGUI extends MyGameObject {
 		
 	}
 	@Override
-	public void damage() {
+	public void objectCollide(SimpleGameObject sGO) {
 		// TODO Auto-generated method stub
 		
 	}

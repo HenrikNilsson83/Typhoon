@@ -269,19 +269,22 @@ public class Patrol extends AdvancedGameObject {
 	}
 
 	@Override
-	public void damage() {
-		walkSpeed = 0f;
-		HP--;
-		if(HP == 0){
-			cond.playSound("explosion", 0.8f, 0.2f);
-			if(this.velocityVector.x>0){
-				setCurrentAnimation("deadRight");
-			}
-			else{
-				setCurrentAnimation("deadRight");
-			}
-			this.velocityVector.x=0;
+	public void objectCollide(SimpleGameObject sGO) {
+		System.out.println("hehe");
+		if(sGO.getClass().equals(SpaceExplorer.class)){
+			walkSpeed = 0f;
+			HP--;
+			if(HP == 0){
+				cond.playSound("explosion", 0.8f, 0.2f);
+				if(this.velocityVector.x>0){
+					setCurrentAnimation("deadRight");
+				}
+				else{
+					setCurrentAnimation("deadRight");
+				}
+				this.velocityVector.x=0;
 			
+			}
 		}
 		//this.remove = true;
 	}

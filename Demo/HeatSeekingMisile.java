@@ -87,4 +87,10 @@ public class HeatSeekingMisile extends AdvancedGameObject {
 		this.remove = true;
 	}
 
+	@Override
+	public void objectCollide(SimpleGameObject sGO) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

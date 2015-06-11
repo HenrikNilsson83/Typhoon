@@ -127,7 +127,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 			getInput(delta,gc);
 		}
 	}
-	
+
 	private void setLight(){
 		LightFX lfx = new LightFX();
 		light.lightPosition.x = this.gamePosition.x+this.width/2;
@@ -343,12 +343,12 @@ public class SpaceExplorer extends AdvancedGameObject{
 			shotCoolDown-=delta;
 		}
 
-		
+
 		setAnimation(gc,delta);
 		wallJump(gc,delta);
 
 	}
-	
+
 	private void setAnimation(GameContainer gc, int delta) {
 		// SET JUMP ANIMATION
 		if(this.southObs == false && !dashing){
@@ -378,22 +378,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 
 
 	}
-	
-	
-	
-	@Override
-	void reset() {
-		// MAYBEE?
-		jumpButtonPressed = false;
-		isJump = false;
-		jumpTimer = 0;
-		jumpNum = jumpNumMax;
-
-		gamePosition.x = lastPosition.x;
-		gamePosition.y = lastPosition.y;
-		this.velocityVector.y = 0;
-		//this.velocityVector.x = 0;
-	}
 
 	public void wallJump(GameContainer gc, int delta){
 		// WALL JUMP
@@ -421,9 +405,9 @@ public class SpaceExplorer extends AdvancedGameObject{
 	}
 
 	@Override
-	public void damage() {
+	public void objectCollide(SimpleGameObject sGO) {
 		if(HP>0){
-			this.cond.playSound("boost", 0.4f, 0.1f);
+			//this.cond.playSound("boost", 0.4f, 0.1f);
 			//HP--;
 		}
 		if(HP<=0){
