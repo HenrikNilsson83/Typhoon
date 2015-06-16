@@ -48,6 +48,7 @@ public class MainClass extends StateBasedGame {
 		//addState(new MainMenu());
 		addState(new Level1());
 		addState(new MainMenu());
+		addState(new LevelClear());
 		
 		
 	}

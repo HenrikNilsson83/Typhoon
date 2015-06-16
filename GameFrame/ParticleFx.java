@@ -8,6 +8,7 @@ import org.newdawn.slick.particles.ConfigurableEmitter.LinearInterpolator;
 import org.newdawn.slick.particles.ConfigurableEmitter.SimpleValue;
 import org.newdawn.slick.particles.ParticleIO;
 import org.newdawn.slick.particles.ParticleSystem;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class ParticleFx extends SimpleGameObject {
 
@@ -89,7 +90,7 @@ public class ParticleFx extends SimpleGameObject {
 
 
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 		
 
 		effectSystem.update(delta);

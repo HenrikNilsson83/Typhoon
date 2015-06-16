@@ -19,6 +19,7 @@ public abstract class TiledMapGameState extends BasicGameState {
 	protected LightFX lFx;
 	protected SimpleGUI GUI;
 	Conductor cond;
+	private static Camera cam;
 
 	//ABSTRACT CLASSES
 	protected abstract void setUpResources();
@@ -36,34 +37,40 @@ public abstract class TiledMapGameState extends BasicGameState {
 		cond = new Conductor();
 		setUpResources();
 	}
-	
-	public void init(GameContainer gc, StateBasedGame arg1){
-		
-		pool = new ObjectPool();
-		
-		lFx = new LightFX(gc,light);
 
+	public void init(GameContainer gc, StateBasedGame arg1){
+
+		pool = new ObjectPool();
+		lFx = new LightFX(gc,light);
 		String s = this.getTiledMapName();
 		if(!s.contains(".tmx")){
 			s +=".tmx"; 
 		}
-		tiledmap = ((TileMapResource) resourceHandler.get(s)).getMap();
+		TileMapResource tmr = (TileMapResource) this.resourceHandler.get(s);
+		this.tiledmap = tmr.getMap();
 		scenery = new MapInfo(tiledmap,gc,pool);
+		cam = new Camera(gc, this.tiledmap);
 		this.spawnGameObjects(gc);
 		this.initState(gc, arg1);
 		GUI = this.getGUI(gc);
 	}
 
-	public void update(GameContainer gc, StateBasedGame arg1, int delta) {
-		pool.update(gc, delta);
+	public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+		pool.update(gc, delta,sbg);
 		GUI.guiContent(gc, delta);
-		this.updateState(gc, arg1, delta);
+		this.updateState(gc, sbg, delta);
 	}
 
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)throws SlickException {
+		centerOn();
+		cam.drawMap2();
+		cam.translateGraphics();
+		pool.render(gc, g);
+		drawForGround(gc,g);
+		if(this.useLightFX){
+			this.lFx.renderLight(gc);
+		}
 		this.renderState(gc, arg1, g);
-		this.scenery.drawForGround(gc,g);
-		this.lFx.renderLight(gc);
 		if(this.GUI!=null){
 			this.GUI.render(gc, g);
 		}
@@ -88,11 +95,43 @@ public abstract class TiledMapGameState extends BasicGameState {
 		}
 		return retur;
 	}
-	
+
+	public void render(GameContainer gc,Graphics g){
+
+
+	}
+
+	public void drawForGround(GameContainer gc, Graphics g) {
+		cam.untranslateGraphics();
+		cam.drawForGround();
+		cam.translateGraphics();
+
+	}
+
+	public void centerOn() {
+		cam.centerOn((pool.mainChar.gamePosition.x), (pool.mainChar.gamePosition.y));
+	}
+
+	public int getXOffSet() {
+
+		return (int)cam.cameraX;
+	}
+	public int getYOffSet() {
+
+		return (int)cam.cameraY;
+	}
+
+	public void translateGFX(){
+		cam.translateGraphics();
+	}
+	public void unTranslateGFX(){
+		cam.untranslateGraphics();
+	}
+
 	protected void updateLight(float r,float g,float b){
 		this.lFx.updateLight(r,g,b);
 	}
-	
+
 	protected void updateLight(Color c){
 		this.lFx.updateLight(c);
 	}

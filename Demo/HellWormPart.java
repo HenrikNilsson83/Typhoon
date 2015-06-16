@@ -1,28 +1,37 @@
+import java.util.LinkedList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Angel extends EnemyGameObject {
 
+public class HellWormPart extends EnemyGameObject {
 	private Vector2f lastPosition;
 
 
 	int mode = 0;
-
-
 	public int engageTimer = 3000;
-	public int engageMax = 3000; 
-	
+	public int engageMax = 3000;
+	public float goToX;
+	public float goToY;
+	public static int maxLength = 12;
+	private int delay = 0;
+	private int delayTime;
+
+	private LinkedList<Vector2f> queue;
+	HellWormPart p;
 
 
 
 
 
 
-	public Angel(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
+	public HellWormPart(int x, int y, Vector2f pos,Vector2f vel, GameContainer gc, ObjectPool objPool,int currentL, int delayTime) {
 		super(x, y, pos, gc, objPool);
+		System.out.println(currentL);
 		size = 64;
+		this.delayTime = delayTime;
 		jump = false;
 		this.idString = "SimpleEnemy";
 		lastPosition = new Vector2f(x, y);	
@@ -32,8 +41,16 @@ public class Angel extends EnemyGameObject {
 		target = null;
 		this.data1 =0;
 		this.data3 = 0;
-		this.walkSpeed*=2;
+		this.walkSpeed*=4;
 		this.velocityVector.x=this.walkSpeed;
+		this.goToX = -1;
+		this.goToY = -1;
+		currentL++;
+		if(currentL<maxLength){
+			p = new HellWormPart(x,y,new Vector2f(this.gamePosition.x-width,this.gamePosition.y),new Vector2f(this.velocityVector.x,this.velocityVector.y),gc,objPool,currentL,delayTime);
+			objPool.addToCollisionPool(p);
+		}
+		queue = new LinkedList<Vector2f>();
 	}
 
 
@@ -46,20 +63,15 @@ public class Angel extends EnemyGameObject {
 		addAnimation("LiquidSoldier.png", 0, 0, 3, 0, 150, "WalkRight");
 		addAnimation("LiquidSoldier.png", 27, 0, 39, 0, 65, "deadLeft",false);
 		addAnimation("LiquidSoldier.png", 7, 0, 19, 0, 65, "deadRight",false);
-		addAnimation("LiquidSoldier.png", 24, 0, 25, 0, 150, "flyLeft");
-		addAnimation("LiquidSoldier.png", 4, 0, 5, 0, 150, "flyRight");*/
-
-
-		addAnimation("Angel.png", 4, 0, 7, 0, 200, "WalkLeft");
-		addAnimation("Angel.png", 0, 0, 3, 0, 200, "WalkRight");
-		addAnimation("SimpleGreenGuard.png", 14, 0, 17, 0, 65, "deadLeft",false);
-		addAnimation("SimpleGreenGuard.png", 10, 0, 13, 0, 65, "deadRight",false);
-		addAnimation("Angel.png", 4, 0, 7, 0, 150, "flyLeft");
-		addAnimation("Angel.png", 0, 0, 3, 0, 150, "flyRight");
-
-
-		setCurrentAnimation("WalkRight");		
-		this.borderColor = Color.black;
+		addAnimation("LiquidSoldier.png", 24, 0, 25, 0, 150, "flyLeft");*/
+		addAnimation("HellWormHead.png", 1, 0, 1, 0, 1000, "head");	
+		this.setCurrentAnimation("head");
+		float r = (float) Math.random();
+		float g = (float) Math.random();
+		float b = (float) Math.random();
+		//this.borderColor = Color.darkGray;
+		this.fillRectColor = Color.darkGray;
+		//this.showFillRect = true;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
 		this.faction = -1;	
@@ -68,8 +80,22 @@ public class Angel extends EnemyGameObject {
 
 	@Override
 	public void aiBehaviour(GameContainer gc, int delta) {
-		this.simpleWalk = true;
+
+		if(this.goToX!=-1){
+			this.gamePosition.x = this.goToX;
+			this.gamePosition.y = this.goToY;
+		}
 		
+		if(delay<=delayTime){
+			delay +=delta;
+			this.queue.addLast(new Vector2f(this.gamePosition.x,this.gamePosition.y));
+		}
+		else if(p!=null){
+			Vector2f removed = this.queue.removeFirst();
+			p.goToX = removed.x;
+			p.goToY = removed.y;
+			this.queue.addLast(new Vector2f(this.gamePosition.x,this.gamePosition.y));
+		}
 		
 		//this.jumpAtObstacle = true;
 		//this.shootAtPlayer = true;
@@ -98,6 +124,8 @@ public class Angel extends EnemyGameObject {
 		if(HP>0){
 			//laserSight(gc,g);
 		}
+		g.setColor(this.fillRectColor);
+		//g.fillOval(this.gamePosition.x, this.gamePosition.y, this.width, this.height);
 
 		if(p!=null&&player!=null&&renderPath){
 			renderPath(gc,g);
@@ -158,24 +186,7 @@ public class Angel extends EnemyGameObject {
 
 	protected void setAnimation(GameContainer gc, int delta) {
 
-		if(this.HP>0){
 
-
-			if(this.velocityVector.x>0){
-				setCurrentAnimation("WalkRight");
-			}
-			else{
-				setCurrentAnimation("WalkLeft");
-			}
-			if(!southObs){
-				if(this.velocityVector.x>0){
-					setCurrentAnimation("flyRight");
-				}
-				else{
-					setCurrentAnimation("flyLeft");
-				}
-			}
-		}
 
 	}
 
@@ -207,9 +218,9 @@ public class Angel extends EnemyGameObject {
 
 			}
 		}
-		
+
 		else if(sGO.getClass().equals(SpaceExplorer.class)){
-			
+
 			SpaceExplorer se = (SpaceExplorer) sGO;
 			if(se.dashing&&HP>0){
 				HP--;
@@ -218,7 +229,7 @@ public class Angel extends EnemyGameObject {
 			if(HP == 0){
 				walkSpeed = 0f;
 				this.checkForGravity = true;
-				
+
 				if(this.velocityVector.x>0){
 					setCurrentAnimation("deadRight");
 				}
@@ -229,8 +240,7 @@ public class Angel extends EnemyGameObject {
 
 			}
 		}
-		
+
 		//this.remove = true;
 	}
-
 }

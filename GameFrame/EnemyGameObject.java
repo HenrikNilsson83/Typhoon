@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.pathfinding.Path;
 
 import java.util.*;
@@ -147,7 +148,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 	}
 
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 
 		aiBehaviour(gc,delta);
 
@@ -520,12 +521,19 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 		if(this.gamePosition.x>x){
 			float a = (x-this.gamePosition.x);
 			float b = y -this.gamePosition.y;
+			if(a==0){
+				a =0.1f;
+			}
 			v = (float) Math.atan(b/a);
 			v+=Math.PI;
 		}
 		else{
+			
 			float a = (x-this.gamePosition.x);
 			float b = y -this.gamePosition.y;
+			if(a==0){
+				a =0.1f;
+			}
 			v = (float) Math.atan(b/a);
 
 		}
@@ -552,6 +560,8 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 		if(currentAnimation != null){
 			currentAnimation.draw(gamePosition.x, gamePosition.y+1);	
 		}
+		
+	
 
 
 

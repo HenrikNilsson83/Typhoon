@@ -3,6 +3,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.state.StateBasedGame;
 
 
 public class ObjectPool {
@@ -52,13 +53,13 @@ public class ObjectPool {
 		}
 	}
 	
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta, StateBasedGame sbg) {
 		Iterator<SimpleGameObject> itCol = collisionPool.keySet().iterator();
 		Iterator<SimpleGameObject> itNonCol = nonCollisionPool.keySet().iterator();
 		while(itCol.hasNext()){
 			SimpleGameObject sgo = itCol.next();
 			if(!sgo.remove){
-				sgo.update(gc, delta);
+				sgo.update(gc, delta,sbg);
 			}
 			else{
 				itCol.remove();
@@ -67,7 +68,7 @@ public class ObjectPool {
 		while(itNonCol.hasNext()){
 			SimpleGameObject sgo = itNonCol.next();
 			if(!sgo.remove){
-				sgo.update(gc, delta);
+				sgo.update(gc, delta,sbg);
 			}
 			else{
 				itNonCol.remove();

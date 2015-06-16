@@ -3,6 +3,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 
 public abstract class SimpleGUI extends MyGameObject {
@@ -26,7 +27,7 @@ public abstract class SimpleGUI extends MyGameObject {
 		
 	}
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 		guiContent(gc,delta);
 		
 	}

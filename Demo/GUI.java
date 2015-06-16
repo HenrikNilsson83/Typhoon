@@ -4,6 +4,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 
 public class GUI extends SimpleGUI {
@@ -95,6 +96,12 @@ public class GUI extends SimpleGUI {
 		g.setColor(new Color(1f*vision,1f*vision,1f*vision));
 		g.fillRect(this.gamePosition.x+4+i*64,this.gamePosition.y+4, 64, 64);
 		g.setDrawMode(g.MODE_NORMAL);
+		
+	}
+
+	@Override
+	void update(GameContainer gc, int delta, StateBasedGame sbg) {
+		// TODO Auto-generated method stub
 		
 	}
 	

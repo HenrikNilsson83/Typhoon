@@ -3,6 +3,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 
 public class HeatSeekingMisile extends AdvancedGameObject {
@@ -39,7 +40,7 @@ public class HeatSeekingMisile extends AdvancedGameObject {
 	}
 
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 
 		if(this.rightObs||this.leftObs||this.northObs||this.southObs){
 

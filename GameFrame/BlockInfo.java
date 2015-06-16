@@ -1,9 +1,9 @@
 
 public class BlockInfo{
-	public boolean northObs;
-	public boolean southObs;
-	public boolean eastObs;
-	public boolean westObs;
+	boolean northObs;
+	boolean southObs;
+	boolean eastObs;
+	boolean westObs;
 	public int a;
 	
 	public BlockInfo(boolean allDir){
@@ -20,5 +20,12 @@ public class BlockInfo{
 
 	public boolean getBlocked(int dir) {
 		return(this.northObs&&this.southObs&&this.eastObs&&this.westObs);
+	}
+
+	public void setAll(boolean b) {
+		this.northObs = b;
+		this.southObs= b;
+		this.eastObs= b;
+		this.westObs= b;
 	}
 }

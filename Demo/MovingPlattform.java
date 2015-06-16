@@ -3,6 +3,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 
 public class MovingPlattform extends AdvancedGameObject {
@@ -37,7 +38,7 @@ public class MovingPlattform extends AdvancedGameObject {
 	}
 
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 		
 		//ObjectPool op = new ObjectPool();
 		// GET THE PLAYER 

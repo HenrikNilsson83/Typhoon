@@ -227,7 +227,6 @@ public class Physic {
 
 		boolean isInCollision = false;
 		Rectangle player = new Rectangle(hb.getXPos() ,hb.getYPos() ,hb.getWidth() ,hb.height );
-		boolean[][] isBlocked = s.getBlocked();
 		int xAxis = (int) (hb.getXPos() / tileSize);
 		int yAxis = (int) (hb.getYPos() / tileSize);
 		int xMax = 12;
@@ -241,12 +240,7 @@ public class Physic {
 			yAxis = 0;
 		}*/
 
-		if (isBlocked.length <= xAxis + xMax) {
-			xMax = isBlocked.length - xAxis;
-		}
-		if (isBlocked[0].length < yAxis + yMax) {
-			yMax = isBlocked[1].length - yAxis;
-		}
+		
 
 		for (int xRange = 0; xRange < xMax; xRange++) {
 

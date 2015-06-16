@@ -2,6 +2,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 public abstract class MyGameObject extends SimpleGameObject {
 	
@@ -14,7 +15,7 @@ public abstract class MyGameObject extends SimpleGameObject {
 	abstract void init(GameContainer gc);
 
 	@Override
-	abstract void update(GameContainer gc, int delta);
+	abstract void update(GameContainer gc, int delta,StateBasedGame sbg);
 
 	@Override
 	abstract void render(GameContainer gc, Graphics g);

@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class AlphaMap extends SimpleGameObject {
 	Graphics g;
@@ -95,7 +96,7 @@ public class AlphaMap extends SimpleGameObject {
 
 
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 		// TODO Auto-generated method stub
 		
 	}

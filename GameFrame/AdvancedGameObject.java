@@ -4,6 +4,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
+
 import java.util.*;
 
 public abstract class AdvancedGameObject extends SimpleGameObject{	
@@ -118,7 +120,7 @@ public abstract class AdvancedGameObject extends SimpleGameObject{
 	}
 
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 
 
 	}

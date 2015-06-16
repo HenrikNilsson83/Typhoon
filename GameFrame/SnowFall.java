@@ -4,6 +4,7 @@ import java.util.Iterator;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 
 public class SnowFall extends SimpleGameObject {
@@ -45,17 +46,17 @@ public class SnowFall extends SimpleGameObject {
 	}
 
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 		if(Math.random()<fallFreq){
 			if(!(snow.size()>=maxFlakes)){
-				spawnFlake(gc,delta);
+				spawnFlake(gc,delta,sbg);
 			}
 		}
 		
 		Iterator<SnowFlake> sIt = snow.iterator();
 		while(sIt.hasNext()){
 			SnowFlake s = sIt.next();
-			s.update(gc, delta);
+			s.update(gc, delta,sbg);
 			if(s.gamePosition.y>this.mapHeight){
 				sIt.remove();
 			}
@@ -63,7 +64,7 @@ public class SnowFall extends SimpleGameObject {
 		
 	}
 
-	private void spawnFlake(GameContainer gc, int delta) {
+	private void spawnFlake(GameContainer gc, int delta,StateBasedGame sbg) {
 		int x = (int) (target.gamePosition.x-800+Math.random()*1600);
 		int y = (int) (target.gamePosition.y-400+80*Math.random());
 		int s = (int) (2+4*Math.random());

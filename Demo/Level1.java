@@ -4,9 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 
@@ -21,16 +19,18 @@ public class Level1 extends TiledMapGameState {
 
 		pool.addToNonCollisionPool(new SnowFall(0,0,0, pool));
 		physic = new Physic(true);
-		Color tempColor = new Color(1f,0.2f,0,2f);
+		Color tempColor = new Color(0.8f,0.2f,0,2f);
 		tempColor.a = 0.2f;
 		updateLight(tempColor);
+		this.useLightFX = false;
 
 	}
 
-	public void renderState(GameContainer gc, StateBasedGame arg1, Graphics g) {
-		this.scenery.render(gc,g);
-		pool.render(gc, g);
-		
+	public void renderState(GameContainer gc, StateBasedGame sbg, Graphics g) {
+		this.unTranslateGFX();
+		g.setColor(Color.white);
+		g.drawString("Player Pos: X = "+(int)(pool.mainChar.gamePosition.x)+" Y = "+(int)(pool.mainChar.gamePosition.y),5,  gc.getHeight()-25);
+		this.translateGFX();
 	}
 	public void updateState(GameContainer gc, StateBasedGame sbg, int delta) {
 		if(delta<500){
@@ -52,7 +52,7 @@ public class Level1 extends TiledMapGameState {
 	}
 	protected void setUpResources() {
 		resourceHandler = new ResourceHandler();
-
+		
 		String id = "SpaceExplorer.png";
 		String path = "images/SpaceExplorer.png";
 		int xSize = 64;
@@ -92,6 +92,13 @@ public class Level1 extends TiledMapGameState {
 		path = "images/BirdBear.png";
 		xSize = 64;
 		ySize = 64;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
+		
+		id = "HellWormHead.png";
+		path = "images/HellWormHead.png";
+		xSize = 80;
+		ySize = 80;
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
 
@@ -290,6 +297,13 @@ public class Level1 extends TiledMapGameState {
 			int py = (int) cord.get(i).y;
 			pool.addToCollisionPool(new Patrol(64, 64, new Vector2f(px,py),gc, pool));
 		}
+		
+		cord = this.scanMapForObject("EnemySpawn", "hellworm", "spawn");
+		for(int i = 0; i<cord.size();i++){
+			int px = (int) cord.get(i).x;
+			int py = (int) cord.get(i).y;
+			pool.addToCollisionPool(new HellWorm(80, 80, new Vector2f(px,py),gc, pool));
+		}
 
 		cord = this.scanMapForObject("EnemySpawn", "angel", "spawn");
 		for(int i = 0; i<cord.size();i++){
@@ -311,6 +325,13 @@ public class Level1 extends TiledMapGameState {
 			int py = (int) cord.get(i).y;
 			pool.addToCollisionPool(new SuperCop(64, 64, new Vector2f(px,py),gc, pool));
 		}
+		
+		cord = this.scanMapForObject("EnemySpawn", "goal", "spawn");
+		for(int i = 0; i<cord.size();i++){
+			int px = (int) cord.get(i).x;
+			int py = (int) cord.get(i).y;
+			pool.addToCollisionPool(new GoalPoint(64, 64, new Vector2f(px,py), pool,2));
+		}
 	}
 
 	@Override
@@ -322,7 +343,7 @@ public class Level1 extends TiledMapGameState {
 
 	@Override
 	public String getTiledMapName() {
-		return "Level5";
+		return "Hell";
 	}
 
 	@Override

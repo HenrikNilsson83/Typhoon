@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.pathfinding.Path;
 
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class RobotCop extends AdvancedGameObject {
 	}
 
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 
 
 		if(HP>0){
@@ -444,6 +445,8 @@ public class RobotCop extends AdvancedGameObject {
 			reCharge=0;
 		}
 	}
+	
+	
 
 
 

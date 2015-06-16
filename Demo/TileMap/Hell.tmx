@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="80" height="80" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" width="160" height="160" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="SpaceTilesV1" tilewidth="16" tileheight="16">
   <image source="Tiles/SpaceTilesV1.png" width="512" height="512"/>
   <tile id="0">
@@ -133,47 +133,77 @@
  <tileset firstgid="5676" name="LavaBack" tilewidth="16" tileheight="16">
   <image source="Tiles/LavaBack.png" width="768" height="256"/>
  </tileset>
- <layer name="FarBackGround" width="80" height="80">
+ <layer name="FarBackGround" width="160" height="160">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3DMQ0AAAwDoMqYf5096mE3JPSSqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq8DQUc/kQBkAAA=
+   H4sIAAAAAAAAA+3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfBhhhfhKAJABAA==
   </data>
  </layer>
- <layer name="BackGround" width="80" height="80">
+ <layer name="BackGround" width="160" height="160">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3TUQrCMBBF0fypSxHd//oUFAq1xYhtM5OcA/MfLi+lAAAAAAAAAAAAAAAAAAAAAABwft6l9SMSOpVXu+v77m2fk8q8nYa/WWqn4Xdru9OwTk07DT/dSn03DSe1/1XDZf+2G7XhFrsbueHW7UZpuMfuRmq4d7teGx6xu54bHt2ul4YtdtdTw9btsjaMsLvMDaO1y9QwarsMDaO3i9wwS7uIDbO1i9Qwa7sIDbO3W2v4ABJLaSAAZAAA
+   H4sIAAAAAAAAA+3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfBhhhfhKAJABAA==
   </data>
  </layer>
- <layer name="ColisionLayer" width="80" height="80">
+ <layer name="ColisionLayer" width="160" height="160">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3R2wkCMRRF0YBNTP91qBWpNZgGhGE2PoJrwfm+YWcMAAAAAAAAAAAAAAAAAABWctoxXtOv0a/Rr9Gv0a/Rr9Gv0a/Rr9Gv0a/Rr/mVfqv+nX6Nfo1+jX7NJ/vtuaVfu6Vfv6dfu6dfu6dfu2dm9q4dteKb/51+sK7zNsZl7rp9+yVrus1u97mHfoc8ARo0V9gAZAAA
+   H4sIAAAAAAAAA+3aQU7DQBAAQST+/2fuOViJbdK74yppzszi3kgx/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzw+zLwTfoDmOn18/2bA/qjpD9K+qO0a39ankF/lHbtjxnK/ooe3YG11M3p79mm98ba9EdJf5T0R2nX/rQ8g/4o7dofM+iPkv4o6Y+S/rji6jMu+yt6dAfupb/P6O9eO/fH/vRHSX+U9EdJf5Se2p+W16A//ZWe2h9r0B8l/VHaub+iR3fgXvr7jP7utXN/7E9/lPRHSX+U9Edp5/7ubtcd+D79XTsL1+zcX2mFHSbQ3zkr7DCB/s5ZYYcJ9HfOCjtMoL9zVthhgon9rbAD79Gf/koT+/uGFXaYQH/nrLDDBPo7Z4Ud0B8t/VEq+7uz2x3vAH1L+gMAAOAd9XfR3Ydr6ue3+3CNZ0FJe5R0R0l7lLRHSXuU9EdJf5T0R0l/lPRHSX+U9EdJf5TO9Gf2miP1bmb+HFl5NwAAAODZvD+g4D0WJf1R0h8Ff0+ipD9K+qOkPwr+r4iS/ijpj5L+/tfZ3+/VWcmTz17T3/yz17tUjdXnftf0s9e71K2t8AyOTD97vcvRz/8D7v2rKACQAQA=
   </data>
  </layer>
- <layer name="WalkingLayer" width="80" height="80">
+ <layer name="WalkingLayer" width="160" height="160">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2YZ27bQBCFqUJHN+AaSLlAmmRL8mHSLFF2DpNe/6Qndi6RcoE0RbKUQ6RcIO0t+IgIkpeCEIIFeB/wQEsLY8XhzLxZep4QQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhCgTw8DzPkMjaAztGs/rQw3oIIiuwk0F8alCNagOTYPou20TxXVL8Uukifi0oA1o00Sft5mDfeagcGNj1WOsQshn/GxdHzGRhJsuc6zC65cg+i6u47bil4j1i13Grs58s71wNp7CTZX1a3tg7L879BTrHz3lXyKTIIqdjVeHOTdgH6zTT4QbO/cdcP7bZN+zMbtsotpV/SZj52ObbzYPQ/4dsg/auE4Uv0Sm9Nsa+6D1W/t5ix7SVf0m4jPnrHf4rN+O+efLa4pfIrPntRrPIA3Oz7YHjjKq3yfY5yn0DHoOvYD2StA7esyxEX23Tu+N58Gs4vcpWHyXUYaz44j5N6J/hDO1WzUZ+q9ZfJfhl6B3jOmxNn5tzsxV/v4W7yULzprFdxllODvGz7zJmaVJP+nTewcZ3cMls/guI6u9/4dwxnvtdco6bjGWw5Tr1+UTZY3feKZft+gbbV79lOcXm+sun5jw2c2vF50+Z74B3xs0KJ+5l+b8bOPn8ok19o/59aLToGfEtVPnWa7CPp72DOHyiQ777fx60anxWXeZA0P2vw3mQ5jyPbj63A5npvn1orPFGa/P5x7n44Q9KO/8e4D9H0KPoMeB23/2oZc5rLfMcu2luO+q+fcO//Me+gB9PMRflvlPUdbz2vcn9Av6Df2BVvWfoqznte9J6BR0GjpzSH0vq/+irOe17znoPHQBumhWr/+irOe17xXoKnQNug7dgG5Ct6Db0B3oLnQPul+C9ax5hT1fQ2+gtznsX3a+ImbfoO/QD8VvZY6ue94x6Dh0Yj3vXyOEWIW/9IjrdABkAAA=
+   H4sIAAAAAAAAA+3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfBhhhfhKAJABAA==
   </data>
  </layer>
- <layer name="ForeGround" width="80" height="80">
+ <layer name="ForeGround" width="160" height="160">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3Qt01EAQBEwV8APoBm8DG+DnyMrwdfD74SXgEElx0nzUgvX+0wAAAAAAAAAAAAAAAAAAAAAAD/2dbiMGzXTu3WXu3XweK4l02Gi366rKu6rpu6rTv/jeS+nx7qsZ7quV7q1X8jeeun9/qoz/qq7/rx30imloZhumZqtuZqvhaWxr1sMiz300qt1lqt10Zt+m8kh/10VMd1Uqd1Vuf+AwAAAAAA/vALKakjNgBkAAA=
+   H4sIAAAAAAAAA+3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfBhhhfhKAJABAA==
   </data>
  </layer>
- <objectgroup name="PlayerSpawn" width="80" height="80">
-  <object name="PlayerSpawn" type="spawn" x="293" y="961" width="72" height="38">
+ <objectgroup name="PlayerSpawn" width="160" height="160">
+  <object name="PlayerSpawn" type="spawn" x="218" y="2396" width="72" height="38">
    <properties>
     <property name="spawn" value="player1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="EnemySpawn" width="80" height="80">
-  <object name="EnemySpawn" type="spawn" x="497" y="745" width="72" height="38">
+ <objectgroup name="EnemySpawn" width="160" height="160">
+  <object name="EnemySpawn" type="spawn" x="1118" y="1281" width="72" height="38">
    <properties>
     <property name="spawn" value="angel"/>
    </properties>
   </object>
-  <object name="EnemySpawn" type="spawn" x="40" y="967" width="72" height="38">
+  <object name="EnemySpawn" type="spawn" x="841" y="1469" width="72" height="38">
    <properties>
     <property name="spawn" value="angel"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="847" y="1073" width="72" height="38">
+   <properties>
+    <property name="spawn" value="angel"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="309" y="2112" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="865" y="1861" width="72" height="38">
+   <properties>
+    <property name="spawn" value="robotcop"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="2084" y="1134" width="72" height="38">
+   <properties>
+    <property name="spawn" value="angel"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="2202" y="2007" width="72" height="38">
+   <properties>
+    <property name="spawn" value="angel"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="1870" y="1236" width="72" height="38">
+   <properties>
+    <property name="spawn" value="hellworm"/>
    </properties>
   </object>
  </objectgroup>

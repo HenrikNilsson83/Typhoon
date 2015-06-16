@@ -213,11 +213,19 @@ public class SuperCop extends EnemyGameObject {
 
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
+		
+		
 		if(sGO.getClass().equals(SpaceExplorer.class)){
-			walkSpeed = 0f;
-			HP--;
-			if(HP == 0){
+			
+			SpaceExplorer se = (SpaceExplorer) sGO;
+			if(se.dashing&&HP>0){
+				HP--;
 				cond.playSound("explosion", 0.8f, 0.2f);
+			}
+			if(HP == 0){
+				walkSpeed = 0f;
+				this.checkForGravity = true;
+				
 				if(this.velocityVector.x>0){
 					setCurrentAnimation("deadRight");
 				}
@@ -227,7 +235,6 @@ public class SuperCop extends EnemyGameObject {
 				this.velocityVector.x=0;
 
 			}
-			//this.remove = true;
 		}
 	}
 

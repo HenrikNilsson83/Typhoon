@@ -10,9 +10,10 @@ import org.newdawn.slick.tiled.TiledMap;
 public class MapInfo {
 	private static int size;
 	private static boolean[][] isBlocked;
+	private static BlockInfo[][] blockinfo;
 	private static ArrayList<Vector2f> movingBlocks;
 	private TiledMap tiledmap;
-	private static Camera cam;
+	
 	SimpleGameObject focus;
 	GameContainer container;
 	public static int HEIGHT;
@@ -25,9 +26,9 @@ public class MapInfo {
 		this.objectPool = objPool;
 		this.size = map.getTileHeight();
 		isBlocked = new boolean[map.getWidth()][map.getHeight()];
+		blockinfo = new BlockInfo[map.getWidth()][map.getHeight()];
 		setBlocked(map);
 		this.tiledmap =map;
-		cam = new Camera(gc, this.tiledmap);
 		this.container = gc;
 		HEIGHT = map.getHeight();
 		WIDTH = map.getWidth();
@@ -43,6 +44,8 @@ public class MapInfo {
 			return true;
 		}
 		return this.isBlocked[x][y];
+		//return this.blockinfo[x][y].getBlocked();
+		//return blockinfo[x][y].southObs;
 	}
 
 	public boolean getMovingBlocked(float x,float y){
@@ -60,12 +63,7 @@ public class MapInfo {
 		return false;
 	} 
 
-	public void translateGFX(){
-		cam.translateGraphics();
-	}
-	public void unTranslateGFX(){
-		cam.untranslateGraphics();
-	}
+	
 
 	private void setBlocked(TiledMap tileMap) {
 		for (int x = 0; x < tileMap.getWidth(); x++) {
@@ -76,7 +74,14 @@ public class MapInfo {
 					String value = tileMap.getTileProperty(tileID, "blocked","false");
 					if ("true".equals(value)) {
 						isBlocked[x][y] = true;
-					} 
+						blockinfo[x][y] = new BlockInfo(true);
+						blockinfo[x][y].setAll(true);
+						blockinfo[x][y].southObs = true;
+					}
+					else{
+						blockinfo[x][y] = new BlockInfo(false);
+						this.blockinfo[x][y].southObs = false;
+					}
 				}
 			}
 		}
@@ -86,30 +91,5 @@ public class MapInfo {
 		return isBlocked;
 	}
 
-	public void render(GameContainer gc,Graphics g){
-		centerOn();
-		cam.drawMap2();
-		cam.translateGraphics();
-
-	}
-
-	public void drawForGround(GameContainer gc, Graphics g) {
-		cam.untranslateGraphics();
-		cam.drawForGround();
-		cam.translateGraphics();
-
-	}
 	
-	public void centerOn() {
-		cam.centerOn((objectPool.mainChar.gamePosition.x), (objectPool.mainChar.gamePosition.y));
-	}
-
-	public int getXOffSet() {
-
-		return (int)cam.cameraX;
-	}
-	public int getYOffSet() {
-
-		return (int)cam.cameraY;
-	}
 }

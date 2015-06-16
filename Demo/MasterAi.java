@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 
 public class MasterAi extends AdvancedGameObject {
@@ -32,7 +33,7 @@ public class MasterAi extends AdvancedGameObject {
 	
 	//THIS WILL BE FIXED LATER WHEN STUFF WORKS AGAIN!
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
 		//SET TARGET AND SEE IF ANY MINIONS ARE DEAD
 		
 		/*

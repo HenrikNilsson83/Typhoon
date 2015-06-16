@@ -3,10 +3,9 @@ import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class SpaceExplorer extends AdvancedGameObject{
 
@@ -27,6 +26,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private int lastRunDir = 0;
 	boolean wallJump = false;
 	Conductor cond;
+	private boolean changeState;
+	private int nextState;
 
 	//Player vars
 	private int shotCoolDownTime = 300;
@@ -39,15 +40,15 @@ public class SpaceExplorer extends AdvancedGameObject{
 
 	private float runMaxX = 0.36f;
 	private float runAccX = 0.0005f;
-	private float runDeAccX = 0.0005f;
+	private float runDeAccX = 0.001f;
 
-	private boolean dashing = false;
+	public boolean dashing = false;
 	private int dashTimerMax = 300;
 	private int dashTimer = dashTimerMax;
 	private int dashCDMax = 500;
 	private int dashCD = 0;
 	private boolean dashkeyPressed = false;
-	private float dashSpeed = 0.4f;
+	private float dashSpeed = 0.6f;
 
 	private boolean crouchkeyPressed = false;
 
@@ -65,6 +66,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 		//setLight(light);
 		this.checkForCollision = true;
 		this.checkForGravity = true;
+		this.changeState = false;
+		this.nextState = -1;
 		cond = new Conductor();
 		this.resource1 = 9;
 		this.faction = 1;
@@ -119,7 +122,12 @@ public class SpaceExplorer extends AdvancedGameObject{
 	}
 
 	@Override
-	void update(GameContainer gc, int delta) {
+	void update(GameContainer gc, int delta,StateBasedGame sbg) {
+		if(this.changeState){
+			System.out.println("HOPP");
+			this.changeState = false;
+			sbg.enterState(this.nextState);
+		}
 		lastPosition.x = gamePosition.x;
 		lastPosition.y = gamePosition.y;
 		//setLight();
@@ -419,7 +427,65 @@ public class SpaceExplorer extends AdvancedGameObject{
 			}
 			this.velocityVector.x = 0;
 		}
+		if(sGO.getClass().equals(SuperCop.class)){
+			float v = this.getDirectionToTarget(sGO.gamePosition.x-20,sGO.gamePosition.y);
+			float distance = this.hitbox.yPos+this.hitbox.height-sGO.gamePosition.y;
+			v*=(180/(2*Math.PI));
+			if(distance<18){
+				this.velocityVector.y = jumpVelocity*2;
+				jumpButtonPressed = false;
+				isJump = false;
+				jumpTimer = 0;
+				jumpNum = jumpNumMax;
+			}
 
 
+		}
+		
+		if(sGO.getClass().equals(GoalPoint.class)){
+			GoalPoint gp = (GoalPoint) sGO;
+			this.nextState = gp.nextState;
+			this.changeState = true;
+		}
+
+
+	}
+
+	float getDirectionToTarget(SimpleGameObject t){
+
+		float v = 0;
+		if(this.gamePosition.x>t.gamePosition.x){
+			float a = (t.gamePosition.x-this.gamePosition.x);
+			float b = t.gamePosition.y -this.gamePosition.y;
+			v = (float) Math.atan(b/a);
+			v+=Math.PI;
+		}
+		else{
+			float a = (t.gamePosition.x-this.gamePosition.x);
+			float b = t.gamePosition.y -this.gamePosition.y;
+			v = (float) Math.atan(b/a);
+
+		}
+
+		return v;
+	}
+	
+	float getDirectionToTarget(float x,float y){
+
+		float v = 0;
+		if(this.gamePosition.x>x){
+			float a = (x-this.gamePosition.x);
+			float b = y -this.gamePosition.y;
+			v = (float) Math.atan(b/a);
+			v+=Math.PI;
+		}
+		else{
+			float a = (x-this.gamePosition.x);
+			float b = y -this.gamePosition.y;
+			v = (float) Math.atan(b/a);
+
+		}
+
+		return v;
 	}
 }
