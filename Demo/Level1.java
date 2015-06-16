@@ -23,6 +23,8 @@ public class Level1 extends TiledMapGameState {
 		tempColor.a = 0.2f;
 		updateLight(tempColor);
 		this.useLightFX = false;
+		
+		
 
 	}
 
@@ -83,6 +85,13 @@ public class Level1 extends TiledMapGameState {
 
 		id = "LiquidSoldier.png";
 		path = "images/LiquidSoldier.png";
+		xSize = 64;
+		ySize = 64;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
+		
+		id = "lava.png";
+		path = "images/lava.png";
 		xSize = 64;
 		ySize = 64;
 		resource = new SpriteResource(id, path, xSize, ySize);
@@ -332,7 +341,18 @@ public class Level1 extends TiledMapGameState {
 			int py = (int) cord.get(i).y;
 			pool.addToCollisionPool(new GoalPoint(64, 64, new Vector2f(px,py), pool,2));
 		}
+		
+		// SET UP DYNAMIC BLOCKS
+		boolean a[][] = this.getBlockAtribute("lava");
+		for(int x = 0; x < tiledmap.getWidth();x++){
+			for(int y = 0; y < tiledmap.getHeight();y++){
+				if(a[x][y])
+					this.addDynamicBlock(x,y, new Lava(gc,x,y));
+			}
+		}
 	}
+
+	
 
 	@Override
 	public int getID() {

@@ -80,12 +80,14 @@ public class HellWorm extends EnemyGameObject {
 	@Override
 	public void aiBehaviour(GameContainer gc, int delta) {
 		this.rotation = this.getCurrentDirection();
-		if(this.leftObs||this.rightObs){
-			this.walkSpeed*=-1;
-		}
-		float yV = (float) Math.sin(t);
-		float xV = (float) Math.abs(Math.cos(t+Math.PI/3.4));
+		follow(gc,delta);
 		
+
+
+		// MOVEMENT
+		/*float yV = (float) Math.sin(t);
+		float xV = (float) Math.abs(Math.cos(t+Math.PI/3.4));
+
 		xV *=this.walkSpeed;
 		t+=tick;
 		yV*=Math.abs(this.walkSpeed);
@@ -93,11 +95,11 @@ public class HellWorm extends EnemyGameObject {
 			t = 0;
 		}
 		this.velocityVector.y = yV;
-		this.velocityVector.x = xV;
-		
-		
-		
-		
+		this.velocityVector.x = xV;*/
+
+
+
+
 		if(delay<=delayTime){
 			delay +=delta;
 			this.queue.addLast(new Vector2f(this.gamePosition.x,this.gamePosition.y));
@@ -108,13 +110,27 @@ public class HellWorm extends EnemyGameObject {
 			p.goToY = removed.y;
 			this.queue.addLast(new Vector2f(this.gamePosition.x,this.gamePosition.y));
 		}
-		
+
 		//this.jumpAtObstacle = true;
 		//this.shootAtPlayer = true;
 		//this.turnAtGap = true;
 		//this.followPlayerPathFinding = true;
 
 	}
+
+
+	private void follow(GameContainer gc, int delta) {
+		float v = this.getDirectionToTarget(this.objPool.mainChar);
+		if(this.velocityVector.x<=this.walkSpeed&&this.velocityVector.x>=-this.walkSpeed){
+			this.velocityVector.x = (float) Math.cos(v)*this.walkSpeed*1;
+		}
+
+		if(this.velocityVector.y<=this.walkSpeed&&this.velocityVector.y>=-this.walkSpeed){
+			this.velocityVector.y = (float) Math.sin(v)*this.walkSpeed*1;
+		}
+		
+	}
+
 
 
 	@Override
@@ -167,13 +183,13 @@ public class HellWorm extends EnemyGameObject {
 
 
 
-	
+
 
 
 
 	protected void setAnimation(GameContainer gc, int delta) {
 
-		
+
 
 	}
 
@@ -205,9 +221,9 @@ public class HellWorm extends EnemyGameObject {
 
 			}
 		}
-		
+
 		else if(sGO.getClass().equals(SpaceExplorer.class)){
-			
+
 			SpaceExplorer se = (SpaceExplorer) sGO;
 			if(se.dashing&&HP>0){
 				HP--;
@@ -216,7 +232,7 @@ public class HellWorm extends EnemyGameObject {
 			if(HP == 0){
 				walkSpeed = 0f;
 				this.checkForGravity = true;
-				
+
 				if(this.velocityVector.x>0){
 					setCurrentAnimation("head");
 				}
@@ -227,7 +243,7 @@ public class HellWorm extends EnemyGameObject {
 
 			}
 		}
-		
+
 		//this.remove = true;
 	}
 }

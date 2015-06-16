@@ -18,6 +18,7 @@ public abstract class TiledMapGameState extends BasicGameState {
 	protected TiledMap tiledmap;
 	protected LightFX lFx;
 	protected SimpleGUI GUI;
+	protected DynamicBlock dynamicBlocks[][];
 	Conductor cond;
 	private static Camera cam;
 
@@ -48,11 +49,14 @@ public abstract class TiledMapGameState extends BasicGameState {
 		}
 		TileMapResource tmr = (TileMapResource) this.resourceHandler.get(s);
 		this.tiledmap = tmr.getMap();
+		dynamicBlocks = new DynamicBlock[tiledmap.getWidth()][tiledmap.getHeight()];
 		scenery = new MapInfo(tiledmap,gc,pool);
 		cam = new Camera(gc, this.tiledmap);
 		this.spawnGameObjects(gc);
 		this.initState(gc, arg1);
 		GUI = this.getGUI(gc);
+		pool.addToNonCollisionPool(new DynamicBlockManager(tiledmap.getWidth(), tiledmap.getHeight(), new Vector2f(0,0), gc, pool, dynamicBlocks));
+		
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) {
@@ -94,6 +98,29 @@ public abstract class TiledMapGameState extends BasicGameState {
 			}
 		}
 		return retur;
+	}
+	
+	public boolean[][] getBlockAtribute(String s) {
+		
+		boolean retur[][] = new boolean[tiledmap.getWidth()][tiledmap.getHeight()];
+		for (int x = 0; x < this.tiledmap.getWidth(); x++) {
+			for (int y = 0; y < tiledmap.getHeight(); y++) {
+				for (int i = 0; i < tiledmap.getLayerCount(); i++) {
+					int tileID = tiledmap.getTileId(x, y, i);
+					String value = tiledmap.getTileProperty(tileID, s,"false");
+					if ("true".equals(value)) {
+						retur[x][y] = true;	
+					}
+					
+				}
+			}
+		}
+		return retur;
+	}
+	
+	protected void addDynamicBlock(int i, int j, DynamicBlock dynamicBlock) {
+		this.dynamicBlocks[i][j] = dynamicBlock;
+		
 	}
 
 	public void render(GameContainer gc,Graphics g){

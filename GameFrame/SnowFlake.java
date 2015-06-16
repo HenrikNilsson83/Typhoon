@@ -33,7 +33,7 @@ public class SnowFlake extends SimpleGameObject {
 
 	@Override
 	void render(GameContainer gc, Graphics g) {
-		g.setColor(Color.white);
+		g.setColor(Color.gray);
 		g.fillRect(this.gamePosition.x, this.gamePosition.y, size, size);
 		
 	}
