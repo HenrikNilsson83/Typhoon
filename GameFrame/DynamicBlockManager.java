@@ -23,15 +23,13 @@ public class DynamicBlockManager extends AdvancedGameObject {
 
 	@Override
 	void render(GameContainer gc, Graphics g) {
-
+		Camera cam = new Camera();
 		SimpleGameObject go = this.objPool.mainChar;
 		int tileSize = 16;
-		int xAxis = (int) (go.gamePosition.x / tileSize);
-		int yAxis = (int) (go.gamePosition.y / tileSize);
-		int xMax = 120;
-		int yMax = 120;
-		xAxis -= xMax/4;
-		xAxis -= yMax/3;
+		int xAxis = (int)(cam.cameraX/tileSize)-3;
+		int yAxis = (int)(cam.cameraY/tileSize)-3;
+		int xMax = (gc.getWidth()/tileSize)+4;
+		int yMax = (gc.getHeight()/tileSize)+4;
 		//yAxis -= 0;
 		if (xAxis < 0) {
 			xAxis = 0;
@@ -44,7 +42,6 @@ public class DynamicBlockManager extends AdvancedGameObject {
 
 		for (int xRange = 0; xRange < xMax; xRange++) {
 			for (int yRange = 0; yRange < yMax; yRange++) {
-				
 				if(yAxis +yRange < this.height&&xAxis +xRange < this.width&&this.dynamicBlock[(xAxis + xRange)][yAxis + yRange]!=null){
 					this.dynamicBlock[xAxis + xRange][yAxis + yRange].render(gc, g);
 				}

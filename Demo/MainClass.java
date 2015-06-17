@@ -29,7 +29,6 @@ public class MainClass extends StateBasedGame {
 	public MainClass(String title) {
 		super(title);
 		stateList = new ArrayList <BasicGameState>();
-
 	}
 
 	public static void main(String[] cmdLn) throws SlickException {
