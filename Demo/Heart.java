@@ -17,9 +17,12 @@ public class Heart extends AdvancedGameObject {
 
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
-		if(sGO.getClass().equals(SpaceExplorer.class)&&sGO.HP<sGO.maxHP){
-			sGO.HP++;
+		if(sGO.getClass().equals(SpaceExplorer.class)){
+			SpaceExplorer se = (SpaceExplorer)sGO;
+			if(se.HP<se.maxHP){
+			se.HP++;
 			this.remove = true;
+			}
 		}
 		
 	}

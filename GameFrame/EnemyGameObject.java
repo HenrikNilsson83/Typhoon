@@ -10,7 +10,7 @@ import org.newdawn.slick.util.pathfinding.Path;
 
 import java.util.*;
 
-public abstract class EnemyGameObject extends SimpleGameObject{	
+public abstract class EnemyGameObject extends AdvancedGameObject{	
 
 	private GameContainer container;
 
@@ -23,7 +23,9 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 	protected boolean showFillRect = false;
 	protected Color fillRectColor = Color.blue;
 
-	// ENEMY SETUP VARS 
+	// ENEMY SETUP VARS
+	protected boolean jump;
+	protected int HP;
 	int dir;
 	protected int visionX = 380;
 	protected int visionY = 5;
@@ -189,7 +191,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 			int sX = (int)(this.gamePosition.x/tileSize);
 			int sY = (int)(this.gamePosition.y/tileSize);
 			int gX = (int)(target.gamePosition.x/tileSize);
-			int gY = (int)((target.gamePosition.y +this.size)/tileSize);
+			int gY = (int)((target.gamePosition.y +this.height)/tileSize);
 			PathFinding pf = new PathFinding(sX,sY,gX,gY);
 			p = pf.getPath();
 			if(p.getLength()<7&&p!=null){
@@ -211,7 +213,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 			if(this.velocityVector.x>0){
 				System.out.println("RIGHT");
 				{
-					player = new Rectangle(this.gamePosition.x+size*1.2f,this.gamePosition.y,4,(int)(this.size));
+					player = new Rectangle(this.gamePosition.x+this.width*1.2f,this.gamePosition.y,4,(int)(this.height));
 					followPathR(gc,delta);
 				}
 			}
@@ -219,7 +221,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 			if(this.velocityVector.x<0){
 				System.out.println("LEFT");
 				{
-					player = new Rectangle(this.gamePosition.x+size*1.2f,this.gamePosition.y,4,(int)(this.size));
+					player = new Rectangle(this.gamePosition.x+this.width*1.2f,this.gamePosition.y,4,(int)(this.height));
 					followPathR(gc,delta);
 				}
 			}
@@ -344,7 +346,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 		}
 		else if(turnCooldown <= 0 && southObs && (this.rightObs )){
 			turnCooldown = turnCooldownMax;
-			int xG = (int)(((this.gamePosition.x/16)+1+size/this.tileSize));
+			int xG = (int)(((this.gamePosition.x/16)+1+this.width/this.tileSize));
 			int yG = (int)(((this.gamePosition.y/16)-1));
 			boolean b = isItBlocked(xG,yG);
 			if(!b){
@@ -364,7 +366,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 		if(turnCooldown <= 0 && !jump && dir == 0 ){
 			turnCooldown = turnCooldownMax;
 			int xG = (int)(((this.gamePosition.x/16)-1));
-			int yG = (int)(((this.gamePosition.y/16)+size/tileSize+1));
+			int yG = (int)(((this.gamePosition.y/16)+this.width/tileSize+1));
 			boolean b = isItBlocked(xG,yG);
 			if(!b){
 				dir = 1;
@@ -377,7 +379,7 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 			//dir = 0;
 			turnCooldown = turnCooldownMax;
 			int xG = (int)(((this.gamePosition.x/16)+4));
-			int yG = (int)(((this.gamePosition.y/16)+size/tileSize+1));
+			int yG = (int)(((this.gamePosition.y/16)+this.width/tileSize+1));
 			boolean b = isItBlocked(xG,yG);
 			if(!b){
 				dir = 0;
@@ -404,14 +406,14 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 		boolean blocked = checkForObstaclesX(target);
 		boolean inVisionRange = inVisionRange(target);
 		boolean facingTarget = facingTarget(target);
-		boolean retur = !blocked&&inVisionRange&&facingTarget&&target.HP>0;
+		boolean retur = !blocked&&inVisionRange&&facingTarget;
 		if(retur&&target.gamePosition.x>this.gamePosition.x){
 			this.approachDir =1; 
 		}
 		else if(retur&&target.gamePosition.x<this.gamePosition.x){
 			this.approachDir =0; 
 		}
-		return !blocked&&inVisionRange&&facingTarget&&target.HP>0;
+		return !blocked&&inVisionRange&&facingTarget;
 	}
 
 	public boolean checkForObstaclesX(SimpleGameObject t){

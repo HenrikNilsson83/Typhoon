@@ -11,18 +11,14 @@ public class HeatSeekingMisile extends AdvancedGameObject {
 	private float speed = 0.15f;
 	private SimpleGameObject target;
 	private int lifeTime = 5000;
-
+	private boolean jump;
 
 	public HeatSeekingMisile(SimpleGameObject target, Vector2f pos, GameContainer gc,int fact,Vector2f vec, ObjectPool objPool) {
 		super(6, 6, pos, gc, objPool);
-		//blast = new Rectangle(pos.x,pos.y,x,y);
-		size =6;
 		init(gc);
 		jump = false;
 		this.target = target;
-		this.idString ="blast";
 		this.velocityVector = vec;
-		//this.faction =fact;
 		this.showBorders = true;
 		this.borderColor = Color.red;
 		this.showFillRect = true;

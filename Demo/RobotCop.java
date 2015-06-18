@@ -22,10 +22,10 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path;
 
 public class RobotCop extends AdvancedGameObject {
-
+	private int HP;
 	private Vector2f lastPosition;
 	private int dir;
-
+	private boolean jump;
 	private int turnCooldown = 0;
 	private int turnCooldownMax = 500;
 	private float turnJump = -0.02f;
@@ -41,17 +41,13 @@ public class RobotCop extends AdvancedGameObject {
 
 	public RobotCop(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
 		super(x, y, pos, gc, objPool);
-		size = 64;
 		jump = false;
-		this.idString = "SimpleEnemy";
 		lastPosition = new Vector2f(x, y);	
 		dir = 1;
 		HP = 1;
 		cond = new Conductor();
 		target = null;
 	}
-
-
 
 	@Override
 	void init(GameContainer gc) {
@@ -191,7 +187,7 @@ public class RobotCop extends AdvancedGameObject {
 		boolean blocked = checkForObstaclesX(target);
 		boolean inVisionRange = inVisionRange(target);
 		boolean facingTarget = facingTarget(target);
-		return !blocked&&inVisionRange&&facingTarget&&target.HP>0;
+		return !blocked&&inVisionRange&&facingTarget;
 	}
 
 

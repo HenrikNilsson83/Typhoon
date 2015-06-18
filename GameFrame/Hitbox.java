@@ -1,13 +1,11 @@
-import org.newdawn.slick.geom.Vector2f;
-
 
 public class Hitbox {
-	protected int width;
-	protected int height;
-	protected float xPos;
-	protected float yPos;
-	protected int xOffset;
-	protected int yOffset;
+	private int width;
+	private int height;
+	private float xPos;
+	private float yPos;
+	private int xOffset;
+	private int yOffset;
 
 	public Hitbox(int w,int h,float x,float y){
 		this.width = w;
@@ -40,7 +38,7 @@ public class Hitbox {
 	}
 
 	public float getYPos(){
-		return (yPos+this.yOffset);
+		return (yPos + this.yOffset);
 	}
 	
 	public int getXOffset(){
@@ -60,11 +58,11 @@ public class Hitbox {
 	}
 	
 	public void setXPos(float x){
-		xPos = x+this.xOffset;
+		xPos = x + this.xOffset;
 	}
 
 	public void setYPos(float y){
-		yPos = y+this.yOffset;
+		yPos = y + this.yOffset;
 	}
 	
 	public void setXOffset(int xOff){
@@ -74,5 +72,4 @@ public class Hitbox {
 	public void setYOffset(int yOff){
 		yOffset = yOff;
 	}
-
 }

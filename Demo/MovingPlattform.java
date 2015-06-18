@@ -7,7 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 public class MovingPlattform extends AdvancedGameObject {
-
+	private boolean jump;
 	private float speed;
 	private Vector2f pos1;
 	private Vector2f pos2;
@@ -47,13 +47,13 @@ public class MovingPlattform extends AdvancedGameObject {
 		if(player.velocityVector.y>0&&p.intersects(zone)){
 			player.velocityVector.y = this.velocityVector.y;
 			player.gamePosition.y = this.gamePosition.y-player.height;
-			player.jump = false;
+			//player.jump = false;
 		}
 		else{
 		}
 		if(dir==2 &&player.velocityVector.y+this.speed>0&&p.intersects(zone)){
 			player.velocityVector.y=this.velocityVector.y;
-			player.jump = false;
+			//player.jump = false;
 		}
 		
 		

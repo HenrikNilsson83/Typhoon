@@ -12,7 +12,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private Vector2f lastPosition;
 	private GameContainer container;
 	MouseInput mIn;
-
+	public int HP;
+	public int maxHP;
 	private int shotCoolDown = 0;
 	private int shotRampUp = 0;
 	private int shotNum = 0;
@@ -30,6 +31,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private int shotCoolDownTime = 300;
 	private int shotRampUpTime = 50;
 	private int shotNumMax = 1;
+	public int resource1 = 0;
 
 	private int jumpMaxTimer = 300;
 	private int jumpNumMax = 3;
@@ -55,9 +57,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 	public SpaceExplorer(int x, int y, Vector2f gamePosition, GameContainer gc, ObjectPool objPool){
 		super(x, y, gamePosition, gc, objPool);
 		mIn = new MouseInput(0,0,gc);
-		size = 64;
 		lastPosition = new Vector2f(x,y);
-		this.idString ="BODY_male";
 		light = new SpotLight(0,0);
 		//setLight(light);
 		this.checkForCollision = true;
@@ -127,7 +127,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 			this.changeState = false;
 			sbg.enterState(this.nextState);
 		}
-		
+
 		//setLight();
 		if(HP>0&&this.inControll>=this.regenControll){
 			getInput(delta,gc);
@@ -135,7 +135,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		else {
 			this.inControll+=delta;
 		}
-		
+
 	}
 
 	private void setLight(){
@@ -407,7 +407,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 		}
 		if(sGO.getClass().equals(SuperCop.class)){
 			float v = this.getDirectionToTarget(sGO.gamePosition.x-20,sGO.gamePosition.y);
-			float distance = this.hitbox.yPos+this.hitbox.height-sGO.gamePosition.y;
+			float distance = this.hitbox.getYPos() + this.hitbox.getHeight() - sGO.gamePosition.y;
 			v*=(180/(2*Math.PI));
 			if(distance<18){
 				this.velocityVector.y = jumpVelocity*2;
@@ -417,10 +417,11 @@ public class SpaceExplorer extends AdvancedGameObject{
 				jumpNum = jumpNumMax;
 			}
 		}
-		
-		if(sGO.getClass().equals(HellWormPart.class)&&sGO.HP>0){
+
+		//if(sGO.getClass().equals(HellWormPart.class)&&sGO.HP>0){
+		if(sGO.getClass().equals(HellWormPart.class)){	
 			float v = this.getDirectionToTarget(sGO.gamePosition.x-20,sGO.gamePosition.y);
-			float distance = this.hitbox.yPos+this.hitbox.height-sGO.gamePosition.y;
+			float distance = this.hitbox.getYPos()+this.hitbox.getHeight() - sGO.gamePosition.y;
 			v*=(180/(2*Math.PI));
 			if(distance<18){
 				this.velocityVector.y = jumpVelocity*2;

@@ -23,7 +23,7 @@ public class MasterAi extends AdvancedGameObject {
 		super(x, y, pos, gc, objPool);
 		target = null;
 		this.gc = gc;
-		this.HP=1;
+		//this.HP=1;
 		lastPoolSize=0;
 		
 	}

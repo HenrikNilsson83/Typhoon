@@ -13,7 +13,8 @@ public class SnowFlake extends SimpleGameObject {
 		this.checkForCollision = false;
 		this.checkForGravity = false;
 		this.gamePosition = new Vector2f(x,y);
-		this.size = s;
+		this.width = s;
+		this.height = s;
 		this.gravity = g;
 		this.wind = w;
 	}
@@ -34,7 +35,7 @@ public class SnowFlake extends SimpleGameObject {
 	@Override
 	void render(GameContainer gc, Graphics g) {
 		g.setColor(Color.gray);
-		g.fillRect(this.gamePosition.x, this.gamePosition.y, size, size);
+		g.fillRect(this.gamePosition.x, this.gamePosition.y, this.width, this.height);
 		
 	}
 

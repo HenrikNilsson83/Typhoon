@@ -34,8 +34,6 @@ public class HellWorm extends EnemyGameObject {
 
 	public HellWorm(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
 		super(x, y, pos, gc, objPool);
-		size = 64;
-		this.idString = "SimpleEnemy";
 		lastPosition = new Vector2f(x, y);	
 		this.dir = 1;
 		HP = 1;

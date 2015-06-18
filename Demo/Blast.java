@@ -7,7 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 public class Blast extends AdvancedGameObject {
-
+	private boolean jump;
 	private float speed = 1.0f;
 	public Blast(int x, int y, Vector2f pos, GameContainer gc, int direction, int fact, ObjectPool objPool) {
 		super(x, y, pos, gc, objPool);
@@ -27,14 +27,9 @@ public class Blast extends AdvancedGameObject {
 		if(direction==1){
 			this.velocityVector.y=speed;
 		}
-		//blast = new Rectangle(pos.x,pos.y,x,y);
-		size =6;
 		init(gc);
 		jump = false;
-		this.idString ="blast";
-		//this.faction = fact;
 		
-
 		this.showBorders = true;
 		this.borderColor = Color.magenta;
 		
@@ -45,12 +40,8 @@ public class Blast extends AdvancedGameObject {
 
 	public Blast(int x, int y, Vector2f pos, GameContainer gc,int fact,Vector2f vec, ObjectPool objPool) {
 		super(x, y, pos, gc, objPool);
-		//blast = new Rectangle(pos.x,pos.y,x,y);
-		size =6;
 		init(gc);
 		jump = false;
-		this.idString ="blast";
-		//this.faction = fact;
 		this.velocityVector = vec;
 		this.velocityVector.x = this.velocityVector.x*speed;
 		this.velocityVector.y = this.velocityVector.y*speed;

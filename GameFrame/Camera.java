@@ -248,8 +248,6 @@ public class Camera {
 		return (int)(cameraY);
 	}
 
-
-
 	public Vector2f drawForGround(int offsetX, int offsetY) {
 
 		Graphics g = new Graphics();
@@ -276,8 +274,6 @@ public class Camera {
 
 	}
 
-
-
 	public void drawForGround() {
 		drawForGround(0,0);
 		
@@ -289,9 +285,4 @@ public class Camera {
 	public float getDisplayHeight(){
 		return this.displayHeight;
 	}
-
-
-
-	
-
 }

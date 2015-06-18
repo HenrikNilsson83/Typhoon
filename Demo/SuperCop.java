@@ -12,14 +12,12 @@ public class SuperCop extends EnemyGameObject {
 
 	public SuperCop(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
 		super(x, y, pos, gc, objPool);
-		size = 64;
 		jump = false;
-		this.idString = "SimpleEnemy";
 		this.dir = 1;
 		HP = 1;
 		cond = new Conductor();
 		target = null;
-		this.walkSpeed*=2;
+		this.walkSpeed *= 2;
 		this.velocityVector.x=this.walkSpeed;
 	}
 
@@ -28,14 +26,6 @@ public class SuperCop extends EnemyGameObject {
 	@Override
 	void init(GameContainer gc) {
 		//SETTING UP SPRITE&ANIMATION
-
-		/*addAnimation("LiquidSoldier.png", 20, 0, 23, 0, 150, "WalkLeft");
-		addAnimation("LiquidSoldier.png", 0, 0, 3, 0, 150, "WalkRight");
-		addAnimation("LiquidSoldier.png", 27, 0, 39, 0, 65, "deadLeft",false);
-		addAnimation("LiquidSoldier.png", 7, 0, 19, 0, 65, "deadRight",false);
-		addAnimation("LiquidSoldier.png", 24, 0, 25, 0, 150, "flyLeft");
-		addAnimation("LiquidSoldier.png", 4, 0, 5, 0, 150, "flyRight");*/
-
 
 		addAnimation("SimpleGreenGuard.png", 6, 0, 9, 0, 150, "WalkLeft");
 		addAnimation("SimpleGreenGuard.png", 2, 0, 5, 0, 150, "WalkRight");
@@ -49,7 +39,6 @@ public class SuperCop extends EnemyGameObject {
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
-		//this.faction = -1;	
 	}
 
 	@Override

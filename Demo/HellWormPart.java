@@ -22,18 +22,11 @@ public class HellWormPart extends EnemyGameObject {
 	private LinkedList<Vector2f> queue;
 	HellWormPart p;
 
-
-
-
-
-
 	public HellWormPart(int x, int y, Vector2f pos,Vector2f vel, GameContainer gc, ObjectPool objPool,int currentL, int delayTime) {
 		super(x, y, pos, gc, objPool);
 		System.out.println(currentL);
-		size = 64;
 		this.delayTime = delayTime;
 		jump = false;
-		this.idString = "SimpleEnemy";
 		lastPosition = new Vector2f(x, y);	
 		this.dir = 1;
 		HP = 1;

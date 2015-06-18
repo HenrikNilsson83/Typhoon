@@ -20,7 +20,7 @@ public class SnowFall extends SimpleGameObject {
 	public SnowFall(int x,int y,int s, ObjectPool objPool){
 		this.objPool = objPool;
 		this.gamePosition = new Vector2f(x,y);
-		this.size = s;
+		//this.size = s;
 		this.checkForCollision = false;
 		this.checkForGravity = false;
 		//ObjectPool op = new ObjectPool();

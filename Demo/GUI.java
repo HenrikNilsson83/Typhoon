@@ -43,7 +43,7 @@ public class GUI extends SimpleGUI {
 	public void guiContent(GameContainer gc, int delta) {
 		exception = delta;
 		// WEAPON STATS
-		SimpleGameObject hero = this.objPool.mainChar;
+		SpaceExplorer hero = (SpaceExplorer)this.objPool.mainChar;
 		int r = hero.resource1;
 		ResourceHandler rs = new ResourceHandler();
 		SpriteResource sr = (SpriteResource) rs.get("weaponinfo.png");

@@ -22,10 +22,10 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path;
 
 public class BirdBear extends AdvancedGameObject {
-
+	private int HP;
 	private Vector2f lastPosition;
 	private int dir;
-
+	private boolean jump;	
 	private int turnCooldown = 0;
 	private int turnCooldownMax = 500;
 	private float turnJump = -0.02f;
@@ -53,8 +53,6 @@ public class BirdBear extends AdvancedGameObject {
 
 	public BirdBear(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
 		super(x, y, pos, gc, objPool);
-		size = 64;
-		this.idString = "SimpleEnemy";
 		lastPosition = new Vector2f(x, y);	
 		dir = 1;
 		HP = 1;
@@ -230,7 +228,7 @@ public class BirdBear extends AdvancedGameObject {
 		int tS = 16;
 		for(int i = 0;i<p.getLength();i++){
 			path = new Rectangle(p.getX(i)*tS+32*multi,p.getY(i)*tS,1,1);
-			player = new Rectangle(this.gamePosition.x+32,this.gamePosition.y,1,(int)(this.size*1.5));
+			player = new Rectangle(this.gamePosition.x+32,this.gamePosition.y,1,(int)(this.height*1.5));
 			if(player.intersects(path)&&i>max){
 				max = i;
 			}
@@ -261,7 +259,7 @@ public class BirdBear extends AdvancedGameObject {
 			renderPath(gc,g);
 			g.draw(this.player);
 		}
-		
+
 
 
 
@@ -370,14 +368,14 @@ public class BirdBear extends AdvancedGameObject {
 		boolean blocked = checkForObstaclesX(target);
 		boolean inVisionRange = inVisionRange(target);
 		boolean facingTarget = facingTarget(target);
-		boolean retur = !blocked&&inVisionRange&&facingTarget&&target.HP>0;
+		boolean retur = !blocked&&inVisionRange&&facingTarget;
 			if(retur&&target.gamePosition.x>this.gamePosition.x){
 				this.approachDir =1; 
 			}
 			else if(retur&&target.gamePosition.x<this.gamePosition.x){
 				this.approachDir =0; 
 			}
-			return !blocked&&inVisionRange&&facingTarget&&target.HP>0;
+			return !blocked&&inVisionRange&&facingTarget;
 	}
 
 
@@ -609,11 +607,6 @@ public class BirdBear extends AdvancedGameObject {
 		return false;
 	}
 
-
-
-
-
-
 	public void shootAtTarget(GameContainer gc,int delta){
 
 		if(reCharge>=loadTime){
@@ -627,8 +620,4 @@ public class BirdBear extends AdvancedGameObject {
 		}
 		this.reCharge(delta);
 	}
-
-
-
 }
-/**/

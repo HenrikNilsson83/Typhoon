@@ -9,8 +9,9 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.*;
 
 public abstract class AdvancedGameObject extends SimpleGameObject{	
+	
 	private GameContainer container;
-
+	protected SimpleGameObject target;			//remove later
 	Light light;
 	private LinkedHashMap<String,Animation> spriteMap = new LinkedHashMap<String,Animation>();
 
@@ -98,7 +99,7 @@ public abstract class AdvancedGameObject extends SimpleGameObject{
 
 		if(showBorders){
 			g.setColor(borderColor);
-			g.drawRect(this.hitbox.getXPos(), this.hitbox.yPos, this.hitbox.getWidth(), this.hitbox.getHeight());
+			g.drawRect(this.hitbox.getXPos(), this.hitbox.getYPos(), this.hitbox.getWidth(), this.hitbox.getHeight());
 		}
 		if(showFillRect){
 			g.setColor(fillRectColor);

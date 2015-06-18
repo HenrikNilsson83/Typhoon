@@ -8,12 +8,13 @@ import org.newdawn.slick.geom.Vector2f;
  * Checks if 2 objects collides and if so tells the objects what objects the are colliding with.  
  * 
  * TODO Move the acceleration var to Level class or make changeable here 
+ * TODO Maybe move tileSize to Level class to?
  * 
  * @author Team Japan
  */
 public class Physic {
 	private static boolean systemGravity;
-	private float acceleration = 0.028f*0.028f;
+	private float acceleration = 0.028f * 0.028f;
 	private static int tileSize = 16;
 
 	/**
@@ -149,7 +150,7 @@ public class Physic {
 				Hitbox tempBox = new Hitbox( sGO.hitbox.getWidth() - (distToWallCheck * 2), distToWallCheck * 2,sGO.hitbox.getXPos() + distToWallCheck, sGO.hitbox.getYPos() - distToWallCheck);
 				boolean top 	= isBlocked(tempBox, s);
 
-				tempBox = new Hitbox(sGO.hitbox.getWidth() - (distToWallCheck * 2), distToWallCheck * 2,sGO.hitbox.getXPos() + distToWallCheck, sGO.hitbox.getYPos() + sGO.hitbox.height - distToWallCheck);
+				tempBox = new Hitbox(sGO.hitbox.getWidth() - (distToWallCheck * 2), distToWallCheck * 2,sGO.hitbox.getXPos() + distToWallCheck, sGO.hitbox.getYPos() + sGO.hitbox.getHeight() - distToWallCheck);
 				boolean bottom 	= isBlocked(tempBox, s);
 
 				tempBox = new Hitbox(distToWallCheck * 2, sGO.hitbox.getWidth() - (distToWallCheck * 2),sGO.hitbox.getXPos() - distToWallCheck, sGO.hitbox.getYPos() + distToWallCheck);
@@ -216,17 +217,32 @@ public class Physic {
 			}
 		}
 	}
-
+	
+	/**
+	 * Updates the Hitbox of the GameObject to its current gamePosistion
+	 *  
+	 * @param sGO SimpleGameObject
+	 * @return the Updated SimpleGameObject
+	 */
 	private SimpleGameObject updateHitbox(SimpleGameObject sGO){
 		sGO.hitbox.setXPos(sGO.gamePosition.x);
 		sGO.hitbox.setYPos(sGO.gamePosition.y);
 		return sGO;
 	}
 
+	/**
+	 * 
+	 * Searches near a hitbox on a map to see if the hitbox collides with map
+	 * 
+	 * TODO xMax, yMax is optimal? Should it not be something like (hb.width / tilesize)?
+	 * 
+	 * @param hb A Hitbox
+	 * @param s	A MapInfo
+	 * @return True if collision, False if not
+	 */
 	private boolean isBlocked(Hitbox hb, MapInfo s) {
 
-		boolean isInCollision = false;
-		Rectangle player = new Rectangle(hb.getXPos() ,hb.getYPos() ,hb.getWidth() ,hb.height );
+		Rectangle player = new Rectangle(hb.getXPos() ,hb.getYPos() ,hb.getWidth() ,hb.getHeight() );
 		int xAxis = (int) (hb.getXPos() / tileSize);
 		int yAxis = (int) (hb.getYPos() / tileSize);
 		int xMax = 12;
@@ -240,17 +256,17 @@ public class Physic {
 			yAxis = 0;
 		}*/
 
-		
-
 		for (int xRange = 0; xRange < xMax; xRange++) {
 
 			for (int yRange = 0; yRange < yMax; yRange++) {
-				Rectangle block = new Rectangle(xAxis * tileSize + xRange * tileSize, yAxis * tileSize + yRange * tileSize, tileSize, tileSize);
-				if (player.intersects(block) && s.getBlocked(xAxis + xRange,yAxis + yRange)) {
-					return true;
+				if(s.getBlocked(xAxis + xRange,yAxis + yRange)){
+					Rectangle block = new Rectangle(xAxis * tileSize + xRange * tileSize, yAxis * tileSize + yRange * tileSize, tileSize, tileSize);
+					if (player.intersects(block) ) {
+						return true;
+					}
 				}
 			}
 		}
-		return isInCollision;
+		return false;
 	}
 }
