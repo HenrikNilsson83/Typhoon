@@ -23,7 +23,6 @@ public class MovingPlattform extends AdvancedGameObject {
 		super(x, y, pos, objPool);
 		this.checkForCollision =false;
 		this.checkForGravity = false;
-		//this.faction = 0;
 		this.showFillRect=true;
 		//PLATTFORM VARS
 		speed = 0.06f;
@@ -49,15 +48,12 @@ public class MovingPlattform extends AdvancedGameObject {
 			player.velocityVector.y = this.velocityVector.y;
 			player.gamePosition.y = this.gamePosition.y-player.height;
 			player.jump = false;
-			player.data1 =1;
 		}
 		else{
-			player.data1 =0;
 		}
 		if(dir==2 &&player.velocityVector.y+this.speed>0&&p.intersects(zone)){
 			player.velocityVector.y=this.velocityVector.y;
 			player.jump = false;
-			player.data1 =1;
 		}
 		
 		

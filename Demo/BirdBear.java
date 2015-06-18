@@ -60,8 +60,6 @@ public class BirdBear extends AdvancedGameObject {
 		HP = 1;
 		cond = new Conductor();
 		target = null;
-		this.data1 =0;
-		this.data3 = 0;
 		this.velocityVector.x=this.walkSpeed;
 	}
 
@@ -394,12 +392,10 @@ public class BirdBear extends AdvancedGameObject {
 
 
 	private void reportEnemy(int delta) {
-		data1 =1;
 		extendedRange = 10;
 	}
 
 	private void noEnemyVision(int delta){
-		data1 = 0;
 	}
 
 
@@ -439,7 +435,7 @@ public class BirdBear extends AdvancedGameObject {
 			int xG = (int)(((this.gamePosition.x/16)-1));
 			int yG = (int)(((this.gamePosition.y/16)+4));
 			boolean b = isItBlocked(xG,yG);
-			if(!b&&this.data3<=0){
+			if(!b){
 				dir = 1;
 			}
 
@@ -451,7 +447,7 @@ public class BirdBear extends AdvancedGameObject {
 			int xG = (int)(((this.gamePosition.x/16)+4));
 			int yG = (int)(((this.gamePosition.y/16)+4));
 			boolean b = isItBlocked(xG,yG);
-			if(!b&&this.data3<=0){
+			if(!b){
 				dir = 0;
 			}
 		}
@@ -467,7 +463,7 @@ public class BirdBear extends AdvancedGameObject {
 			int xG = (int)(((this.gamePosition.x/16)-1));
 			int yG = (int)(((this.gamePosition.y/16)-5));
 			boolean b = isItBlocked(xG,yG);
-			if(!b&&data3!=0){
+			if(!b){
 				this.velocityVector.y = jumpV;
 				jump = true;
 			}
@@ -482,7 +478,7 @@ public class BirdBear extends AdvancedGameObject {
 			int xG = (int)(((this.gamePosition.x/16)+4));
 			int yG = (int)(((this.gamePosition.y/16)-5));
 			boolean b = isItBlocked(xG,yG);
-			if(!b&&data3!=0){
+			if(!b){
 				this.velocityVector.y = jumpV;
 				jump = true;
 			}

@@ -19,8 +19,6 @@ public class SuperCop extends EnemyGameObject {
 		HP = 1;
 		cond = new Conductor();
 		target = null;
-		this.data1 =0;
-		this.data3 = 0;
 		this.walkSpeed*=2;
 		this.velocityVector.x=this.walkSpeed;
 	}
@@ -150,12 +148,10 @@ public class SuperCop extends EnemyGameObject {
 	}
 
 	private void reportEnemy(int delta) {
-		data1 =1;
 		extendedRange = 10;
 	}
 
 	private void noEnemyVision(int delta){
-		data1 = 0;
 	}
 
 	@Override
