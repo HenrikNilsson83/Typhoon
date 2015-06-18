@@ -8,26 +8,24 @@ public abstract class SimpleGameObject {
 	protected Vector2f gamePosition;
 	protected Vector2f lastGamePosition;
 	protected Vector2f velocityVector;
-	protected int faction = 0;
 	protected boolean checkForCollision=false;
 	protected boolean checkForGravity=false;
 	protected int width;
 	protected int height;
 	protected int size;
-	protected boolean jump;
+	protected boolean jump;								//borde tas bort tror jag
 	protected boolean leftObs = false;
 	protected boolean rightObs = false;
 	protected boolean northObs = false;
 	protected boolean southObs = false;
-	public boolean stuck = false;
-	protected String idString;
+	protected String idString;							//av nytta?				
 	public boolean remove = false;
 	public boolean gotLight = false;
 	Light light;
 	private boolean update = true;
 	protected SimpleGameObject target;
-	public int HP = 1;
-	public int resource1 =0;
+	public int HP = 1;									//borde tas bort tror jag
+	public int resource1 =0 ;
 	public float data1;
 	public float data2;
 	public float data3;
@@ -63,17 +61,6 @@ public abstract class SimpleGameObject {
 		return size;
 	}
 	
-	public boolean getJump(){
-		return jump;
-	}
-
-	abstract void reset();						//Not needed anymore?!?!?!?!?!?
-
-	public void setJump(boolean b) {
-		jump = b;
-		
-	}
-	
 	public void setLeftObs(boolean b) {
 		this.leftObs = b;	
 	}
@@ -91,7 +78,6 @@ public abstract class SimpleGameObject {
 	
 	public void setIdString(String s){
 		this.idString = s;
-		
 	}
 	
 	public String getIdString(){

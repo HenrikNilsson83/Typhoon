@@ -21,9 +21,8 @@ public class HeatSeekingMisile extends AdvancedGameObject {
 		jump = false;
 		this.target = target;
 		this.idString ="blast";
-		this.faction = fact;
 		this.velocityVector = vec;
-		this.faction =fact;
+		//this.faction =fact;
 		this.showBorders = true;
 		this.borderColor = Color.red;
 		this.showFillRect = true;
@@ -76,12 +75,6 @@ public class HeatSeekingMisile extends AdvancedGameObject {
 			v = (float) Math.atan(b/a);
 		}
 		return v;
-	}
-
-
-	@Override
-	void reset() {
-
 	}
 
 	public void damage(){

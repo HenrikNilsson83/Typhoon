@@ -11,17 +11,6 @@ import org.newdawn.slick.util.pathfinding.Path;
 import java.util.*;
 
 public abstract class EnemyGameObject extends SimpleGameObject{	
-	//en dict med animations?
-	//functiotioner för att lägga till anims
-	//en var som bestämmer current anim
-	//size
-
-	//ram eller kanske helfärgad. både?
-	//ramfärg
-
-	//pos?
-	//velo??
-
 
 	private GameContainer container;
 
@@ -592,20 +581,12 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 
 	}
 
-
-
-	@Override
-	void reset() {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
 		// TODO Auto-generated method stub
 
 	}
-
+/*
 	//inte säker på detta
 	public void setFaction(int f ){
 		if(f<2&&f>-2)
@@ -620,12 +601,11 @@ public abstract class EnemyGameObject extends SimpleGameObject{
 	public int getFaction(){
 		return faction;
 	}
-
+*/
 	protected boolean isItBlocked(int xG, int yG) {
-		MapInfo scen = new MapInfo();		
+		MapInfo scen = new MapInfo();				
 		return scen.getBlocked(xG, yG);
 	}
-
 }
 
 

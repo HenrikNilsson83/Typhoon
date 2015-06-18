@@ -57,6 +57,12 @@ public class DynamicBlockManager extends AdvancedGameObject {
 
 	}
 
+	@Override
+	void init(GameContainer gc) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

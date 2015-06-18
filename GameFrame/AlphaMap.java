@@ -108,14 +108,6 @@ public class AlphaMap extends SimpleGameObject {
 		
 	}
 
-
-	@Override
-	void reset() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
 		// TODO Auto-generated method stub

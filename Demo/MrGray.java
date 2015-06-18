@@ -113,7 +113,7 @@ public class MrGray extends AdvancedGameObject {
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
-		this.faction = -1;	
+		//this.faction = -1;	
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class MrGray extends AdvancedGameObject {
 
 
 		if(mode==0){
-			
+
 			simpleWalk(delta);
 			if(HP>0&&this.target!=null&&enemyContact(gc,delta)&&this.deadTimer<=0){
 				this.objectCollide(this);  //TODO INGEN BRA LÖSNING!!!!!!!!!!!!!!
@@ -141,11 +141,11 @@ public class MrGray extends AdvancedGameObject {
 			this.walkSpeed*=2;
 			this.deadTimer = wakeUp;
 			this.b = false;
-			
+
 			this.velocityVector.x = this.walkSpeed;
 		}
 		setAnimation(gc,delta);
-		
+
 	}
 
 
@@ -390,14 +390,14 @@ public class MrGray extends AdvancedGameObject {
 			else if(this.velocityVector.x<0&&this.deadTimer<wakeUp){
 				setCurrentAnimation("WalkLeft");
 			}
-			
-			
 
-			
+
+
+
 
 		}
 		if(HP<=0){
-			
+
 			if(this.velocityVector.x>0&&HP<=0){
 				setCurrentAnimation("WalkDeadRight");
 				return;
@@ -406,7 +406,7 @@ public class MrGray extends AdvancedGameObject {
 				setCurrentAnimation("WalkDeadLeft");
 				return;
 			}
-			
+
 			if(dir==1){
 				setCurrentAnimation("DeadRight");
 			}
@@ -438,13 +438,13 @@ public class MrGray extends AdvancedGameObject {
 		boolean inVisionRange = inVisionRange(target);
 		boolean facingTarget = facingTarget(target);
 		boolean retur = !blocked&&inVisionRange&&facingTarget&&target.HP>0;
-		if(retur&&target.gamePosition.x>this.gamePosition.x){
-			this.approachDir =1; 
-		}
-		else if(retur&&target.gamePosition.x<this.gamePosition.x){
-			this.approachDir =0; 
-		}
-		return !blocked&&inVisionRange&&facingTarget&&target.HP>0;
+			if(retur&&target.gamePosition.x>this.gamePosition.x){
+				this.approachDir =1; 
+			}
+			else if(retur&&target.gamePosition.x<this.gamePosition.x){
+				this.approachDir =0; 
+			}
+			return !blocked&&inVisionRange&&facingTarget&&target.HP>0;
 	}
 
 
@@ -560,25 +560,9 @@ public class MrGray extends AdvancedGameObject {
 		return scen.getBlocked(xG, yG);
 	}
 
-
-
-	/*
-	@Override
-	void render(GameContainer gc, Graphics g) {
-		this.animationList.get(dir).draw(this.gamePosition.x,this.gamePosition.y);
-	}
-	 */
-	@Override
-	void reset() {
-		gamePosition.x = lastPosition.x;
-		gamePosition.y = lastPosition.y;
-		this.velocityVector.y = 0;
-		//this.velocityVector.x = 0;
-	}
-
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
-		
+
 		HP=-1;
 		if(HP == -1&&b){
 			deadTimer++;

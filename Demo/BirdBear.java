@@ -54,7 +54,6 @@ public class BirdBear extends AdvancedGameObject {
 	public BirdBear(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
 		super(x, y, pos, gc, objPool);
 		size = 64;
-		jump = false;
 		this.idString = "SimpleEnemy";
 		lastPosition = new Vector2f(x, y);	
 		dir = 1;
@@ -82,7 +81,7 @@ public class BirdBear extends AdvancedGameObject {
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
-		this.faction = -1;	
+		//this.faction = -1;	
 	}
 
 	@Override
@@ -500,22 +499,6 @@ public class BirdBear extends AdvancedGameObject {
 		//System.out.println("Y: "+yG);
 		MapInfo scen = new MapInfo();
 		return scen.getBlocked(xG, yG);
-	}
-
-
-
-	/*
-	@Override
-	void render(GameContainer gc, Graphics g) {
-		this.animationList.get(dir).draw(this.gamePosition.x,this.gamePosition.y);
-	}
-	 */
-	@Override
-	void reset() {
-		gamePosition.x = lastPosition.x;
-		gamePosition.y = lastPosition.y;
-		this.velocityVector.y = 0;
-		//this.velocityVector.x = 0;
 	}
 
 	@Override

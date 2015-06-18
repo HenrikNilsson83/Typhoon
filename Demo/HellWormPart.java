@@ -74,7 +74,7 @@ public class HellWormPart extends EnemyGameObject {
 		//this.showFillRect = true;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
-		this.faction = -1;	
+		//this.faction = -1;	
 		this.checkForGravity = false;
 	}
 

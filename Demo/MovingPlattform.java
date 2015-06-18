@@ -23,7 +23,7 @@ public class MovingPlattform extends AdvancedGameObject {
 		super(x, y, pos, objPool);
 		this.checkForCollision =false;
 		this.checkForGravity = false;
-		this.faction = 0;
+		//this.faction = 0;
 		this.showFillRect=true;
 		//PLATTFORM VARS
 		speed = 0.06f;
@@ -112,6 +112,12 @@ public class MovingPlattform extends AdvancedGameObject {
 
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void init(GameContainer gc) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -9,18 +9,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.*;
 
 public abstract class AdvancedGameObject extends SimpleGameObject{	
-	//en dict med animations?
-	//functiotioner för att lägga till anims
-	//en var som bestämmer current anim
-	//size
-
-	//ram eller kanske helfärgad. både?
-	//ramfärg
-
-	//pos?
-	//velo??
-
-
 	private GameContainer container;
 
 	Light light;
@@ -40,13 +28,9 @@ public abstract class AdvancedGameObject extends SimpleGameObject{
 		gc = container;
 	}
 
-
-
 	public AdvancedGameObject(int x, int y, Vector2f pos, ObjectPool objPool) {
 		super(x,y,pos, objPool);
 	}
-
-
 
 	/*
 		frames - The sprite sheet containing the frames
@@ -59,8 +43,6 @@ public abstract class AdvancedGameObject extends SimpleGameObject{
 		autoUpdate - True if this animation should automatically update based on the render times
 	 */
 	void addAnimation(String filename, int x1, int y1, int x2, int y2, int duration, String animationName){
-
-
 		SpriteSheet sprite;
 		ResourceHandler rs = new ResourceHandler();
 		SpriteResource sr = (SpriteResource) rs.get(filename);
@@ -110,20 +92,6 @@ public abstract class AdvancedGameObject extends SimpleGameObject{
 		}
 		
 	}
-	
-
-
-	@Override
-	void init(GameContainer gc) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	void update(GameContainer gc, int delta,StateBasedGame sbg) {
-
-
-	}
 
 	@Override
 	void render(GameContainer gc, Graphics g) {
@@ -139,42 +107,8 @@ public abstract class AdvancedGameObject extends SimpleGameObject{
 
 		if(currentAnimation != null){
 			currentAnimation.draw((int)(gamePosition.x),(int)( gamePosition.y));	
-		}
-		
-		
+		}	
 	}
-	
-	
-
-	@Override
-	void reset() {
-		// TODO Auto-generated method stub
-
-	}
-
-	//@Override
-	//public void damage(SimpleGameObject sGO) {
-		// TODO Auto-generated method stub
-
-	//}
-
-	//inte säker på detta
-	public void setFaction(int f ){
-		if(f<2&&f>-2)
-		{
-			faction = f;
-		}
-		else {
-			throw new IllegalArgumentException("Faction Does not Exist");
-		}
-	}
-
-	public int getFaction(){
-		return faction;
-	}
-
-
-
 }
 
 

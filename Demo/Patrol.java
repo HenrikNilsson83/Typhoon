@@ -58,13 +58,13 @@ public class Patrol extends AdvancedGameObject {
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
-		this.faction = -1;	
+		//this.faction = -1;	
 	}
 
 	@Override
 	void update(GameContainer gc, int delta,StateBasedGame sbg) {
-		
-		
+
+
 		if(HP>0){
 			lastPosition.x = gamePosition.x;
 			lastPosition.y = gamePosition.y;
@@ -75,7 +75,7 @@ public class Patrol extends AdvancedGameObject {
 				AI(gc,delta);
 			}
 		}
-			
+
 	}
 
 	private void setAnimation(GameContainer gc, int delta) {
@@ -86,7 +86,7 @@ public class Patrol extends AdvancedGameObject {
 		else{
 			setCurrentAnimation("WalkLeft");
 		}
-		
+
 		if(this.velocityVector.y<0){
 			//BUGG_DENNA SETTS MITT I HOPPET!?
 			if(dir==1){
@@ -160,7 +160,7 @@ public class Patrol extends AdvancedGameObject {
 		// CLIMBING 
 		climbing(delta);
 		goDown(delta);
-		
+
 		if(this.southObs){
 			jump = false;
 		}
@@ -194,8 +194,8 @@ public class Patrol extends AdvancedGameObject {
 			if(!b&&this.data3<=0){
 				dir = 1;
 			}
-			
-			
+
+
 		}
 		else if(turnCooldown <= 0 && !jump && dir == 1 ){
 			//dir = 0;
@@ -207,7 +207,7 @@ public class Patrol extends AdvancedGameObject {
 				dir = 0;
 			}
 		}
-		
+
 	}
 
 
@@ -226,7 +226,7 @@ public class Patrol extends AdvancedGameObject {
 			else{
 				dir = 1;
 			}
-			
+
 		}
 		else if(turnCooldown <= 0 && !jump && dir == 1 && (this.rightObs )){
 			//dir = 0;
@@ -253,22 +253,6 @@ public class Patrol extends AdvancedGameObject {
 		return scen.getBlocked(xG, yG);
 	}
 
-
-
-	/*
-	@Override
-	void render(GameContainer gc, Graphics g) {
-		this.animationList.get(dir).draw(this.gamePosition.x,this.gamePosition.y);
-	}
-	 */
-	@Override
-	void reset() {
-		gamePosition.x = lastPosition.x;
-		gamePosition.y = lastPosition.y;
-		this.velocityVector.y = 0;
-		//this.velocityVector.x = 0;
-	}
-
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
 		System.out.println("hehe");
@@ -284,7 +268,7 @@ public class Patrol extends AdvancedGameObject {
 					setCurrentAnimation("deadRight");
 				}
 				this.velocityVector.x=0;
-			
+
 			}
 		}
 		//this.remove = true;

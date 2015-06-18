@@ -35,7 +35,6 @@ public class HellWorm extends EnemyGameObject {
 	public HellWorm(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
 		super(x, y, pos, gc, objPool);
 		size = 64;
-		jump = false;
 		this.idString = "SimpleEnemy";
 		lastPosition = new Vector2f(x, y);	
 		this.dir = 1;
@@ -72,7 +71,7 @@ public class HellWorm extends EnemyGameObject {
 		this.showBorders = true;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
-		this.faction = -1;	
+		//this.faction = -1;	
 		this.checkForGravity = false;
 		im = this.currentAnimation.getCurrentFrame();
 	}

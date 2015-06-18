@@ -130,13 +130,6 @@ public class ParticleFx extends SimpleGameObject {
 		effectSystem.setBlendingMode(effectSystem.BLEND_ADDITIVE);
 		effectSystem.render();
 	}
-
-
-	@Override
-	void reset() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	public void addWeather(){
 		

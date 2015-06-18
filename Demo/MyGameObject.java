@@ -19,20 +19,5 @@ public abstract class MyGameObject extends SimpleGameObject {
 
 	@Override
 	abstract void render(GameContainer gc, Graphics g);
-	
-	public void setFaction(int f ){
-		if(f<2&&f>-2)
-		{
-			faction = f;
-		}
-		else {
-			throw new IllegalArgumentException("Faction Does not Exist");
-		}
-	}
-	
-	public int getFaction(){
-		return faction;
-	}
-	
 
 }

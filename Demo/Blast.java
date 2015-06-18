@@ -32,7 +32,7 @@ public class Blast extends AdvancedGameObject {
 		init(gc);
 		jump = false;
 		this.idString ="blast";
-		this.faction = fact;
+		//this.faction = fact;
 		
 
 		this.showBorders = true;
@@ -50,7 +50,7 @@ public class Blast extends AdvancedGameObject {
 		init(gc);
 		jump = false;
 		this.idString ="blast";
-		this.faction = fact;
+		//this.faction = fact;
 		this.velocityVector = vec;
 		this.velocityVector.x = this.velocityVector.x*speed;
 		this.velocityVector.y = this.velocityVector.y*speed;
@@ -78,14 +78,6 @@ public class Blast extends AdvancedGameObject {
 			this.remove = true;
 		}
 
-	}
-
-
-	
-
-	@Override
-	void reset() {
-	
 	}
 	
 	public void objectCollide(SimpleGameObject sGO){

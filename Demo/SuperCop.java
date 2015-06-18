@@ -1,39 +1,13 @@
-import java.util.ArrayList;
-
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.util.pathfinding.Path;
-
-import java.util.ArrayList;
-
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.util.pathfinding.Path;
 
 public class SuperCop extends EnemyGameObject {
 
-	private Vector2f lastPosition;
-
-
 	int mode = 0;
-
-
 	public int engageTimer = 3000;
 	public int engageMax = 3000; 
-
-
-
-
 
 
 	public SuperCop(int x, int y, Vector2f pos, GameContainer gc, ObjectPool objPool) {
@@ -41,7 +15,6 @@ public class SuperCop extends EnemyGameObject {
 		size = 64;
 		jump = false;
 		this.idString = "SimpleEnemy";
-		lastPosition = new Vector2f(x, y);	
 		this.dir = 1;
 		HP = 1;
 		cond = new Conductor();
@@ -78,7 +51,7 @@ public class SuperCop extends EnemyGameObject {
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
-		this.faction = -1;	
+		//this.faction = -1;	
 	}
 
 	@Override
@@ -88,9 +61,7 @@ public class SuperCop extends EnemyGameObject {
 		//this.shootAtPlayer = true;
 		this.turnAtGap = true;
 		//this.followPlayerPathFinding = true;
-
 	}
-
 
 	@Override
 	void render(GameContainer gc, Graphics g) {
@@ -116,15 +87,7 @@ public class SuperCop extends EnemyGameObject {
 			renderPath(gc,g);
 			g.draw(this.player);
 		}
-
-
-
-
 	}
-
-
-
-
 
 	private void laserSight(GameContainer gc, Graphics g) {
 		MapInfo scen = new MapInfo();
@@ -162,12 +125,7 @@ public class SuperCop extends EnemyGameObject {
 				}
 			}
 		}
-
-
-
 	}
-
-
 
 	protected void setAnimation(GameContainer gc, int delta) {
 
@@ -189,9 +147,7 @@ public class SuperCop extends EnemyGameObject {
 				}
 			}
 		}
-
 	}
-
 
 	private void reportEnemy(int delta) {
 		data1 =1;
@@ -202,21 +158,12 @@ public class SuperCop extends EnemyGameObject {
 		data1 = 0;
 	}
 
-
-	@Override
-	void reset() {
-		gamePosition.x = lastPosition.x;
-		gamePosition.y = lastPosition.y;
-		this.velocityVector.y = 0;
-		//this.velocityVector.x = 0;
-	}
-
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
-		
-		
+
+
 		if(sGO.getClass().equals(SpaceExplorer.class)){
-			
+
 			SpaceExplorer se = (SpaceExplorer) sGO;
 			if(se.dashing&&HP>0){
 				HP--;
@@ -225,7 +172,7 @@ public class SuperCop extends EnemyGameObject {
 			if(HP == 0){
 				walkSpeed = 0f;
 				this.checkForGravity = true;
-				
+
 				if(this.velocityVector.x>0){
 					setCurrentAnimation("deadRight");
 				}
@@ -237,18 +184,4 @@ public class SuperCop extends EnemyGameObject {
 			}
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-/**/

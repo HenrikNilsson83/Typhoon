@@ -9,11 +9,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class SpaceExplorer extends AdvancedGameObject{
 
-	private int dir;
 	private Vector2f lastPosition;
-	//private ObjectPool op;
 	private GameContainer container;
-	private GUI gui;
 	MouseInput mIn;
 
 	private int shotCoolDown = 0;
@@ -56,12 +53,9 @@ public class SpaceExplorer extends AdvancedGameObject{
 	public SpaceExplorer(int x, int y, Vector2f gamePosition, GameContainer gc, ObjectPool objPool){
 		super(x, y, gamePosition, gc, objPool);
 		mIn = new MouseInput(0,0,gc);
-		dir = 0;
 		size = 64;
 		lastPosition = new Vector2f(x,y);
-		jump = false;
 		this.idString ="BODY_male";
-		//op = new ObjectPool();
 		light = new SpotLight(0,0);
 		//setLight(light);
 		this.checkForCollision = true;
@@ -70,7 +64,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 		this.nextState = -1;
 		cond = new Conductor();
 		this.resource1 = 9;
-		this.faction = 1;
 		//HITBOX SETUP
 		this.hitbox.setWidth(21);
 		this.hitbox.setXOffset(21);
@@ -198,9 +191,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 		}
 
 		//LEFT RIGHT
-		if (Keyboard.isKeyDown(Keyboard.KEY_D) && !this.stuck && !dashing) {
+		if (Keyboard.isKeyDown(Keyboard.KEY_D) && !dashing) {
 			setCurrentAnimation("WalkRight");
-			dir = 3;
 			lastRunDir = 3;
 			if(this.velocityVector.x <= runMaxX){
 				this.velocityVector.x += delta * runAccX;
@@ -209,9 +201,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 				}
 			}
 		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_A) && !this.stuck && !dashing) {
+		else if (Keyboard.isKeyDown(Keyboard.KEY_A) && !dashing) {
 			setCurrentAnimation("WalkLeft");
-			dir = 2;
 			lastRunDir = 2;
 			if(this.velocityVector.x >= -runMaxX){
 				this.velocityVector.x -= delta * runAccX;
@@ -219,16 +210,13 @@ public class SpaceExplorer extends AdvancedGameObject{
 					this.velocityVector.x = -runMaxX;
 				}
 			}
-
 		}
 		else if(!dashing){		//deacceleration
 			if(lastRunDir == 2){
 				setCurrentAnimation("StandLeft");
-				dir = 0;
 			}
 			else{
 				setCurrentAnimation("StandRight");
-				dir = 1;
 			}
 			if(this.velocityVector.x > delta * runDeAccX){
 				this.velocityVector.x -= delta * runDeAccX;
@@ -249,10 +237,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 				dashing = true;
 				dashTimer = dashTimerMax;
 				this.velocityVector.x = -dashSpeed;
-
 				this.velocityVector.y = jumpVelocity;
 				this.cond.playSound("boost", 0.6f, 0.15f);
-				//dashCD = dashCDMax;
 			}
 			dashkeyPressed = true;
 		}
@@ -265,12 +251,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 				this.velocityVector.y = jumpVelocity;
 				this.velocityVector.x = dashSpeed;
 				this.cond.playSound("boost", 0.6f, 0.15f);
-				//dashCD = dashCDMax;
-				/*this.melee = new Melee(8,8,this.gamePosition,gc);
-				ObjectPool op = new ObjectPool();
-				this.melee.setFaction(0);
-				op.addToPool(this.melee);*/
-
 			}
 			dashkeyPressed = true;
 		}
@@ -281,17 +261,15 @@ public class SpaceExplorer extends AdvancedGameObject{
 			dashTimer -= delta;
 			if(this.velocityVector.x > 0){
 				this.velocityVector.x = dashSpeed;
-
 			}
 			else if(this.velocityVector.x > 0){
 				this.velocityVector.x = -dashSpeed;
-
 			}
 		}
 		if(dashCD > 0){
 			dashCD -= delta;	
 		}
-		//if(dashTimer <= 0 || this.leftObs || this.rightObs || this.stuck){
+
 		if(dashTimer <= 0 ){
 			if(dashing){
 				dashCD = dashCDMax;
@@ -312,7 +290,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 					this.cond.playSound("charge", 0.6f, 0.1f);
 				}
 				shotRampUp += delta;
-				dir = 4;
 				setCurrentAnimation("ShootLeft");
 
 				if(this.shotCoolDown <= 0 && shotRampUp >= shotRampUpTime && shotNum > 0){
@@ -328,7 +305,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 					this.cond.playSound("charge", 0.6f, 0.1f);
 				}
 				shotRampUp += delta;
-				dir = 5;
 				setCurrentAnimation("ShootRight");
 				if(this.shotCoolDown <= 0  && shotRampUp >= shotRampUpTime && shotNum > 0){
 					this.cond.playSound("shoot", 0.68f, 0.15f);
@@ -350,25 +326,20 @@ public class SpaceExplorer extends AdvancedGameObject{
 		if(shotCoolDown > 0){
 			shotCoolDown-=delta;
 		}
-
-
 		setAnimation(gc,delta);
 		wallJump(gc,delta);
-
 	}
 
 	private void setAnimation(GameContainer gc, int delta) {
 		// SET JUMP ANIMATION
 		if(this.southObs == false && !dashing){
 			if(lastRunDir == 2){
-				dir = 6;
 				if(this.velocityVector.y < 0)
 					setCurrentAnimation("JumpLeft");
 				else
 					setCurrentAnimation("FallLeft");
 			}
 			else{
-				dir = 7;
 				if(this.velocityVector.y < 0)
 					setCurrentAnimation("JumpRight");
 				else
@@ -383,8 +354,6 @@ public class SpaceExplorer extends AdvancedGameObject{
 		else if(!this.southObs&&(this.rightObs)&&(!Keyboard.isKeyDown(Keyboard.KEY_A))&&(!Keyboard.isKeyDown(Keyboard.KEY_SPACE))){
 			setCurrentAnimation("WallSlideRight");
 		}
-
-
 	}
 
 	public void wallJump(GameContainer gc, int delta){
@@ -438,17 +407,13 @@ public class SpaceExplorer extends AdvancedGameObject{
 				jumpTimer = 0;
 				jumpNum = jumpNumMax;
 			}
-
-
 		}
-		
+
 		if(sGO.getClass().equals(GoalPoint.class)){
 			GoalPoint gp = (GoalPoint) sGO;
 			this.nextState = gp.nextState;
 			this.changeState = true;
 		}
-
-
 	}
 
 	float getDirectionToTarget(SimpleGameObject t){
@@ -469,7 +434,7 @@ public class SpaceExplorer extends AdvancedGameObject{
 
 		return v;
 	}
-	
+
 	float getDirectionToTarget(float x,float y){
 
 		float v = 0;

@@ -69,7 +69,7 @@ public class RobotCop extends AdvancedGameObject {
 		this.borderColor = Color.black;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
-		this.faction = -1;	
+		//this.faction = -1;	
 	}
 
 	@Override
@@ -315,22 +315,6 @@ public class RobotCop extends AdvancedGameObject {
 		return scen.getBlocked(xG, yG);
 	}
 
-
-
-	/*
-	@Override
-	void render(GameContainer gc, Graphics g) {
-		this.animationList.get(dir).draw(this.gamePosition.x,this.gamePosition.y);
-	}
-	 */
-	@Override
-	void reset() {
-		gamePosition.x = lastPosition.x;
-		gamePosition.y = lastPosition.y;
-		this.velocityVector.y = 0;
-		//this.velocityVector.x = 0;
-	}
-
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
 		walkSpeed = 0f;
@@ -445,8 +429,8 @@ public class RobotCop extends AdvancedGameObject {
 			reCharge=0;
 		}
 	}
-	
-	
+
+
 
 
 

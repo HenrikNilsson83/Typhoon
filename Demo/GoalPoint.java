@@ -1,4 +1,6 @@
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 
 public class GoalPoint extends AdvancedGameObject {
@@ -14,6 +16,18 @@ public class GoalPoint extends AdvancedGameObject {
 
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void init(GameContainer gc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void update(GameContainer gc, int delta, StateBasedGame sbg) {
 		// TODO Auto-generated method stub
 		
 	}
