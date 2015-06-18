@@ -43,7 +43,7 @@ public class HellWorm extends EnemyGameObject {
 		target = null;
 		this.data1 =0;
 		this.data3 = 0;
-		this.walkSpeed*=6;
+		this.walkSpeed*=(4+3*Math.random());
 		this.velocityVector.x=this.walkSpeed;
 		t = 0;
 		p = new HellWormPart(x,y,new Vector2f(this.gamePosition.x-width,this.gamePosition.y),new Vector2f(this.velocityVector.x,this.velocityVector.y),gc,objPool,0,delayTime);
@@ -68,7 +68,7 @@ public class HellWorm extends EnemyGameObject {
 		this.borderColor = Color.red;
 		this.fillRectColor = Color.red;
 		//this.showFillRect = true;
-		this.showBorders = true;
+		this.showBorders = false;
 		this.checkForCollision = true;
 		this.checkForGravity = true;
 		//this.faction = -1;	
@@ -80,7 +80,7 @@ public class HellWorm extends EnemyGameObject {
 	public void aiBehaviour(GameContainer gc, int delta) {
 		this.rotation = this.getCurrentDirection();
 		follow(gc,delta);
-		
+
 
 
 		// MOVEMENT
@@ -127,7 +127,7 @@ public class HellWorm extends EnemyGameObject {
 		if(this.velocityVector.y<=this.walkSpeed&&this.velocityVector.y>=-this.walkSpeed){
 			this.velocityVector.y = (float) Math.sin(v)*this.walkSpeed*1;
 		}
-		
+
 	}
 
 
@@ -205,28 +205,22 @@ public class HellWorm extends EnemyGameObject {
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
 		if(sGO.getClass().equals(Blast.class)){
-			walkSpeed = 0f;
-			HP--;
-			this.checkForGravity = true;
-			if(HP == 0){
-				cond.playSound("explosion", 0.8f, 0.2f);
-				if(this.velocityVector.x>0){
-					setCurrentAnimation("head");
-				}
-				else{
-					setCurrentAnimation("head");
-				}
-				this.velocityVector.x=0;
 
-			}
+
 		}
+
 
 		else if(sGO.getClass().equals(SpaceExplorer.class)){
 
 			SpaceExplorer se = (SpaceExplorer) sGO;
-			if(se.dashing&&HP>0){
-				HP--;
-				cond.playSound("explosion", 0.8f, 0.2f);
+			if(se.inControll>=se.regenControll){
+				float v = this.getCurrentDirection();
+				se.velocityVector.x = -(float) Math.cos(v)*0.6f;
+				se.velocityVector.y = -(float) Math.sin(v)*0.6f;
+				se.inControll = 0;
+				if(se.HP>0)
+					this.cond.playSound("charge", 1.8f, 0.3f);
+				se.HP--;
 			}
 			if(HP == 0){
 				walkSpeed = 0f;

@@ -30,7 +30,7 @@ public class GUI extends SimpleGUI {
 		button1 = wepInf.getSprite(0, 0);
 		buttons[0]=button1;
 		
-		sr = (SpriteResource) rs.get("SpaceExplorer.png");
+		sr = (SpriteResource) rs.get("heart.png");
 		wepInf = sr.getSprite();
 		button1 = wepInf.getSprite(0, 0);
 		buttons[1]=button1;
@@ -53,7 +53,7 @@ public class GUI extends SimpleGUI {
 		
 		//VISIBILITY
 		
-		sr = (SpriteResource) rs.get("SpaceExplorer.png");
+		sr = (SpriteResource) rs.get("heart.png");
 		wepInf = sr.getSprite();
 		button1 = this.wepInf.getSprite(0, 0);
 		buttons[1]=button1;
@@ -91,11 +91,19 @@ public class GUI extends SimpleGUI {
 		i = 1;
 		
 		g.setDrawMode(g.MODE_NORMAL);
-		buttons[1].draw(this.gamePosition.x+4+i*64,this.gamePosition.y+4);
-		g.setDrawMode(g.MODE_COLOR_MULTIPLY);
+		
+		SpaceExplorer se = (SpaceExplorer) this.objPool.mainChar;
+		if(se.HP>=3)
+			buttons[1].draw(this.gamePosition.x+4+i*64+16,this.gamePosition.y+4);
+		if(se.HP>=2)
+			buttons[1].draw(this.gamePosition.x+4+64+32,this.gamePosition.y+4+32);
+		if(se.HP>=1)
+			buttons[1].draw(this.gamePosition.x+4+64,this.gamePosition.y+4+32);
+			
+		/*g.setDrawMode(g.MODE_COLOR_MULTIPLY);
 		g.setColor(new Color(1f*vision,1f*vision,1f*vision));
 		g.fillRect(this.gamePosition.x+4+i*64,this.gamePosition.y+4, 64, 64);
-		g.setDrawMode(g.MODE_NORMAL);
+		g.setDrawMode(g.MODE_NORMAL);*/
 		
 	}
 

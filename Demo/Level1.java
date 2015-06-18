@@ -124,6 +124,13 @@ public class Level1 extends TiledMapGameState {
 		ySize = 64;
 		resource = new SpriteResource(id, path, xSize, ySize);
 		resourceHandler.add(resource);
+		
+		id = "heart.png";
+		path = "images/heart.png";
+		xSize = 32;
+		ySize = 32;
+		resource = new SpriteResource(id, path, xSize, ySize);
+		resourceHandler.add(resource);
 
 		id = "MrGray.png";
 		path = "images/MrGray.png";
@@ -162,6 +169,7 @@ public class Level1 extends TiledMapGameState {
 		cond.addSound("charge","audio/sound/charge1.aif");
 		cond.addSound("shoot","audio/sound/shoot1.aif");
 		cond.addSound("explosion","audio/sound/explosion.aif");
+
 
 		//cond.addMusic("birds","audio/music/birds.aif");
 		//cond.addSound("zombie1","audio/sound/zombie1.aif");
@@ -327,7 +335,14 @@ public class Level1 extends TiledMapGameState {
 			int py = (int) cord.get(i).y;
 			pool.addToCollisionPool(new MovingPlattform(128, 5, new Vector2f(px,py), pool));
 		}
-
+		
+		cord = this.scanMapForObject("EnemySpawn", "heart", "spawn");
+		for(int i = 0; i<cord.size();i++){
+			int px = (int) cord.get(i).x;
+			int py = (int) cord.get(i).y;
+			pool.addToCollisionPool(new Heart(32, 32, new Vector2f(px,py),gc, pool));
+		}
+		
 		cord = this.scanMapForObject("EnemySpawn", "robotcop", "spawn");
 		for(int i = 0; i<cord.size();i++){
 			int px = (int) cord.get(i).x;

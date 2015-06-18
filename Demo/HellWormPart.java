@@ -203,44 +203,19 @@ public class HellWormPart extends EnemyGameObject {
 	@Override
 	public void objectCollide(SimpleGameObject sGO) {
 		if(sGO.getClass().equals(Blast.class)){
-			walkSpeed = 0f;
-			HP--;
-			this.checkForGravity = true;
-			if(HP == 0){
-				cond.playSound("explosion", 0.8f, 0.2f);
-				if(this.velocityVector.x>0){
-					setCurrentAnimation("deadRight");
-				}
-				else{
-					setCurrentAnimation("deadLeft");
-				}
-				this.velocityVector.x=0;
+			
 
-			}
+			
 		}
 
 		else if(sGO.getClass().equals(SpaceExplorer.class)){
 
-			SpaceExplorer se = (SpaceExplorer) sGO;
-			if(se.dashing&&HP>0){
-				HP--;
-				cond.playSound("explosion", 0.8f, 0.2f);
-			}
-			if(HP == 0){
-				walkSpeed = 0f;
-				this.checkForGravity = true;
+			
 
-				if(this.velocityVector.x>0){
-					setCurrentAnimation("deadRight");
-				}
-				else{
-					setCurrentAnimation("deadLeft");
-				}
-				this.velocityVector.x=0;
-
-			}
 		}
+			
+		
 
-		//this.remove = true;
+		
 	}
 }

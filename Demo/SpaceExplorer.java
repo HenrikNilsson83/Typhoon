@@ -48,6 +48,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 	private float dashSpeed = 0.6f;
 
 	private boolean crouchkeyPressed = false;
+	public int regenControll = 1000;
+	public int inControll = regenControll;
 
 
 	public SpaceExplorer(int x, int y, Vector2f gamePosition, GameContainer gc, ObjectPool objPool){
@@ -69,6 +71,8 @@ public class SpaceExplorer extends AdvancedGameObject{
 		this.hitbox.setXOffset(21);
 		this.hitbox.setHeight(55);
 		this.hitbox.setYOffset(3);
+		this.HP = 3;
+		this.maxHP = HP;
 
 
 	}
@@ -116,17 +120,22 @@ public class SpaceExplorer extends AdvancedGameObject{
 
 	@Override
 	void update(GameContainer gc, int delta,StateBasedGame sbg) {
+		lastPosition.x = gamePosition.x;
+		lastPosition.y = gamePosition.y;
 		if(this.changeState){
 			System.out.println("HOPP");
 			this.changeState = false;
 			sbg.enterState(this.nextState);
 		}
-		lastPosition.x = gamePosition.x;
-		lastPosition.y = gamePosition.y;
+		
 		//setLight();
-		if(HP>0){
+		if(HP>0&&this.inControll>=this.regenControll){
 			getInput(delta,gc);
 		}
+		else {
+			this.inControll+=delta;
+		}
+		
 	}
 
 	private void setLight(){
@@ -397,6 +406,19 @@ public class SpaceExplorer extends AdvancedGameObject{
 			this.velocityVector.x = 0;
 		}
 		if(sGO.getClass().equals(SuperCop.class)){
+			float v = this.getDirectionToTarget(sGO.gamePosition.x-20,sGO.gamePosition.y);
+			float distance = this.hitbox.yPos+this.hitbox.height-sGO.gamePosition.y;
+			v*=(180/(2*Math.PI));
+			if(distance<18){
+				this.velocityVector.y = jumpVelocity*2;
+				jumpButtonPressed = false;
+				isJump = false;
+				jumpTimer = 0;
+				jumpNum = jumpNumMax;
+			}
+		}
+		
+		if(sGO.getClass().equals(HellWormPart.class)&&sGO.HP>0){
 			float v = this.getDirectionToTarget(sGO.gamePosition.x-20,sGO.gamePosition.y);
 			float distance = this.hitbox.yPos+this.hitbox.height-sGO.gamePosition.y;
 			v*=(180/(2*Math.PI));

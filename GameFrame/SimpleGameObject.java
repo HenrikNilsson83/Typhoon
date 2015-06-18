@@ -31,6 +31,7 @@ public abstract class SimpleGameObject {
 	public float data3;
 	public Hitbox hitbox;
 	protected ObjectPool objPool;   //Kanske ska ha till vilken Level objectet tillhör istället??!?
+	public int maxHP;
 	
 	public SimpleGameObject(int w,int h, Vector2f pos, ObjectPool objPool){
 		if(pos !=null){

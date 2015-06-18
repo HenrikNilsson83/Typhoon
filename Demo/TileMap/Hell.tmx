@@ -140,7 +140,7 @@
  </tileset>
  <layer name="FarBackGround" width="160" height="160">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3OMQ0AAAgDMFSgAl3zLwEbkPTo33RVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHpsDBwAAAAAAAAAAAAAAAAAA4IcF43AdFQCQAQA=
+   H4sIAAAAAAAAA+3DAQ0AAAwCIFO8hf3rGeSw0Uuqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr64AA3k/JCAJABAA==
   </data>
  </layer>
  <layer name="BackGround" width="160" height="160">
@@ -150,12 +150,12 @@
  </layer>
  <layer name="ColisionLayer" width="160" height="160">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3aQU7DQBAAQST+/2fuOViJbdK74yppzszi3kgx/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzw+zLwTfoDmOn18/2bA/qjpD9K+qO0a39ankF/lHbtjxnK/ooe3YG11M3p79mm98ba9EdJf5T0R2nX/rQ8g/4o7dofM+iPkv4o6Y+S/rji6jMu+yt6dAfupb/P6O9eO/fH/vRHSX+U9EdJf5Se2p+W16A//ZWe2h9r0B8l/VHaub+iR3fgXvr7jP7utXN/7E9/lPRHSX+U9Edp5/7ubtcd+D79XTsL1+zcX2mFHSbQ3zkr7DCB/s5ZYYcJ9HfOCjtMoL9zVthhgon9rbAD79Gf/koT+/uGFXaYQH/nrLDDBPo7Z4Ud0B8t/VEq+7uz2x3vAH1L+gMAAOAd9XfR3Ydr6ue3+3CNZ0FJe5R0R0l7lLRHSXuU9EdJf5T0R0l/lPRHSX+U9EdJf5TO9Gf2miP1bmb+HFl5NwAAAODZvD+g4D0WJf1R0h8Ff0+ipD9K+qOkPwr+r4iS/ijpj5L+/tfZ3+/VWcmTz17T3/yz17tUjdXnftf0s9e71K2t8AyOTD97vcvRz/8D7v2rKACQAQA=
+   H4sIAAAAAAAAA+3aS24jMQxAwQC5/51nn0U+3T1+Il0FcE9FTwbi5OMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGCHzy8Dr6Q/gJ2+fr6/ckB/lPRHSX+Upvan5R30R2lqf+xQ9lf06A2cpW5Of+9te2+cTX+U9EdJf5Sm9qflHfRHaWp/7KA/SvqjpD9K+uOOu3dc9lf06A08S39/o79nTe6P+fRHSX+U9EdJf5TetT8tn0F/+iu9a3+cQX+U9Edpcn9Fj97As/T3N/p71uT+mE9/lPRHSX+U9Edpcn9Pt+sNvJ7+7p2Feyb3Vzphhw30d80JO2ygv2tO2GED/V1zwg4b6O+aE3bYYGN/J+zA7+hPf6WN/b3CCTtsoL9rTthhA/1dc8IO6I+W/iiV/T3Z7cQ3QN+S/gAAAPiN+nfR6cM99f1NH+5xF5S0R0l3lLRHSXuUtEdJf5T0R0l/lPRHSX+U9EdJf5T0R+lKf2bWfKfezeyf75y8GwAAAPDefH9AwfdYlPRHSX8U/D2Jkv4o6Y+S/ij4vyJK+qOkP0r6+7+u/nzvzmk2n33KLpvv4Cebzz5ll8138JPNZ5+yy+Y7+Mnms5+8yz+8KeHoAJABAA==
   </data>
  </layer>
  <layer name="WalkingLayer" width="160" height="160">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfBhhhfhKAJABAA==
+   H4sIAAAAAAAAA+3PMREAAAwCsaqoivrXVxccQ7L9BjMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA2m1XJzV9a9oCAGQ8vgnCqgCQAQA=
   </data>
  </layer>
  <layer name="ForeGround" width="160" height="160">
@@ -164,7 +164,7 @@
   </data>
  </layer>
  <objectgroup name="PlayerSpawn" width="160" height="160">
-  <object name="PlayerSpawn" type="spawn" x="1774" y="2008" width="72" height="38">
+  <object name="PlayerSpawn" type="spawn" x="152" y="2382" width="72" height="38">
    <properties>
     <property name="spawn" value="player1"/>
    </properties>
@@ -209,6 +209,11 @@
   <object name="EnemySpawn" type="spawn" x="1951" y="1724" width="72" height="38">
    <properties>
     <property name="spawn" value="hellworm"/>
+   </properties>
+  </object>
+  <object name="EnemySpawn" type="spawn" x="310" y="2056" width="72" height="38">
+   <properties>
+    <property name="spawn" value="heart"/>
    </properties>
   </object>
  </objectgroup>
